@@ -1,70 +1,79 @@
 class InitialParameters:
-    q = 2814.0
-    n = 3
-    efficiency_range = (30.0, 80.0)
-    t3_min = 21.0
-    g = 533.0
-    h = 41.0
-    p2 = 90.0
-    # t2-t1
-    delta_t1_range = (4.0, 10.0)
-    # t4-t3
-    delta_t2_range = (4.0, 10.0)
+    def __init__(self):
+        self.q = 2814.0
+        self.n = 3
+        self.efficiency_range = (30.0, 80.0)
+        self.t3_min = 21.0
+        self.g = 533.0
+        self.h = 41.0
+        self.p2 = 90.0
+        # t2-t1
+        self.delta_t1_range = (4.0, 10.0)
+        # t4-t3
+        self.delta_t2_range = (4.0, 10.0)
 
 
 class MainFitting:
-    load_percentage = 100.0
-    q = 0.0
-    p1 = 0.0
-    t1 = 0.0
-    t2 = 0.0
-    t3 = 0.0
-    t4 = 0.0
+    def __init__(self):
+        self.load_percentage = 100.0
+        self.q = 0.0
+        self.p1 = 0.0
+        self.t1 = 0.0
+        self.t2 = 0.0
+        self.t3 = 0.0
+        self.t4 = 0.0
+        self.cop = 0.0
 
 
 class Pump2Fitting:
-    g2 = 0.0
-    p2 = 0.0
+    def __init__(self):
+        self.g2 = 0.0
+        self.p2 = 0.0
 
 
 class Pump3Fitting:
-    g3 = 0.0
-    p3 = 0.0
+    def __init__(self):
+        self.g3 = 0.0
+        self.p3 = 0.0
 
 
 class WetBulbFitting:
-    temp = 0.0
-    # 冷幅
-    amplitude = 0.0
+    def __init__(self):
+        self.temp = 0.0
+        # 冷幅
+        self.amplitude = 0.0
 
 
 class P4Fitting:
-    g = 0.0
-    p4 = 0.0
+    def __init__(self):
+        self.g = 0.0
+        self.p4 = 0.0
 
 
 class FittingCoefficients:
-    a = []  # 0-2
-    b = []  # 0-23
-    c = []  # 0-2
-    d = []  # 0-2
-    e = []  # 0-3
+    def __init__(self):
+        self.a = []  # 0-2
+        self.b = []  # 0-23
+        self.c = []  # 0-2
+        self.d = []  # 0-2
+        self.e = []  # 0-3
 
 
 class OptimizeResult:
-    q = 2814.0
-    ts = 0.0
-    load_percentage = 0.0
-    t1 = 0.0
-    t2 = 0.0
-    t3 = 0.0
-    t4 = 0.0
-    delta_t = 0.0
-    p1 = 0.0
-    p2 = 0.0
-    p3 = 0.0
-    p4 = 0.0
-    p = 0.0
-    cop = 0.0
-    # 开启台数
-    n = 0
+    def __init__(self):
+        self.q = 2814.0
+        self.ts = 0.0
+        self.load_percentage = 0.0
+        self.t1 = 0.0
+        self.t2 = 0.0
+        self.t3 = 0.0
+        self.t4 = 0.0
+        self.delta_t = 0.0
+        self.p1 = 0.0
+        self.p2 = 0.0
+        self.p3 = 0.0
+        self.p4 = 0.0
+        self.p = 0.0
+        self.cop = 0.0
+        # 开启台数
+        self.n = 0
