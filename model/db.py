@@ -92,6 +92,7 @@ def load(path: str):
                 entry.ts = float(sheet.cell(2 + i, 2).value)
                 optimize_result.append(entry)
                 i += 1
+    wb.close()
 
 
 def save_default(path: str):
