@@ -1,0 +1,190 @@
+# -*- coding: utf-8 -*-
+"""main.py"""
+import geatpy as ea # import geatpy
+from P_pro.MyPro import MyProblem # 导入自定义问题接口
+import numpy as np
+import random as rd
+from model import schema
+
+class Evoopt():
+    def __init__(self,Q,TS,superP,fittingP):
+        self.problem = MyProblem(Q,TS,superP,fittingP)
+        """==================================种群设置=================================="""
+        # Encoding = 'BG'       # 编码方式
+        self.Encoding = 'RI'  # 编码方式
+        self.NIND = 100  # 种群规模
+        self.Field = ea.crtfld(self.Encoding, self.problem.varTypes, self.problem.ranges, self.problem.borders)  # 创建区域描述器
+        self.population = ea.Population(self.Encoding, self.Field, self.NIND)  # 实例化种群对象（此时种群还没被初始化，仅仅是完成种群对象的实例化）
+        """================================算法参数设置================================="""
+        # myAlgorithm = ea.soea_EGA_templet(problem, population) # 实例化一个算法模板对象
+        # myAlgorithm = ea.soea_studGA_templet(problem, population) # 实例化一个算法模板对象
+        # myAlgorithm = ea.soea(problem, population) # 实例化一个算法模板对象
+        # myAlgorithm = ea.soea_DE_best_1_bin_templet(problem, population) # 实例化一个算法模板对象
+        self.myAlgorithm = ea.soea_DE_best_1_L_templet(self.problem, self.population)  # 实例化一个算法模板对象
+        self.myAlgorithm.mutOper.F = 0.5  # 差分进化中的参数F
+        self.myAlgorithm.mutOper.pm = 0.2
+        self.myAlgorithm.recOper.XOVR = 0.7  # 设置交叉概率
+        self.myAlgorithm.MAXGEN = 25  # 最大进化代数
+        # self.myAlgorithm.logTras = 2  # 设置每隔多少代记录日志，若设置成0则表示不记录日志
+        # self.myAlgorithm.verbose = True  # 设置是否打印输出日志信息
+        # self.myAlgorithm.drawing = 1  # 设置绘图方式（0：不绘图；1：绘制结果图；2：绘制目标空间过程动画；3：绘制决策空间过程动画）
+    def run(self):
+        [BestIndi, population] = self.myAlgorithm.run()  # 执行算法模板，得到最优个体以及最后一代种群
+        # [BestIndi, population] = myAlgorithm.run()  # 执行算法模板，得到最优个体以及最后一代种群
+        BestIndi.save()  # 把最优个体的信息保存到文件中
+        print('用时：%f 秒' % self.myAlgorithm.passTime)
+        print('评价次数：%d 次' % self.myAlgorithm.evalsNum)
+        if BestIndi.sizes != 0:
+            # print(BestIndi.sizes)
+            print('最优的目标函数值为：%s' % BestIndi.ObjV[0][0])
+            print('最优的控制变量值为：')
+            for i in range(BestIndi.sizes):
+                print(BestIndi.Phen[i, :])
+        else:
+            print('没找到可行解。')
+
+
+#superP = schema.InitialParameters()
+#fittingP = schema.FittingCoefficients()
+#opt = Evoopt(Q=421.9,TS=16,superP=superP,fittingP=fittingP)
+#opt.run()
+
+
+# if __name__ == '__main__':
+#     """===============================实例化问题对象================================"""
+#     Q = 421.9
+#
+#     TS = 16
+#
+#     QS = 2814
+#     nita = 80
+#     max_n = 3
+#     T2_range = (4, 8)
+#     T4_range = (4, 8)
+#
+#     problem = MyProblem(Q, TS, QS, nita,max_n,T2_range,T4_range)  # 生成问题对象
+#     # problem = MyProblem(Q, TS, superP,fittingP)  # 生成问题对象
+#
+#
+#     # 2814	28
+#     # 2532.6	27
+#     # 2251.2	26
+#     # 1969.8	25
+#     # 1688.4	24
+#     # 1407	23
+#     # 1125.6	22
+#     # 844.2	20
+#     # 562.8	18
+#     # 281.4	16
+#
+#     """==================================种群设置=================================="""
+#     # Encoding = 'BG'       # 编码方式
+#     Encoding = 'RI'  # 编码方式
+#     NIND = 100  # 种群规模
+#     Field = ea.crtfld(Encoding, problem.varTypes, problem.ranges, problem.borders)  # 创建区域描述器
+#     population = ea.Population(Encoding, Field, NIND)  # 实例化种群对象（此时种群还没被初始化，仅仅是完成种群对象的实例化）
+#     """================================算法参数设置================================="""
+#     # myAlgorithm = ea.soea_EGA_templet(problem, population) # 实例化一个算法模板对象
+#     # myAlgorithm = ea.soea_studGA_templet(problem, population) # 实例化一个算法模板对象
+#     # myAlgorithm = ea.soea(problem, population) # 实例化一个算法模板对象
+#     # myAlgorithm = ea.soea_DE_best_1_bin_templet(problem, population) # 实例化一个算法模板对象
+#     myAlgorithm = ea.soea_DE_best_1_L_templet(problem, population)  # 实例化一个算法模板对象
+#     myAlgorithm.mutOper.F = 0.5  # 差分进化中的参数F
+#     myAlgorithm.mutOper.pm = 0.2
+#     myAlgorithm.recOper.XOVR = 0.7  # 设置交叉概率
+#
+#     myAlgorithm.MAXGEN = 25  # 最大进化代数
+#     myAlgorithm.logTras = 2  # 设置每隔多少代记录日志，若设置成0则表示不记录日志
+#     myAlgorithm.verbose = True  # 设置是否打印输出日志信息
+#     myAlgorithm.drawing = 1  # 设置绘图方式（0：不绘图；1：绘制结果图；2：绘制目标空间过程动画；3：绘制决策空间过程动画）
+#
+#     # ============启发式初始化种群==========
+#     # 6 < T1 < 10
+#     # 10 < T2 < 20
+#     # 21 < T3 < 33
+#     # 25 < T4 < 39
+#
+#     # 4 < T2 - T1 < 10       （4）
+#     # 4 < T4 - T3 < 6；    （5）
+#
+#     # =====启发式初始化
+#     # initial_chrome = np.zeros((NIND,4))
+#     # for i in range(NIND):
+#     #     T1 = rd.uniform(6,10)
+#     #     T2_MIN =  max(4+T1,10)
+#     #     T2_MAX =  min(10+T1,20)
+#     #     T2 = rd.uniform(T2_MIN,T2_MAX)
+#     #     T3 = rd.uniform(21,33)
+#     #     T4_MIN = max(4+T3,25)
+#     #     T4_MAX = min(6+T3,39)
+#     #     T4 = rd.uniform(T4_MIN,T4_MAX)
+#     #     initial_chrome[i][0]=T1
+#     #     initial_chrome[i][1]=T2
+#     #     initial_chrome[i][2]=T3
+#     #     initial_chrome[i][3]=T4
+#     # =========================
+#     # print(initial_chrome)
+#     # popPhet = ea.Population(Encoding, Field, NIND, initial_chrome)
+#     # myAlgorithm.call_aimFunc(popPhet)
+#     # ======================================
+#     """===========================调用算法模板进行种群进化==============--==========="""
+#     [BestIndi, population] = myAlgorithm.run()  # 执行算法模板，得到最优个体以及最后一代种群
+#     # [BestIndi, population] = myAlgorithm.run()  # 执行算法模板，得到最优个体以及最后一代种群
+#     BestIndi.save()  # 把最优个体的信息保存到文件中
+#     """==================================输出结果=================================="""
+#     print('用时：%f 秒' % myAlgorithm.passTime)
+#     print('评价次数：%d 次' % myAlgorithm.evalsNum)
+#     if BestIndi.sizes != 0:
+#         # print(BestIndi.sizes)
+#         print('最优的目标函数值为：%s' % BestIndi.ObjV[0][0])
+#         print('最优的控制变量值为：')
+#         for i in range(BestIndi.sizes):
+#             print(BestIndi.Phen[i, :])
+#
+#     else:
+#         print('没找到可行解。')
+#     print("****" * 20)
+#
+#     # 输出最优值的P1-P4==========================================================================
+#     from fit_P1 import func_P1
+#     T1,T3,n,G20,G30,u1,u2 = problem.T1,problem.T3,problem.max_n,problem.G20,problem.G30,problem.u1,problem.u2
+#
+#     T2,T4  = BestIndi.Phen[i,:]
+#
+#     P1 = func_P1((T1,	T2,	T3, T4
+#     ,Q), 1.25592470e+02, 5.39445250e+01, -5.22395970e+01, 6.29397302e-02, -2.06962469e-05, -3.33850530e+01,
+#                 -3.30937615e+01, 1.13915116e+02
+#                 , -1.13920754e+02, 6.62996700e+01, -5.43024482e+01, 4.63683510e+01
+#                 , -2.01032174e+03, -2.00895336e+03, 1.97466857e+02, -1.97464621e+02
+#                 , 4.01945845e+03, 5.63936524e+01, -9.05705574e+01, 3.25980615e+01
+#                 , 2.00722896e+03, 1.13929510e+02, 1.97486520e+02, -3.39669822e+00)
+#     print("p1::" ,P1)
+#
+#     A0,A1,A2 = 1.05105606e+02,-6.08574731e-01,1.03989940e-03
+#
+#     G2 = 6 * Q / (7 * (T2 - T1))
+#
+#
+#     G2= max(G2, G20 * u1)
+#     P2 = A0+A1*G2+A2*G2*G2
+#     print("p2:",P2)
+#
+#     # 10,	16.43171636,	21, 25
+#     C0,C1,C2 = -5.40003853e+01,2.96859204e-01,-2.09088412e-04
+#     # P1 = -146.63113336006293
+#     G3 = 6 * (Q + P1) / (7 * (T4 - T3))
+#
+#     G3 = max(G3, G30 * u2)
+#     # print("P3的G3：", G3)
+#     P3 = C0+C1*G3+C2*G3*G3
+#
+#     print("p3",P3)
+#     # print("P4G:",P4G)
+#     E0,E1,E2,E3 = 3.27976744e+01, -1.67712441e-01,  2.92380418e-04, -1.11110755e-07
+#     P4=E0+E1*G3+E2*G3*G3+E3*G3*G3*G3
+#     if T3 >= 18:
+#         P4 = 22
+#     print("p4:",P4)
+#
+#     print(str(P1)+"、"+str(P2)+"、"+str(P3)+"、"+str(P4))
+#     print("MINP:",problem.n*(P1+P2+P3+P4))
