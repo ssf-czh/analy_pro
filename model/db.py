@@ -33,6 +33,10 @@ def load(path: str):
             init_params.p2 = float(sheet["B11"].value)
             init_params.delta_t1_range = (float(sheet["B24"].value), float(sheet["C24"].value))
             init_params.delta_t2_range = (float(sheet["B25"].value), float(sheet["C25"].value))
+            init_params.q_min = float(sheet["B26"].value)
+            init_params.p20 = float(sheet["B27"].value)
+            init_params.mu = float(sheet["B28"].value)
+            init_params.lamb = float(sheet["B29"].value)
         elif sheet.title == "主机参数拟合":
             main_fittings = list()
             i = 3
@@ -149,6 +153,10 @@ def save(path: str):
             sheet["C24"].value = str(init_params.delta_t1_range[1])
             sheet["B25"].value = str(init_params.delta_t2_range[0])
             sheet["C25"].value = str(init_params.delta_t2_range[1])
+            sheet["B26"].value = str(init_params.q_min)
+            sheet["B27"].value = str(init_params.p20)
+            sheet["B28"].value = str(init_params.mu)
+            sheet["B29"].value = str(init_params.lamb)
         elif sheet.title == "主机参数拟合":
             i = 3
             for entry in main_fittings:

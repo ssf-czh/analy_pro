@@ -11,6 +11,10 @@ class InitialParameters:
         self.delta_t1_range = (4.0, 10.0)
         # t4-t3
         self.delta_t2_range = (4.0, 10.0)
+        self.q_min = 422.0
+        self.p20 = 90.0
+        self.mu = 0.6
+        self.lamb = 0.65
 
 
 class MainFitting:
