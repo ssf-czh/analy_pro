@@ -1,8 +1,8 @@
 import base64
 
 from model.schema import *
+from model.template import template_file_base64
 from typing import List
-from template import template_file_base64
 import openpyxl
 import os
 
