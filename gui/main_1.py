@@ -9,6 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import model
 
 
 class Ui_MainWindow(object):
@@ -1275,100 +1276,145 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "冷水机组设定"))
         item = self.init_params.item(3, 0)
         item.setText(_translate("MainWindow", "单台额定冷水机组额定负荷Qs，KW"))
+
+        # 初始参数设置 数据填充
         item = self.init_params.item(3, 1)
-        item.setText(_translate("MainWindow", "2814"))
+        item.setText(_translate("MainWindow", str(model.db.init_params.q)))
         item = self.init_params.item(4, 0)
         item.setText(_translate("MainWindow", "冷水机组最多台数,台"))
         item = self.init_params.item(4, 1)
-        item.setText(_translate("MainWindow", "3"))
+        item.setText(_translate("MainWindow", str(model.db.init_params.n)))
         item = self.init_params.item(5, 0)
         item.setText(_translate("MainWindow", "单台高效率冷负荷范围η，%"))
         item = self.init_params.item(5, 1)
-        item.setText(_translate("MainWindow", "80"))
+        item.setText(_translate("MainWindow", str(model.db.init_params.efficiency_range)))
         item = self.init_params.item(6, 0)
         item.setText(_translate("MainWindow", "单台冷水机组最低负荷Qq,Kw"))
         item = self.init_params.item(6, 1)
-        item.setText(_translate("MainWindow", "422"))
+        item.setText(_translate("MainWindow", str(model.db.init_params.q_min)))
         item = self.init_params.item(7, 0)
         item.setText(_translate("MainWindow", "冷却塔出水（机组允许）最低温度T3"))
         item = self.init_params.item(7, 1)
-        item.setText(_translate("MainWindow", "18"))
+        item.setText(_translate("MainWindow", str(model.db.init_params.t3_min)))
         item = self.init_params.item(8, 0)
         item.setText(_translate("MainWindow", "冷冻水泵设定"))
         item = self.init_params.item(9, 0)
         item.setText(_translate("MainWindow", "单台冷冻水泵的额定流量G，m3/h"))
         item = self.init_params.item(9, 1)
-        item.setText(_translate("MainWindow", "533"))
+        item.setText(_translate("MainWindow", str(model.db.init_params.g)))
         item = self.init_params.item(10, 0)
         item.setText(_translate("MainWindow", "单台冷冻水泵扬程H，m"))
         item = self.init_params.item(10, 1)
-        item.setText(_translate("MainWindow", "41"))
+        item.setText(_translate("MainWindow", str(model.db.init_params.h)))
         item = self.init_params.item(11, 0)
-        item.setText(_translate("MainWindow", "单台冷冻水泵功率P20，Kw"))
+        item.setText(_translate("MainWindow", "单台冷冻水泵功率P2，Kw"))
         item = self.init_params.item(11, 1)
-        item.setText(_translate("MainWindow", "90"))
+        item.setText(_translate("MainWindow", ""))
         item = self.init_params.item(12, 0)
         item.setText(_translate("MainWindow", "冷冻水泵台数,台"))
         item = self.init_params.item(12, 1)
-        item.setText(_translate("MainWindow", "3"))
+        item.setText(_translate("MainWindow", ""))
         item = self.init_params.item(13, 0)
         item.setText(_translate("MainWindow", "冷冻水泵变频频率下限值μ"))
         item = self.init_params.item(13, 1)
-        item.setText(_translate("MainWindow", "0.6"))
+        item.setText(_translate("MainWindow", str(model.db.init_params.mu)))
         item = self.init_params.item(14, 0)
         item.setText(_translate("MainWindow", "冷却水泵设定"))
         item = self.init_params.item(15, 0)
         item.setText(_translate("MainWindow", "单台冷却水泵的额定流量G，m3/h"))
         item = self.init_params.item(15, 1)
-        item.setText(_translate("MainWindow", "650"))
+        item.setText(_translate("MainWindow",  ""))
         item = self.init_params.item(16, 0)
         item.setText(_translate("MainWindow", "单台冷却水泵扬程H，m"))
         item = self.init_params.item(16, 1)
-        item.setText(_translate("MainWindow", "23"))
+        item.setText(_translate("MainWindow", ""))
         item = self.init_params.item(17, 0)
         item.setText(_translate("MainWindow", "单台冷却水泵功率P3，Kw"))
         item = self.init_params.item(17, 1)
-        item.setText(_translate("MainWindow", "55"))
+        item.setText(_translate("MainWindow", ""))
         item = self.init_params.item(18, 0)
         item.setText(_translate("MainWindow", "冷却水泵最多台数,台"))
         item = self.init_params.item(18, 1)
-        item.setText(_translate("MainWindow", "3"))
+        item.setText(_translate("MainWindow", ""))
         item = self.init_params.item(19, 0)
         item.setText(_translate("MainWindow", "冷却水泵变频频率下限值λ"))
         item = self.init_params.item(19, 1)
-        item.setText(_translate("MainWindow", "0.65"))
+        item.setText(_translate("MainWindow", str(model.db.init_params.lamb)))
         item = self.init_params.item(20, 0)
         item.setText(_translate("MainWindow", "冷却塔设定"))
         item = self.init_params.item(21, 0)
         item.setText(_translate("MainWindow", "单台冷却塔的额定流量G，m3/h"))
         item = self.init_params.item(21, 1)
-        item.setText(_translate("MainWindow", "720"))
+        item.setText(_translate("MainWindow", ""))
         item = self.init_params.item(22, 0)
         item.setText(_translate("MainWindow", "单台冷却塔风量H，m3/h"))
         item = self.init_params.item(22, 1)
-        item.setText(_translate("MainWindow", "500000"))
+        item.setText(_translate("MainWindow", ""))
         item = self.init_params.item(23, 0)
         item.setText(_translate("MainWindow", "单台冷却塔功率P0，Kw"))
         item = self.init_params.item(23, 1)
-        item.setText(_translate("MainWindow", "22"))
+        item.setText(_translate("MainWindow", ""))
         item = self.init_params.item(24, 0)
         item.setText(_translate("MainWindow", "冷却塔最多台数,台"))
         item = self.init_params.item(24, 1)
-        item.setText(_translate("MainWindow", "3"))
+        item.setText(_translate("MainWindow", ""))
         item = self.init_params.item(25, 0)
         item.setText(_translate("MainWindow", "进出口温差设定"))
         item = self.init_params.item(26, 0)
         item.setText(_translate("MainWindow", "冷冻水进出口温差T2-T1"))
         item = self.init_params.item(26, 1)
-        item.setText(_translate("MainWindow", "0.1"))
-        item = self.init_params.item(26, 2)
-        item.setText(_translate("MainWindow", "8"))
+        item.setText(_translate("MainWindow", str(model.db.init_params.delta_t1_range)))
         item = self.init_params.item(27, 0)
         item.setText(_translate("MainWindow", "冷却水进出口温差T4-T3"))
         item = self.init_params.item(27, 1)
-        item.setText(_translate("MainWindow", "0.1"))
-        item = self.init_params.item(27, 2)
-        item.setText(_translate("MainWindow", "8"))
+        item.setText(_translate("MainWindow", str(model.db.init_params.delta_t2_range)))
+
+        # 数据读入-冷冻水泵 数据填充
+        # item = self.table_22.item(2, 0)
+        # item.setText(_translate("MainWindow", "1"))
+        # item = self.table_22.item(2, 1)
+        # item.setText(_translate("MainWindow", "冷冻泵 250KQW500-44-90/4"))
+        for j in range(5):
+            item = QtWidgets.QTableWidgetItem()
+            self.table_22.setItem(2, (j + 1) * 2, item)
+            item = self.table_22.item(2, (j + 1) * 2)
+            item.setText(_translate("MainWindow", str(model.db.pump2_fittings[j].g2)))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.table_22.setItem(2, (j + 1) * 2 + 1, item)
+            item = self.table_22.item(2, (j + 1) * 2 + 1)
+            item.setText(_translate("MainWindow", str(model.db.pump2_fittings[j].p2)))
+
+        # 数据读入-冷却水泵 数据填充
+        # item = self.table_23.item(2, 0)
+        # item.setText(_translate("MainWindow", "1"))
+        # item = self.table_23.item(2, 1)
+        # item.setText(_translate("MainWindow", "冷却泵300KQW600-24-55/4"))
+        for j in range(5):
+            item = QtWidgets.QTableWidgetItem()
+            self.table_23.setItem(2, (j + 1) * 2, item)
+            item = self.table_23.item(2, (j + 1) * 2)
+            item.setText(_translate("MainWindow", str(model.db.pump3_fittings[j].g3)))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.table_23.setItem(2, (j + 1) * 2 + 1, item)
+            item = self.table_23.item(2, (j + 1) * 2 + 1)
+            item.setText(_translate("MainWindow", str(model.db.pump3_fittings[j].p3)))
+
+        # 数据读入-冷却塔 数据填充
+        for i in range(len(model.db.wet_bulb_fittings)):
+            item = QtWidgets.QTableWidgetItem()
+            self.table_24.setItem(i + 1, 0, item)
+            item = self.table_24.item(i + 1, 0)
+            item.setText(_translate("MainWindow", str(model.db.wet_bulb_fittings[i].temp)))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.table_24.setItem(i + 1, 1, item)
+            item = self.table_24.item(i + 1, 1)
+            item.setText(_translate("MainWindow", str(model.db.wet_bulb_fittings[i].amplitude)))
+
+
+
         self.init_params.setSortingEnabled(__sortingEnabled)
         self.B1_1.setText(_translate("MainWindow", "读入"))
         self.pushButton.setText(_translate("MainWindow", "取消"))
@@ -1410,7 +1456,56 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "℃"))
         item = self.table_21.item(1, 7)
         item.setText(_translate("MainWindow", "℃"))
+
+        # 数据读入-主机设备 数值填充
+        for i in range(len(model.db.main_fittings)):
+            item = QtWidgets.QTableWidgetItem()
+            self.table_21.setItem(i + 2, 0, item)
+            item = self.table_21.item(i + 2, 0)
+            item.setText(_translate("MainWindow", str(model.db.main_fittings[i].load_percentage)))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.table_21.setItem(i + 2, 1, item)
+            item = self.table_21.item(i + 2, 1)
+            item.setText(_translate("MainWindow", str(model.db.main_fittings[i].q)))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.table_21.setItem(i + 2, 3, item)
+            item = self.table_21.item(i + 2, 3)
+            item.setText(_translate("MainWindow", str(model.db.main_fittings[i].p1)))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.table_21.setItem(i + 2, 4, item)
+            item = self.table_21.item(i + 2, 4)
+            item.setText(_translate("MainWindow", str(model.db.main_fittings[i].t1)))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.table_21.setItem(i + 2, 5, item)
+            item = self.table_21.item(i + 2, 5)
+            item.setText(_translate("MainWindow", str(model.db.main_fittings[i].t2)))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.table_21.setItem(i + 2, 6, item)
+            item = self.table_21.item(i + 2, 6)
+            item.setText(_translate("MainWindow", str(model.db.main_fittings[i].t3)))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.table_21.setItem(i + 2, 7, item)
+            item = self.table_21.item(i + 2, 7)
+            item.setText(_translate("MainWindow", str(model.db.main_fittings[i].t4)))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.table_21.setItem(i + 2, 8, item)
+            item = self.table_21.item(i + 2, 8)
+            item.setText(_translate("MainWindow", str(model.db.main_fittings[i].cop)))
+
         self.table_21.setSortingEnabled(__sortingEnabled)
+
+
+
+
+
+
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_6), _translate("MainWindow", "主机设备"))
         self.B2_2.setText(_translate("MainWindow", "读入"))
         self.pushButton_51.setText(_translate("MainWindow", "取消"))
@@ -1460,10 +1555,14 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "流量（m3/h)"))
         item = self.table_22.item(1, 11)
         item.setText(_translate("MainWindow", "轴功率(kw)"))
-        item = self.table_22.item(2, 0)
-        item.setText(_translate("MainWindow", "1"))
-        item = self.table_22.item(2, 1)
-        item.setText(_translate("MainWindow", "冷冻泵 250KQW500-44-90/4"))
+
+
+
+
+
+
+
+
         self.table_22.setSortingEnabled(__sortingEnabled)
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_7), _translate("MainWindow", "冷冻水泵"))
         self.B2_3.setText(_translate("MainWindow", "读入"))
@@ -1514,10 +1613,11 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "流量（m3/h)"))
         item = self.table_23.item(1, 11)
         item.setText(_translate("MainWindow", "轴功率(kw)"))
-        item = self.table_23.item(2, 0)
-        item.setText(_translate("MainWindow", "1"))
-        item = self.table_23.item(2, 1)
-        item.setText(_translate("MainWindow", "冷却泵300KQW600-24-55/4"))
+
+
+
+
+
         self.table_23.setSortingEnabled(__sortingEnabled)
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_8), _translate("MainWindow", "冷却水泵"))
         self.B2_4.setText(_translate("MainWindow", "读入"))
@@ -1557,6 +1657,15 @@ class Ui_MainWindow(object):
         self.B2_5.setText(_translate("MainWindow", "读入"))
         self.pushButton_41.setText(_translate("MainWindow", "取消"))
         __sortingEnabled = self.table_25.isSortingEnabled()
+
+
+
+
+
+
+
+
+
         self.table_25.setSortingEnabled(False)
         item = self.table_25.item(0, 0)
         item.setText(_translate("MainWindow", "年"))
