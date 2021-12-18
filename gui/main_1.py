@@ -1055,8 +1055,8 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         self.stackedWidget.setCurrentIndex(0)
-        self.tabWidget.setCurrentIndex(4)
-        self.tabWidget_2.setCurrentIndex(3)
+        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget_2.setCurrentIndex(0)
         self.toolBox.setCurrentIndex(0)
         self.pushButton.clicked.connect(self.init_params.clearContents)
         self.pushButton_41.clicked.connect(self.table_25.clearContents)
