@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+import model.db
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -914,7 +914,7 @@ class Ui_MainWindow(object):
         font.setPointSize(12)
         font.setStrikeOut(False)
         self.optimize_result.setFont(font)
-        self.optimize_result.setRowCount(25)
+        self.optimize_result.setRowCount(30)
         self.optimize_result.setColumnCount(20)
         self.optimize_result.setObjectName("optimize_result")
         item = QtWidgets.QTableWidgetItem()
@@ -1132,7 +1132,8 @@ class Ui_MainWindow(object):
         item = self.init_params.item(3, 0)
         item.setText(_translate("MainWindow", "单台额定冷水机组额定负荷Qs，KW"))
         item = self.init_params.item(3, 1)
-        item.setText(_translate("MainWindow", "2814"))
+        print(model.db.init_params.q)
+        item.setText(_translate("MainWindow", str(model.db.init_params.q)))
         item = self.init_params.item(4, 0)
         item.setText(_translate("MainWindow", "冷水机组最多台数,台"))
         item = self.init_params.item(4, 1)
@@ -1266,6 +1267,52 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "℃"))
         item = self.table_21.item(1, 7)
         item.setText(_translate("MainWindow", "℃"))
+
+        for i in range(len(model.db.main_fittings)):
+            item = QtWidgets.QTableWidgetItem()
+            self.table_21.setItem(i + 2, 0, item)
+            item = self.table_21.item(i + 2, 0)
+            item.setText(_translate("MainWindow", str(model.db.main_fittings[i].load_percentage)))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.table_21.setItem(i + 2, 1, item)
+            item = self.table_21.item(i + 2, 1)
+            item.setText(_translate("MainWindow", str(model.db.main_fittings[i].q)))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.table_21.setItem(i + 2, 2, item)
+            item = self.table_21.item(i + 2, 2)
+            item.setText(_translate("MainWindow", str(model.db.main_fittings[i].p1)))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.table_21.setItem(i + 2, 3, item)
+            item = self.table_21.item(i + 2, 3)
+            item.setText(_translate("MainWindow", str(model.db.main_fittings[i].t1)))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.table_21.setItem(i + 2, 4, item)
+            item = self.table_21.item(i + 2, 4)
+            item.setText(_translate("MainWindow", str(model.db.main_fittings[i].t2)))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.table_21.setItem(i + 2, 5, item)
+            item = self.table_21.item(i + 2, 5)
+            item.setText(_translate("MainWindow", str(model.db.main_fittings[i].t3)))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.table_21.setItem(i + 2, 6, item)
+            item = self.table_21.item(i + 2, 6)
+            item.setText(_translate("MainWindow", str(model.db.main_fittings[i].t4)))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.table_21.setItem(i + 2, 7, item)
+            item = self.table_21.item(i + 2, 7)
+            item.setText(_translate("MainWindow", str(model.db.main_fittings[i].cop)))
+
+
+
+
+
         self.table_21.setSortingEnabled(__sortingEnabled)
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_6), _translate("MainWindow", "主机设备"))
         self.B2_2.setText(_translate("MainWindow", "读入"))
@@ -1447,7 +1494,7 @@ class Ui_MainWindow(object):
         item = self.optimize_result.item(0, 19)
         item.setText(_translate("MainWindow", "设备开启台数/台"))
         item = self.optimize_result.item(1, 4)
-        item.setText(_translate("MainWindow", "2814"))
+        item.setText(_translate("MainWindow", str(model.db.init_params.t3_min)))
         item = self.optimize_result.item(1, 5)
         item.setText(_translate("MainWindow", "28"))
         item = self.optimize_result.item(2, 4)

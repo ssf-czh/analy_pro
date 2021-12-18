@@ -1,11 +1,10 @@
 import sys
 
-
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from main_1 import Ui_MainWindow
-from model.db import load,init_params
+from model.db import load, init_params
 
-load(r"C:\Users\ZZZ\Documents\GitHub\analy_pro\model\template.xlsx")
+load(r"template.xlsx")
 
 class MyMainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
@@ -15,7 +14,6 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
 
 
 if __name__ == '__main__':
-
 
     app = QApplication(sys.argv)  # 在 QApplication 方法中使用，创建应用程序对象
     myWin = MyMainWindow()  # 实例化 MyMainWindow 类，创建主窗口
