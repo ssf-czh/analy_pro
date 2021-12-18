@@ -10,6 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 import model
+from model.db import save
 
 
 class Ui_MainWindow(object):
@@ -281,6 +282,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout_8 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_8.setObjectName("horizontalLayout_8")
         self.B1_1 = QtWidgets.QPushButton(self.page)
+
+
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -290,7 +293,100 @@ class Ui_MainWindow(object):
         font.setPointSize(12)
         self.B1_1.setFont(font)
         self.B1_1.setObjectName("B1_1")
+
+        # 绑定按钮事件 保存参数到文件
+        def init_parm_save():
+            item = self.init_params.item(3, 1)
+            model.db.init_params.q = item.data(0)
+
+            item = self.init_params.item(4, 1)
+            model.db.init_params.n = item.data(0)
+
+            item = self.init_params.item(5, 1)
+            model.db.init_params.efficiency_range = item.data(0)
+
+            item = self.init_params.item(6, 1)
+            model.db.init_params.q_min = item.data(0)
+
+            item = self.init_params.item(7, 1)
+            model.db.init_params.t3_min = item.data(0)
+
+            item = self.init_params.item(9, 1)
+            model.db.init_params.g = item.data(0)
+
+            item = self.init_params.item(10, 1)
+            model.db.init_params.h = item.data(0)
+
+            item = self.init_params.item(10, 1)
+            model.db.init_params.h = item.data(0)
+
+            item = self.init_params.item(11, 1)
+            model.db.init_params.p2 = item.data(0)
+
+            # item = self.init_params.item(11, 1)
+            # item.setText(_translate("MainWindow", ""))
+            # item = self.init_params.item(12, 0)
+            # item.setText(_translate("MainWindow", "冷冻水泵台数,台"))
+            # item = self.init_params.item(12, 1)
+            # item.setText(_translate("MainWindow", ""))
+            # item = self.init_params.item(13, 0)
+            # item.setText(_translate("MainWindow", "冷冻水泵变频频率下限值μ"))
+
+            item = self.init_params.item(13, 1)
+            model.db.init_params.mu = item.data(0)
+
+            # item = self.init_params.item(15, 0)
+            # item.setText(_translate("MainWindow", "单台冷却水泵的额定流量G，m3/h"))
+            # item = self.init_params.item(15, 1)
+            # item.setText(_translate("MainWindow", ""))
+            # item = self.init_params.item(16, 0)
+            # item.setText(_translate("MainWindow", "单台冷却水泵扬程H，m"))
+            # item = self.init_params.item(16, 1)
+            # item.setText(_translate("MainWindow", ""))
+
+            # item = self.init_params.item(17, 0)
+            # model.db.init_params.p3 = item.data(0)
+            # item = self.init_params.item(17, 1)
+            # item.setText(_translate("MainWindow", ""))
+            # item = self.init_params.item(18, 0)
+            # item.setText(_translate("MainWindow", "冷却水泵最多台数,台"))
+            # item = self.init_params.item(18, 1)
+            # item.setText(_translate("MainWindow", ""))
+
+            item = self.init_params.item(19, 1)
+            model.db.init_params.lamb = item.data(0)
+
+            #
+            # item = self.init_params.item(21, 0)
+            # item.setText(_translate("MainWindow", "单台冷却塔的额定流量G，m3/h"))
+            # item = self.init_params.item(21, 1)
+            # item.setText(_translate("MainWindow", ""))
+            # item = self.init_params.item(22, 0)
+            # item.setText(_translate("MainWindow", "单台冷却塔风量H，m3/h"))
+            # item = self.init_params.item(22, 1)
+            # item.setText(_translate("MainWindow", ""))
+            # item = self.init_params.item(23, 0)
+            # item.setText(_translate("MainWindow", "单台冷却塔功率P0，Kw"))
+            # item = self.init_params.item(23, 1)
+            # item.setText(_translate("MainWindow", ""))
+            # item = self.init_params.item(24, 0)
+            # item.setText(_translate("MainWindow", "冷却塔最多台数,台"))
+            # item = self.init_params.item(24, 1)
+            # item.setText(_translate("MainWindow", ""))
+
+
+
+            item = self.init_params.item(26, 1)
+            model.db.init_params.delta_t1_range = item.data(0)
+            item = self.init_params.item(27, 1)
+            model.db.init_params.delta_t2_range = item.data(0)
+            save("template.xlsx")
+
+        self.B1_1.clicked.connect(init_parm_save)
+
         self.horizontalLayout_8.addWidget(self.B1_1)
+
+
         self.pushButton = QtWidgets.QPushButton(self.page)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -1414,9 +1510,8 @@ class Ui_MainWindow(object):
             item.setText(_translate("MainWindow", str(model.db.wet_bulb_fittings[i].amplitude)))
 
 
-
         self.init_params.setSortingEnabled(__sortingEnabled)
-        self.B1_1.setText(_translate("MainWindow", "读入"))
+        self.B1_1.setText(_translate("MainWindow", "保存"))
         self.pushButton.setText(_translate("MainWindow", "取消"))
         self.B2_1.setText(_translate("MainWindow", "读入"))
         self.pushButton_53.setText(_translate("MainWindow", "取消"))
@@ -1456,6 +1551,8 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "℃"))
         item = self.table_21.item(1, 7)
         item.setText(_translate("MainWindow", "℃"))
+
+
 
         # 数据读入-主机设备 数值填充
         for i in range(len(model.db.main_fittings)):
