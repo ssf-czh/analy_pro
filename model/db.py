@@ -1,4 +1,5 @@
 import base64
+import timeit
 
 from model.schema import *
 from model.template import template_file_base64
@@ -39,19 +40,31 @@ def load(path: str):
             init_params.lamb = float(sheet["B29"].value)
         elif sheet.title == "主机参数拟合":
             main_fittings = list()
-            i = 3
-            while sheet.cell(i, 1).value is not None:
+            # i = 3
+            # while sheet.cell(i, 1).value is not None:
+            #     entry = MainFitting()
+            #     entry.load_percentage = float(sheet.cell(i, 1).value)
+            #     entry.q = float(sheet.cell(i, 2).value)
+            #     entry.p1 = float(sheet.cell(i, 3).value)
+            #     entry.t1 = float(sheet.cell(i, 4).value)
+            #     entry.t2 = float(sheet.cell(i, 5).value)
+            #     entry.t3 = float(sheet.cell(i, 6).value)
+            #     entry.t4 = float(sheet.cell(i, 7).value)
+            #     entry.cop = float(sheet.cell(i, 8).value)
+            #     main_fittings.append(entry)
+            #     i += 1
+            for rowidx, row in enumerate(sheet.rows):
+                if rowidx <= 1:
+                    continue
                 entry = MainFitting()
-                entry.load_percentage = float(sheet.cell(i, 1).value)
-                entry.q = float(sheet.cell(i, 2).value)
-                entry.p1 = float(sheet.cell(i, 3).value)
-                entry.t1 = float(sheet.cell(i, 4).value)
-                entry.t2 = float(sheet.cell(i, 5).value)
-                entry.t3 = float(sheet.cell(i, 6).value)
-                entry.t4 = float(sheet.cell(i, 7).value)
-                entry.cop = float(sheet.cell(i, 8).value)
+                entry.q = float(row[1].value)
+                entry.p1 = float(row[2].value)
+                entry.t1 = float(row[3].value)
+                entry.t2 = float(row[4].value)
+                entry.t3 = float(row[5].value)
+                entry.t4 = float(row[6].value)
+                entry.cop = float(row[7].value)
                 main_fittings.append(entry)
-                i += 1
         elif sheet.title == "水泵性能参数拟合":
             pump2_fittings = list()
             for i in range(5):
@@ -238,6 +251,11 @@ def save(path: str):
     wb.save(path)
     wb.close()
 
+
+#
+# if __name__ == '__main__':
+#     print(timeit.timeit(lambda: load("./template.xlsx"), number=1))
+#     pass
 
 """
 Test
