@@ -27,9 +27,10 @@ def load(path: str):
         if sheet.title == "参数初始值设定":
             init_params.q = float(sheet["B4"].value)
             init_params.n = int(sheet["B5"].value)
-            init_params.efficiency_range = (float(sheet["B6"].value), float(sheet["C6"].value))
+            init_params.efficiency_range = float(sheet["C6"].value)
             init_params.t3_min = float(sheet["B7"].value)
-            init_params.g = float(sheet["B9"].value)
+            init_params.G20 = float(sheet["B9"].value)
+            init_params.G30 = float(sheet["B14"].value)
             init_params.h = float(sheet["B10"].value)
             init_params.p2 = float(sheet["B11"].value)
             init_params.delta_t1_range = (float(sheet["B24"].value), float(sheet["C24"].value))
@@ -38,6 +39,9 @@ def load(path: str):
             init_params.p20 = float(sheet["B27"].value)
             init_params.mu = float(sheet["B28"].value)
             init_params.lamb = float(sheet["B29"].value)
+            for i in range(9):
+                init_params.t1_range.append(float(sheet.cell(2, i + 2).value))
+
         elif sheet.title == "主机参数拟合":
             main_fittings = list()
             # i = 3
@@ -159,7 +163,8 @@ def save(path: str):
             sheet["B6"].value = str(init_params.efficiency_range[0])
             sheet["C6"].value = str(init_params.efficiency_range[1])
             sheet["B7"].value = str(init_params.t3_min)
-            sheet["B9"].value = str(init_params.g)
+            sheet["B9"].value = str(init_params.G20)
+            sheet["B14"].value = str(init_params.G30)
             sheet["B10"].value = str(init_params.h)
             sheet["B11"].value = str(init_params.p2)
             sheet["B24"].value = str(init_params.delta_t1_range[0])
@@ -170,6 +175,8 @@ def save(path: str):
             sheet["B27"].value = str(init_params.p20)
             sheet["B28"].value = str(init_params.mu)
             sheet["B29"].value = str(init_params.lamb)
+            for i in range(9):
+                sheet.cell(2, 2 + i).value = str(init_params.t1_range[i])
         elif sheet.title == "主机参数拟合":
             i = 3
             for entry in main_fittings:
@@ -251,11 +258,6 @@ def save(path: str):
     wb.save(path)
     wb.close()
 
-
-#
-# if __name__ == '__main__':
-#     print(timeit.timeit(lambda: load("./template.xlsx"), number=1))
-#     pass
 
 """
 Test

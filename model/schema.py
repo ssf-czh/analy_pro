@@ -2,9 +2,8 @@ class InitialParameters:
     def __init__(self):
         self.q = 2814.0
         self.n = 3
-        self.efficiency_range = (30.0, 80.0)
+        self.efficiency_range = 80.0
         self.t3_min = 21.0
-        self.g = 533.0
         self.h = 41.0
         self.p2 = 90.0
         # t2-t1
@@ -15,6 +14,11 @@ class InitialParameters:
         self.p20 = 90.0
         self.mu = 0.6
         self.lamb = 0.65
+        self.load_rat = [100, 95, 90, 85, 80, 75, 70, 65, 60]
+        self.t1_range = []
+        self.P0 = 22.0
+        self.G20 = 533.0
+        self.G30 = 650.0
 
 
 class MainFitting:
