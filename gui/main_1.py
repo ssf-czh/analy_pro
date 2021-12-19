@@ -1844,7 +1844,7 @@ class Ui_MainWindow(object):
         item = self.init_params.item(9, 0)
         item.setText(_translate("MainWindow", "单台冷冻水泵的额定流量G，m3/h"))
         item = self.init_params.item(9, 1)
-        item.setText(_translate("MainWindow", str(model.db.init_params.g)))
+        item.setText(_translate("MainWindow", str(model.db.init_params.G20)))
         item = self.init_params.item(10, 0)
         item.setText(_translate("MainWindow", "单台冷冻水泵扬程H，m"))
         item = self.init_params.item(10, 1)
