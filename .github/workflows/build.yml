@@ -15,7 +15,19 @@ jobs:
       - run: pip install pyinstaller &&
           pip config set global.target ./site-packages &&
           pip install -r requirements.txt &&
-          pyinstaller -p . -p ./site-packages/geatpy/core/ -p ./site-packages/ -p ./site-packages/geatpy/ -p ./site-packages/geatpy/operators/ -p ./site-packages/geatpy/templates/ gui/MyMainWindows.py
+          pyinstaller -p . -p ./site-packages/geatpy/core/ 
+          -p ./site-packages/ 
+          -p ./site-packages/geatpy/ 
+          -p ./site-packages/geatpy/operators/
+          -p ./site-packages/geatpy/templates/moeas/
+          -p ./site-packages/geatpy/templates/moeas/awGA/
+          -p ./site-packages/geatpy/templates/moeas/moead/
+          -p ./site-packages/geatpy/templates/moeas/nsga2/
+          -p ./site-packages/geatpy/templates/moeas/nsga3/
+          -p ./site-packages/geatpy/templates/moeas/pps/
+          -p ./site-packages/geatpy/templates/moeas/rvea/
+          -p ./site-packages/geatpy/templates/soeas/ 
+          gui/MyMainWindows.py
       - uses: actions/upload-artifact@v2
         with:
           name: dist
