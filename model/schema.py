@@ -85,3 +85,14 @@ class OptimizeResult:
         self.cop = 0.0
         # 开启台数
         self.n = 0
+
+
+class QDeltaEntry:
+    def __init__(self):
+        self.year = "2021"
+        self.mon = "1"
+        self.day = "1"
+        self.hour = "1"
+        self.Q = "1"
+        self.Ts = "1"
+        self.T = "1"
