@@ -15,8 +15,8 @@ jobs:
       - run: pip install pyinstaller &&
           pip config set global.target ./site-packages &&
           pip install -r requirements.txt &&
-          pyinstaller -F -p . -p ./site-packages/ gui/MyMainWindows.py
+          pyinstaller -p . -p ./site-packages/ gui/MyMainWindows.py
       - uses: actions/upload-artifact@v2
         with:
           name: dist
-          path: ./MyMainWindows.exe
+          path: ./dist/
