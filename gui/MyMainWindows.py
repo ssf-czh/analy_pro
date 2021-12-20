@@ -6,7 +6,7 @@ from gui.main_1 import Ui_MainWindow
 from model.db import load, init_params, main_fittings
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-load(r"..\model\template.xlsx")
+load(r"template.xlsx")
 
 class MyMainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
