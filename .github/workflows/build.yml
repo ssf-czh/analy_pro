@@ -12,7 +12,10 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: '3.7'
-      - run: pip install -r requirements.txt && pip install pyinstaller && pyinstaller -p . gui/MyMainWindows.py
+      - run: pip config set global.target ./site-packages && |
+          pip install -r requirements.txt && |
+          pip install pyinstaller && |
+          pyinstaller -F -p . -p ./site-packages/ gui/MyMainWindows.py
       - uses: actions/upload-artifact@v2
         with:
           name: dist
