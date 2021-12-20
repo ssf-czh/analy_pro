@@ -25,6 +25,7 @@ def load(path: str):
     wb = openpyxl.load_workbook(path, read_only=True)
     for sheet in wb:
         if sheet.title == "参数初始值设定":
+
             init_params.q = float(sheet["B4"].value)
             init_params.n = int(sheet["B5"].value)
             init_params.efficiency_range = float(sheet["C6"].value)
@@ -44,22 +45,12 @@ def load(path: str):
 
         elif sheet.title == "主机参数拟合":
             main_fittings = list()
-            # i = 3
-            # while sheet.cell(i, 1).value is not None:
-            #     entry = MainFitting()
-            #     entry.load_percentage = float(sheet.cell(i, 1).value)
-            #     entry.q = float(sheet.cell(i, 2).value)
-            #     entry.p1 = float(sheet.cell(i, 3).value)
-            #     entry.t1 = float(sheet.cell(i, 4).value)
-            #     entry.t2 = float(sheet.cell(i, 5).value)
-            #     entry.t3 = float(sheet.cell(i, 6).value)
-            #     entry.t4 = float(sheet.cell(i, 7).value)
-            #     entry.cop = float(sheet.cell(i, 8).value)
-            #     main_fittings.append(entry)
-            #     i += 1
             for rowidx, row in enumerate(sheet.rows):
                 if rowidx <= 1:
                     continue
+                if row[1].value is None :
+                    break
+
                 entry = MainFitting()
                 entry.q = float(row[1].value)
                 entry.p1 = float(row[2].value)
@@ -84,6 +75,7 @@ def load(path: str):
                 entry.p3 = float(sheet.cell(11, 4 + i * 2).value)
                 pump3_fittings.append(entry)
         elif sheet.title == "冷却塔拟合":
+            # print("4")
             i = 0
             wet_bulb_fittings = list()
             while sheet.cell(3 + i, 1).value is not None:
@@ -102,6 +94,7 @@ def load(path: str):
                 p4_fittings.append(entry)
                 i += 1
         elif sheet.title == "拟合系数表":
+            # print("5")
             fitting_coefficients = FittingCoefficients()
             for i in range(12):
                 val = 0.0
@@ -134,6 +127,7 @@ def load(path: str):
                     val = float(sheet.cell(16, 2 + i).value)
                 fitting_coefficients.e.append(val)
         elif sheet.title == "优化计算结果":
+            # print("6")
             optimize_result = list()
             i = 0
             while sheet.cell(2 + i, 1).value is not None:
@@ -158,26 +152,46 @@ def save(path: str):
     wb = openpyxl.load_workbook(path, read_only=False)
     for sheet in wb:
         if sheet.title == "参数初始值设定":
+            print("ini:",init_params)
+            print(1)
             sheet["B4"].value = str(init_params.q)
+            print(2)
             sheet["B5"].value = str(init_params.n)
-            sheet["B6"].value = str(init_params.efficiency_range[0])
-            sheet["C6"].value = str(init_params.efficiency_range[1])
+            print(3)
+            sheet["B6"].value = str(init_params.efficiency_range)
+            print(4)
+            # sheet["C6"].value = str(init_params.efficiency_range[1])
+            print(5)
             sheet["B7"].value = str(init_params.t3_min)
+            print(6)
             sheet["B9"].value = str(init_params.G20)
+            print(7)
             sheet["B14"].value = str(init_params.G30)
+            print(8)
             sheet["B10"].value = str(init_params.h)
+            print(9)
             sheet["B11"].value = str(init_params.p2)
+            print(10)
             sheet["B24"].value = str(init_params.delta_t1_range[0])
+            print(11)
             sheet["C24"].value = str(init_params.delta_t1_range[1])
+            print(12)
             sheet["B25"].value = str(init_params.delta_t2_range[0])
+            print(13)
             sheet["C25"].value = str(init_params.delta_t2_range[1])
+            print(14)
             sheet["B26"].value = str(init_params.q_min)
+            print(15)
             sheet["B27"].value = str(init_params.p20)
+            print(16)
             sheet["B28"].value = str(init_params.mu)
+            print(17)
             sheet["B29"].value = str(init_params.lamb)
             for i in range(9):
                 sheet.cell(2, 2 + i).value = str(init_params.t1_range[i])
+            print("ini ok")
         elif sheet.title == "主机参数拟合":
+            print("主机参数")
             i = 3
             for entry in main_fittings:
                 sheet.cell(i, 1).value = str(entry.q / 2813.0)
@@ -192,6 +206,7 @@ def save(path: str):
             while sheet.cell(i, 1).value is not None:
                 sheet.delete_rows(i)
         elif sheet.title == "水泵性能参数拟合":
+            print("水泵性能参数拟合")
             for i in range(5):
                 sheet.cell(4, 3 + i * 2).value = str(pump2_fittings[i].g2)
                 sheet.cell(4, 4 + i * 2).value = str(pump2_fittings[i].p2)
@@ -199,6 +214,7 @@ def save(path: str):
                 sheet.cell(11, 3 + i * 2).value = str(pump3_fittings[i].g3)
                 sheet.cell(11, 4 + i * 2).value = str(pump3_fittings[i].p3)
         elif sheet.title == "冷却塔拟合":
+            print("冷却塔拟合")
             i = 0
             # wet_bulb_fittings = list()
             for entry in wet_bulb_fittings:
@@ -220,7 +236,9 @@ def save(path: str):
                 sheet.cell(3 + i, 5).value = None
                 i += 1
         elif sheet.title == "拟合系数表":
+            print("此时c：", fitting_coefficients.c)
             for i in range(12):
+                print(fitting_coefficients.b[i])
                 sheet.cell(3, 2 + i).value = str(fitting_coefficients.b[i])
             for i in range(12):
                 sheet.cell(5, 2 + i).value = str(fitting_coefficients.b[i + 12])
@@ -233,6 +251,7 @@ def save(path: str):
             for i in range(4):
                 sheet.cell(16, 2 + i).value = str(fitting_coefficients.e[i])
         elif sheet.title == "优化计算结果":
+            print("优化计算结果")
             i = 0
             for entry in optimize_result:
                 sheet.cell(2 + i, 1).value = str(entry.q)
@@ -255,6 +274,7 @@ def save(path: str):
                 for j in range(1, 17):
                     sheet.cell(2 + i, j).value = None
                 i += 1
+    print("----")
     wb.save(path)
     wb.close()
 

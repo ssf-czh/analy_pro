@@ -10,11 +10,12 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 import model
-from model.db import save
-
+from model.db import save, main_fittings, load
+from P_pro import PumpFit,Main
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
+        self.PumpFit = PumpFit.PumpFitting()
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1239, 754)
         MainWindow.setMinimumSize(QtCore.QSize(1239, 754))
@@ -312,19 +313,17 @@ class Ui_MainWindow(object):
             model.db.init_params.t3_min = item.data(0)
 
             item = self.init_params.item(9, 1)
-            model.db.init_params.g = item.data(0)
+            model.db.init_params.G20 = item.data(0)
 
             item = self.init_params.item(10, 1)
             model.db.init_params.h = item.data(0)
 
-            item = self.init_params.item(10, 1)
-            model.db.init_params.h = item.data(0)
+
 
             item = self.init_params.item(11, 1)
             model.db.init_params.p2 = item.data(0)
 
-            # item = self.init_params.item(11, 1)
-            # item.setText(_translate("MainWindow", ""))
+
             # item = self.init_params.item(12, 0)
             # item.setText(_translate("MainWindow", "冷冻水泵台数,台"))
             # item = self.init_params.item(12, 1)
@@ -336,9 +335,10 @@ class Ui_MainWindow(object):
             model.db.init_params.mu = item.data(0)
 
             # item = self.init_params.item(15, 0)
-            # item.setText(_translate("MainWindow", "单台冷却水泵的额定流量G，m3/h"))
-            # item = self.init_params.item(15, 1)
-            # item.setText(_translate("MainWindow", ""))
+            # item.setText(_translate("MainWindow", "单台冷却水泵的额定流量G30，m3/h"))
+
+            item = self.init_params.item(15, 1)
+            model.db.init_params.G20 = item.data(0)
             # item = self.init_params.item(16, 0)
             # item.setText(_translate("MainWindow", "单台冷却水泵扬程H，m"))
             # item = self.init_params.item(16, 1)
@@ -374,13 +374,18 @@ class Ui_MainWindow(object):
             # item = self.init_params.item(24, 1)
             # item.setText(_translate("MainWindow", ""))
 
-
-
             item = self.init_params.item(26, 1)
-            model.db.init_params.delta_t1_range = item.data(0)
+            print(item.data(0))
+            a = float(item.data(0))
+            item = self.init_params.item(26, 2)
+            model.db.init_params.delta_t1_range = a, float(item.data(0))
             item = self.init_params.item(27, 1)
-            model.db.init_params.delta_t2_range = item.data(0)
+            b = item.data(0)
+            item = self.init_params.item(27, 2)
+            model.db.init_params.delta_t2_range = b, item.data(0)
+
             save("template.xlsx")
+            load("template.xlsx")
 
         self.B1_1.clicked.connect(init_parm_save)
 
@@ -854,9 +859,67 @@ class Ui_MainWindow(object):
         self.horizontalLayout_16.setObjectName("horizontalLayout_16")
         self.B3_11 = QtWidgets.QPushButton(self.tab_11)
         self.B3_11.setObjectName("B3_11")
+        # ==
+        def fitting_P1():
+            _translate = QtCore.QCoreApplication.translate
+            # print(11)
+            p1_data = model.db.main_fittings
+            print(len(p1_data))
+            # p2_data = model.db.pump2_fittings
+            # for i in p2_data:
+            #     print(i.g2)
+            #     print(i.p2)
+            # p3_data = model.db.pump3_fittings
+            # web_data = model.db.wet_bulb_fittings
+            # p4_data = model.db.p4_fittings
+            B = self.PumpFit.fit_P1(p1_data)
+            print(B)
+            for i in range(12):
+                item = QtWidgets.QTableWidgetItem()
+                self.main_fittings.setItem(2, i+1, item)
+                item = self.main_fittings.item(2, i+1)
+                item.setText(_translate("MainWindow", str(B[i])))
+            for i in range(12):
+                item = QtWidgets.QTableWidgetItem()
+                self.main_fittings.setItem(4, i+1, item)
+                item = self.main_fittings.item(4, i+1)
+                item.setText(_translate("MainWindow", str(B[i+12])))
+
+        self.B3_11.clicked.connect(fitting_P1)
+
+        # ==
         self.horizontalLayout_16.addWidget(self.B3_11)
         self.B3_12 = QtWidgets.QPushButton(self.tab_11)
         self.B3_12.setObjectName("B3_12")
+        # ==
+        def save_p1_B():
+
+            print("=============")
+            model.db.fitting_coefficients.b = list(self.PumpFit.B)
+            # model.db.fitting_coefficients.a = self.PumpFit.A
+            # model.db.fitting_coefficients.c = self.PumpFit.C
+            # model.db.fitting_coefficients.d = self.PumpFit.D
+            # model.db.fitting_coefficients.e = self.PumpFit.E
+
+
+            # print(model.db.fitting_coefficients.b)
+            # print(len(model.db.fitting_coefficients.b))
+            # print(model.db.fitting_coefficients.a)
+            # print(len(model.db.fitting_coefficients.a))
+            # print(model.db.fitting_coefficients.c)
+            # print(len(model.db.fitting_coefficients.c))
+            # print(model.db.fitting_coefficients.d)
+            # print(len(model.db.fitting_coefficients.d))
+            # print(model.db.fitting_coefficients.e)
+            # print(len(model.db.fitting_coefficients.e))
+            #
+            #
+            #
+            #
+            save("template.xlsx")
+
+        self.B3_12.clicked.connect(save_p1_B)
+        # ==
         self.horizontalLayout_16.addWidget(self.B3_12)
         self.B3_13 = QtWidgets.QPushButton(self.tab_11)
         self.B3_13.setObjectName("B3_13")
@@ -955,9 +1018,57 @@ class Ui_MainWindow(object):
         self.horizontalLayout_6.setObjectName("horizontalLayout_6")
         self.B3_21 = QtWidgets.QPushButton(self.tab_12)
         self.B3_21.setObjectName("B3_21")
+        def fitting_P2():
+            _translate = QtCore.QCoreApplication.translate
+            print(11)
+            # p1_data = model.db.main_fittings
+            p2_data = model.db.pump2_fittings
+            # for i in p2_data:
+            #     print(i.g2)
+            #     print(i.p2)
+            # p3_data = model.db.pump3_fittings
+            # web_data = model.db.wet_bulb_fittings
+            # p4_data = model.db.p4_fittings
+            # B = self.PumpFit.fit_P1(p1_data)
+            A = self.PumpFit.fit_P2(p2_data)
+            # C = self.PumpFit.fit_P3(p3_data)
+            # D = self.PumpFit.fit_Tdelta(web_data)
+            # E = self.PumpFit.fit_P4(p4_data)
+
+            # print(B)
+            A0,A1,A2= A
+
+            print(A)
+
+            item = QtWidgets.QTableWidgetItem()
+            self.pump2_fittings.setItem(2,1,item)
+            item = self.pump2_fittings.item(2,1)
+            item.setText(_translate("MainWindow", str(A0)))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.pump2_fittings.setItem(2, 2, item)
+            item = self.pump2_fittings.item(2, 2)
+            item.setText(_translate("MainWindow", str(A1)))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.pump2_fittings.setItem(2, 3, item)
+            item = self.pump2_fittings.item(2, 3)
+            item.setText(_translate("MainWindow", str(A2)))
+            item = self.pump2_fittings.item(1, 3)
+
+        self.B3_21.clicked.connect(fitting_P2)
+
         self.horizontalLayout_6.addWidget(self.B3_21)
         self.B3_22 = QtWidgets.QPushButton(self.tab_12)
         self.B3_22.setObjectName("B3_22")
+
+        def save_p2_A():
+
+            model.db.fitting_coefficients.a = self.PumpFit.A
+            save("template.xlsx")
+
+        self.B3_22.clicked.connect(save_p2_A)
+
         self.horizontalLayout_6.addWidget(self.B3_22)
         self.B3_23 = QtWidgets.QPushButton(self.tab_12)
         self.B3_23.setObjectName("B3_23")
@@ -1057,9 +1168,49 @@ class Ui_MainWindow(object):
         self.horizontalLayout_7.setObjectName("horizontalLayout_7")
         self.B3_31 = QtWidgets.QPushButton(self.tab_13)
         self.B3_31.setObjectName("B3_31")
+        def fitting_P3():
+            _translate = QtCore.QCoreApplication.translate
+
+            p3_data = model.db.pump3_fittings
+            C = self.PumpFit.fit_P3(p3_data)
+            # D = self.PumpFit.fit_Tdelta(web_data)
+            # E = self.PumpFit.fit_P4(p4_data)
+
+            # print(B)
+            C0,C1,C2= C
+
+            print(C)
+
+            item = QtWidgets.QTableWidgetItem()
+            self.pump3_fittings.setItem(2,1,item)
+            item = self.pump3_fittings.item(2,1)
+            item.setText(_translate("MainWindow", str(C0)))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.pump3_fittings.setItem(2, 2, item)
+            item = self.pump3_fittings.item(2, 2)
+            item.setText(_translate("MainWindow", str(C1)))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.pump3_fittings.setItem(2, 3, item)
+            item = self.pump3_fittings.item(2, 3)
+            item.setText(_translate("MainWindow", str(C2)))
+
+        self.B3_31.clicked.connect(fitting_P3)
+
+
+
         self.horizontalLayout_7.addWidget(self.B3_31)
         self.B3_32 = QtWidgets.QPushButton(self.tab_13)
         self.B3_32.setObjectName("B3_32")
+        def save_p3_C():
+
+            model.db.fitting_coefficients.c = self.PumpFit.C
+            print("此时c：",model.db.fitting_coefficients.c)
+            save("template.xlsx")
+
+        self.B3_32.clicked.connect(save_p3_C)
+
         self.horizontalLayout_7.addWidget(self.B3_32)
         self.B3_33 = QtWidgets.QPushButton(self.tab_13)
         self.B3_33.setObjectName("B3_33")
@@ -1127,9 +1278,80 @@ class Ui_MainWindow(object):
         self.horizontalLayout_9.setObjectName("horizontalLayout_9")
         self.B3_41 = QtWidgets.QPushButton(self.tab_14)
         self.B3_41.setObjectName("B3_41")
+
+        def fitting_wetandp4():
+            _translate = QtCore.QCoreApplication.translate
+            print(11)
+            # p1_data = model.db.main_fittings
+            # p2_data = model.db.pump2_fittings
+            # for i in p2_data:
+            #     print(i.g2)
+            #     print(i.p2)
+            # p3_data = model.db.pump3_fittings
+            web_data = model.db.wet_bulb_fittings
+            p4_data = model.db.p4_fittings
+            # B = self.PumpFit.fit_P1(p1_data)
+            # A = self.PumpFit.fit_P2(p2_data)
+            # C = self.PumpFit.fit_P3(p3_data)
+            D = self.PumpFit.fit_Tdelta(web_data)
+            E = self.PumpFit.fit_P4(p4_data)
+
+            # print(B)
+            D0,D1,D2 = D
+            E0,E1,E2,E3 = E
+
+            print(D)
+            print(E)
+
+            item = QtWidgets.QTableWidgetItem()
+            self.wet_bulb_fittings.setItem(2,1,item)
+            item = self.wet_bulb_fittings.item(2,1)
+            item.setText(_translate("MainWindow", str(D0)))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.wet_bulb_fittings.setItem(2, 2, item)
+            item = self.wet_bulb_fittings.item(2, 2)
+            item.setText(_translate("MainWindow", str(D1)))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.wet_bulb_fittings.setItem(2, 3, item)
+            item = self.wet_bulb_fittings.item(2, 3)
+            item.setText(_translate("MainWindow", str(D2)))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.wet_bulb_fittings.setItem(4, 1, item)
+            item = self.wet_bulb_fittings.item(4, 1)
+            item.setText(_translate("MainWindow", str(E0)))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.wet_bulb_fittings.setItem(4, 2, item)
+            item = self.wet_bulb_fittings.item(4, 2)
+            item.setText(_translate("MainWindow", str(E1)))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.wet_bulb_fittings.setItem(4, 3, item)
+            item = self.wet_bulb_fittings.item(4, 3)
+            item.setText(_translate("MainWindow", str(E2)))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.wet_bulb_fittings.setItem(4, 4, item)
+            item = self.wet_bulb_fittings.item(4, 4)
+            item.setText(_translate("MainWindow", str(E3)))
+
+        self.B3_41.clicked.connect(fitting_wetandp4)
+
         self.horizontalLayout_9.addWidget(self.B3_41)
         self.B3_42 = QtWidgets.QPushButton(self.tab_14)
         self.B3_42.setObjectName("B3_42")
+
+        def save_wetandp4_DE():
+
+            model.db.fitting_coefficients.d = self.PumpFit.D
+            model.db.fitting_coefficients.e = self.PumpFit.E
+            save("template.xlsx")
+
+        self.B3_42.clicked.connect(save_wetandp4_DE)
+
         self.horizontalLayout_9.addWidget(self.B3_42)
         self.B3_43 = QtWidgets.QPushButton(self.tab_14)
         self.B3_43.setObjectName("B3_43")
@@ -1245,9 +1467,53 @@ class Ui_MainWindow(object):
         self.horizontalLayout_18.addItem(spacerItem7)
         self.pushButton_4 = QtWidgets.QPushButton(self.layoutWidget)
         self.pushButton_4.setObjectName("pushButton_4")
+        def evo_opt():
+            _translate = QtCore.QCoreApplication.translate
+
+            superP = model.db.init_params
+            for index,i in enumerate(model.db.optimize_result):
+
+                Q = i.q
+                TS = i.ts
+                print("Q:",Q)
+                print("TS:",TS)
+
+                opt = Main.Evoopt(Q,TS,superP,self.PumpFit)
+                res = opt.run()
+                model.db.optimize_result[index].load_percentage = res[0]
+                model.db.optimize_result[index].t1 = res[1]
+                model.db.optimize_result[index].t2 = res[2]
+                model.db.optimize_result[index].t3 = res[3]
+                model.db.optimize_result[index].t4 = res[4]
+                model.db.optimize_result[index].delta_t = res[5]
+                model.db.optimize_result[index].p1 = res[6]
+                model.db.optimize_result[index].p2 = res[7]
+                model.db.optimize_result[index].p3 = res[8]
+                model.db.optimize_result[index].p4 = res[9]
+                model.db.optimize_result[index].p = res[10]
+                model.db.optimize_result[index].cop = res[11]
+                model.db.optimize_result[index].n = res[12]
+                # res = (loading_ration, T1, T2, T3, T4, cold_flu, P1, P2, P3, P4, total_P, total_cop, open_num)
+
+                for k in range(len(res)):
+                    item = QtWidgets.QTableWidgetItem()
+                    # print(index+1, 7+k)
+                    self.optimize_result.setItem(index+1, 7+k, item)
+                    item = self.optimize_result.item(index+1, 7+k)
+                    item.setText(_translate("MainWindow", str(res[k])))
+
+        self.pushButton_4.clicked.connect(evo_opt)
+
+
         self.horizontalLayout_18.addWidget(self.pushButton_4)
         self.pushButton_3 = QtWidgets.QPushButton(self.layoutWidget)
         self.pushButton_3.setObjectName("pushButton_3")
+        def save_opt_res():
+            print(222)
+            save("template.xlsx")
+        self.pushButton_3.clicked.connect(save_opt_res)
+
+
         self.horizontalLayout_18.addWidget(self.pushButton_3)
         self.pushButton_2 = QtWidgets.QPushButton(self.layoutWidget)
         self.pushButton_2.setObjectName("pushButton_2")
@@ -1842,7 +2108,7 @@ class Ui_MainWindow(object):
         item = self.init_params.item(8, 0)
         item.setText(_translate("MainWindow", "冷冻水泵设定"))
         item = self.init_params.item(9, 0)
-        item.setText(_translate("MainWindow", "单台冷冻水泵的额定流量G，m3/h"))
+        item.setText(_translate("MainWindow", "单台冷冻水泵的额定流量G20，m3/h"))
         item = self.init_params.item(9, 1)
         item.setText(_translate("MainWindow", str(model.db.init_params.G20)))
         item = self.init_params.item(10, 0)
@@ -1852,21 +2118,24 @@ class Ui_MainWindow(object):
         item = self.init_params.item(11, 0)
         item.setText(_translate("MainWindow", "单台冷冻水泵功率P2，Kw"))
         item = self.init_params.item(11, 1)
-        item.setText(_translate("MainWindow", ""))
+        item.setText(_translate("MainWindow", str(model.db.init_params.p2)))
         item = self.init_params.item(12, 0)
         item.setText(_translate("MainWindow", "冷冻水泵台数,台"))
         item = self.init_params.item(12, 1)
-        item.setText(_translate("MainWindow", ""))
+        item.setText(_translate("MainWindow", str(model.db.init_params.n)))
         item = self.init_params.item(13, 0)
         item.setText(_translate("MainWindow", "冷冻水泵变频频率下限值μ"))
         item = self.init_params.item(13, 1)
         item.setText(_translate("MainWindow", str(model.db.init_params.mu)))
+
+
+
         item = self.init_params.item(14, 0)
         item.setText(_translate("MainWindow", "冷却水泵设定"))
         item = self.init_params.item(15, 0)
-        item.setText(_translate("MainWindow", "单台冷却水泵的额定流量G，m3/h"))
+        item.setText(_translate("MainWindow", "单台冷却水泵的额定流量G30，m3/h"))
         item = self.init_params.item(15, 1)
-        item.setText(_translate("MainWindow",  ""))
+        item.setText(_translate("MainWindow",  str(model.db.init_params.G30)))
         item = self.init_params.item(16, 0)
         item.setText(_translate("MainWindow", "单台冷却水泵扬程H，m"))
         item = self.init_params.item(16, 1)
@@ -1896,7 +2165,7 @@ class Ui_MainWindow(object):
         item = self.init_params.item(23, 0)
         item.setText(_translate("MainWindow", "单台冷却塔功率P0，Kw"))
         item = self.init_params.item(23, 1)
-        item.setText(_translate("MainWindow", ""))
+        item.setText(_translate("MainWindow", str(model.db.init_params.P0)))
         item = self.init_params.item(24, 0)
         item.setText(_translate("MainWindow", "冷却塔最多台数,台"))
         item = self.init_params.item(24, 1)
@@ -1906,11 +2175,15 @@ class Ui_MainWindow(object):
         item = self.init_params.item(26, 0)
         item.setText(_translate("MainWindow", "冷冻水进出口温差T2-T1"))
         item = self.init_params.item(26, 1)
-        item.setText(_translate("MainWindow", str(model.db.init_params.delta_t1_range)))
+        item.setText(_translate("MainWindow", str(model.db.init_params.delta_t1_range[0])))
+        item = self.init_params.item(26, 2)
+        item.setText(_translate("MainWindow", str(model.db.init_params.delta_t1_range[1])))
         item = self.init_params.item(27, 0)
         item.setText(_translate("MainWindow", "冷却水进出口温差T4-T3"))
         item = self.init_params.item(27, 1)
-        item.setText(_translate("MainWindow", str(model.db.init_params.delta_t2_range)))
+        item.setText(_translate("MainWindow", str(model.db.init_params.delta_t2_range[0])))
+        item = self.init_params.item(27, 2)
+        item.setText(_translate("MainWindow", str(model.db.init_params.delta_t2_range[1])))
 
         self.table_21.setRowCount(len(model.db.main_fittings) + 2)
         # 数据读入-主机设备 数值填充

@@ -2,7 +2,7 @@ import sys
 
 
 from PyQt5.QtWidgets import QApplication, QMainWindow
-from main_1 import Ui_MainWindow
+from gui.main_1 import Ui_MainWindow
 from model.db import load, init_params, main_fittings
 from PyQt5 import QtCore, QtGui, QtWidgets
 
