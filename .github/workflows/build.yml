@@ -1,0 +1,19 @@
+name: Build
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: "windows-latest"
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build and package
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+      - run: pip install -r requirements.txt && pip install pyinstaller && pyinstaller -p . gui/MyMainWindows.py
+      - uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: ./dist/
