@@ -15,16 +15,31 @@ wet_bulb_fittings: List[WetBulbFitting] = list()
 p4_fittings: List[P4Fitting] = list()
 fitting_coefficients = FittingCoefficients()
 optimize_result: List[OptimizeResult] = list()
+q_delta: List[QDeltaEntry] = list()
 
 
 def load(path: str):
     global init_params, main_fittings, pump2_fittings, pump3_fittings, wet_bulb_fittings, p4_fittings, \
-        fitting_coefficients, optimize_result
+        fitting_coefficients, optimize_result, q_delta
     if not os.path.exists(path):
         save_default(path)
     wb = openpyxl.load_workbook(path, read_only=True)
     for sheet in wb:
-        if sheet.title == "参数初始值设定":
+        if sheet.title == "q值变化值":
+            q_delta = list()
+            for idx, row in enumerate(sheet.rows):
+                if idx <= 0:
+                    continue
+                entry = QDeltaEntry()
+                entry.year = row[0].value
+                entry.mon = row[1].value
+                entry.day = row[2].value
+                entry.hour = row[3].value
+                entry.Q = row[4].value
+                entry.Ts = row[5].value
+                entry.T = row[6].value
+                q_delta.append(entry)
+        elif sheet.title == "参数初始值设定":
 
             init_params.q = float(sheet["B4"].value)
             init_params.n = int(sheet["B5"].value)
@@ -136,6 +151,7 @@ def load(path: str):
                 entry.ts = float(sheet.cell(2 + i, 2).value)
                 optimize_result.append(entry)
                 i += 1
+    print("load completed")
     wb.close()
 
 
@@ -301,3 +317,4 @@ if __name__ == '__main__':
     optimize_result.append(entry)
     save("testtest.xlsx")
 """
+
