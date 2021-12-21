@@ -1747,6 +1747,11 @@ class Ui_MainWindow(object):
         self.pump3_fittings.horizontalHeader().setStyleSheet("QHeaderView::section{background:#DDDDDD;}")
         self.wet_bulb_fittings.horizontalHeader().setStyleSheet("QHeaderView::section{background:#DDDDDD;}")
         self.optimize_result.horizontalHeader().setStyleSheet("QHeaderView::section{background:#DDDDDD;}")
+        self.init_params.setSpan(2, 0, 1, 20)
+        self.init_params.setSpan(8, 0, 1, 20)
+        self.init_params.setSpan(14, 0, 1, 20)
+        self.init_params.setSpan(20, 0, 1, 20)
+        self.init_params.setSpan(25, 0, 1, 20)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     # # ==================================================
