@@ -1736,7 +1736,7 @@ class Ui_MainWindow(object):
         self.B3_44.clicked.connect(self.wet_bulb_fittings.clearContents)
         self.B3_14.clicked.connect(self.main_fittings.clearContents)
         self.B3_34.clicked.connect(self.pump3_fittings.clearContents)
-       self.init_params.horizontalHeader().setStyleSheet("QHeaderView::section{background:#DDDDDD;}")
+        self.init_params.horizontalHeader().setStyleSheet("QHeaderView::section{background:#DDDDDD;}")
         self.table_21.horizontalHeader().setStyleSheet("QHeaderView::section{background:#DDDDDD;}")
         self.table_22.horizontalHeader().setStyleSheet("QHeaderView::section{background:#DDDDDD;}")
         self.table_23.horizontalHeader().setStyleSheet("QHeaderView::section{background:#DDDDDD;}")
