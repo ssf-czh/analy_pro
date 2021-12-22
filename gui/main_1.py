@@ -2687,7 +2687,8 @@ class Ui_MainWindow(object):
             item = QtWidgets.QTableWidgetItem()
             self.table_21.setItem(i + 2, 0, item)
             item = self.table_21.item(i + 2, 0)
-            item.setText(_translate("MainWindow", str(model.db.main_fittings[i].load_percentage)))
+            # q / 2814 * 100
+            item.setText(_translate("MainWindow", str(round(model.db.main_fittings[i].q/model.db.init_params.q * 100, 2))))
 
             item = QtWidgets.QTableWidgetItem()
             self.table_21.setItem(i + 2, 1, item)
