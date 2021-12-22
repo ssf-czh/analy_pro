@@ -43,7 +43,7 @@ def load(path: str):
 
             init_params.q = float(sheet["B4"].value)
             init_params.n = int(sheet["B5"].value)
-            init_params.efficiency_range = float(sheet["C6"].value)
+            init_params.efficiency_range = float(sheet["B6"].value)
             init_params.t3_min = float(sheet["B7"].value)
             init_params.G20 = float(sheet["B9"].value)
             init_params.G30 = float(sheet["B14"].value)
