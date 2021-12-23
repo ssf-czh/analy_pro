@@ -77,66 +77,73 @@ class MyProblem(ea.Problem): # 继承Problem父类
         self.QS = superP.q #单台额定冷水机组负荷QS
         # self.QS = QS #单台额定冷水机组负荷QS
         self.nita = superP.efficiency_range  #η
+        print("111")
+        print(self.nita)
         # self.nita = nita   #η
         self.max_n = superP.n #最大台数
         # self.max_n = max_n #最大台数
         self.n = None   #台数
-        print("t2")
+        # print("t2")
         self.T1_range = superP.t1_range
+        print(superP.t1_range)
         self.load_rat = superP.load_rat
-        print("t24")
+        # print("t24")
 
         self.T1 = None #根据计算选取固定T1，之后的进化T2都是在此基础浮动
         self.T3 = self.TS + self.D[0]+self.D[1]*self.TS+self.D[2]*self.TS*self.TS  #根据TS和拟合结果D直接选取固定T3，进化T4在此基础浮动
 
-        print("t25")
+        # print("t25")
         self.q_min = superP.q_min
-        print(self.q_min)
-        print(Q)
+        # print(self.q_min)
+        # print(Q)
         self.ifopt = True
 
         if self.q_min > Q:
             self.ifopt = False
         else:
             self.ifopt = True
-        print("t26")
+        # print("t26")
         self.P20 = superP.p20
-        print("t23")
 
+        # print("t23")
         # if self.T3 < superP.t3_min:
         #     self.T3 = superP.t3_min
-        print(Q)
-        print(type(Q))
-        print(self.QS)
-        print(type(self.QS))
-        print(self.nita)
-        if Q*100/self.QS < self.nita:
+        # print(Q)
+        # print(type(Q))
+        # print(self.QS)
+        # print(type(self.QS))
+        # print(self.nita)
+        if Q*100/self.QS <= self.nita:
             self.n = 1
         elif Q*100/self.QS < 2 * self.nita:
             self.n = 2
         elif Q*100/self.QS > 2 * self.nita:
             self.n = 3
-        print(self.n)
+        # print(self.n)
         self.n = min(self.n,self.max_n)
-        print("t3")
+        self.Q = self.Q/self.n
+        # print("t3")
         print("最大台数：{:s}".format(str(self.n)))
-
+        # print(self.nita)
         # self.T1_range = [7,7.5,8,8.5,9,9.5,10,10]
         # self.load_rat = [100, 95, 90,85, 80, 75, 70,60]
 
-        temp = ((self.Q/self.n)*100)/self.QS
+        # temp = ((self.Q/self.n)*100)/self.QS
+        temp = ((self.Q)*100)/self.QS
         for index in range(len(self.load_rat)):
             if index == len(self.load_rat)-1:
                 self.T1 = self.T1_range[index]
                 break
 
-            if temp < self.load_rat[index] and temp > self.load_rat[index+1]:
-                if temp- self.load_rat[index+1] <  self.load_rat[index] - temp:
+            if (temp < self.load_rat[index] or temp == self.load_rat[index]) and temp > self.load_rat[index+1]:
+                if temp - self.load_rat[index+1] <  self.load_rat[index] - temp:
                     self.T1 = self.T1_range[index+1]
                 else:
                     self.T1 = self.T1_range[index]
+                print("index",index)
                 break
         print("load_rat是(负荷百分比):",temp)
+        print(self.T1)
 
 
         # B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23 =  1.25592470e+02,  5.39445250e+01, -5.22395970e+01,  6.29397302e-02, -2.06962469e-05, -3.33850530e+01, -3.30937615e+01,  1.13915116e+02, -1.13920754e+02,  6.62996700e+01, -5.43024482e+01,  4.63683510e+01, -2.01032174e+03, -2.00895336e+03,  1.97466857e+02, -1.97464621e+02,  4.01945845e+03,  5.63936524e+01, -9.05705574e+01,  3.25980615e+01,  2.00722896e+03,  1.13929510e+02,  1.97486520e+02, -3.39669822e+00

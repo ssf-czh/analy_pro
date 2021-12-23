@@ -31,8 +31,10 @@ class Evoopt():
         # self.myAlgorithm.verbose = True  # 设置是否打印输出日志信息
         self.myAlgorithm.drawing = 0  # 设置绘图方式（0：不绘图；1：绘制结果图；2：绘制目标空间过程动画；3：绘制决策空间过程动画）
     def run(self):
+        print("==="*20)
         if self.problem.ifopt is False:
-            return (0,0,0,0,0,0,0,0,0,0,self.problem.P20,0,0)
+            loading_ration = self.problem.Q / self.problem.QS *100
+            return (round(loading_ration,2),0,0,0,0,0,0,0,0,0,self.problem.P20,0,0)
 
         else:
             #     if BestIndi.sizes != 0:
@@ -92,11 +94,11 @@ class Evoopt():
 
             print("MINP:",total_P)
 
-            loading_ration = Q/2814
+            loading_ration = Q/self.problem.QS * 100
             cold_flu = T3 - self.problem.TS
             open_num = self.problem.n
-            total_cop = Q / (open_num*total_P)
-            return (loading_ration,T1,T2,T3,T4,cold_flu,P1,P2,P3,P4,total_P,total_cop,open_num)
+            total_cop = Q / (total_P/self.problem.n)
+            return (round(loading_ration,2),round(T1,3),round(T2,3),round(T3,3),round(T4,3),round(cold_flu,3),round(P1,4),round(P2,3),round(P3,3),round(P4,3),round(total_P,3),round(total_cop,3),round(open_num,3))
 
 
     def func_P1(self,T,B):

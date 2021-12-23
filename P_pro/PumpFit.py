@@ -16,6 +16,21 @@ class PumpFitting():
         self.C = [1]*3
         self.D = [1]*3
         self.E = [1]*4
+        self.P1_x_data = None
+        self.P1 = None
+
+        self.P2_x_data = None
+        self.P2 = None
+
+        self.P3_x_data = None
+        self.P3 = None
+
+
+        self.Tdelta_x_data = None
+        self.Tdelta = None
+
+        self.P4_x_data = None
+        self.P4 = None
 
     def func_P1(self,T,B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23):
         '''
@@ -48,11 +63,46 @@ class PumpFitting():
         T4 = np.array(temp_T4)
         Q = np.array(temp_Q)
         P1 = np.array(temp_P)
-        a, b = curve_fit(self.func_P1, (T1, T2, T3, T4, Q), P1)
-        for i in range(len(a)) :
-            a[i] = round(a[i],4)
+        self.P1_x_data =  (T1, T2, T3, T4, Q)
+        self.P1 = P1
+
+        a, b = curve_fit(self.func_P1,self.P1_x_data, self.P1)
+
         self.B = list(a)
         return a
+
+
+
+    def calc_pre_p1(self):
+        '''
+
+        :param P:  实际值，观测值
+        :param W: 自变量X值
+        :return:
+        '''
+        # print(self.P1_x_data)
+        # print(self.P1)
+
+        B0, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16, B17, B18, B19, B20, B21, B22, B23 = self.B
+
+
+        # print(self.B)
+        predict_P1 = self.func_P1(self.P1_x_data,
+                                 B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23)
+
+
+        # for i in predict_P1[:20]:
+        #     print(i)
+
+        rat = abs(1 - predict_P1 / self.P1)
+
+        mse = np.sum((predict_P1 - self.P1) ** 2) / len(self.P1)
+        # print(mse)
+        # print("===")
+
+        rmse = math.sqrt(mse)
+
+        return (sum(rat) / len(rat)), rmse
 
     def func_P2(self,G2,A0,A1,A2):
         '''
@@ -74,12 +124,19 @@ class PumpFitting():
             temp_P2.append(i.p2)
         G2 = np.array(temp_G2)
         P2 = np.array(temp_P2)
+        self.P2_x_data = G2
+        self.P2 =P2
         a, b = curve_fit(self.func_P2, G2, P2)
-        for i in range(len(a)):
-            a[i] = round(a[i], 4)
         self.A = a
         return a
 
+    def calc_pre_p2(self,):
+        P2_pre = self.A[0] + self.A[1] * self.P2_x_data + self.A[2] * self.P2_x_data * self.P2_x_data
+
+        rat = abs(1 - P2_pre / self.P2)
+        mse = np.sum((P2_pre - self.P2) ** 2) / len(self.P2)
+
+        return sum(rat) / len(rat), math.sqrt(mse)
 
     def func_P3(self,G3,C0,C1,C2):
         '''
@@ -100,13 +157,20 @@ class PumpFitting():
             temp_G3.append(i.g3)
         G3 = np.array(temp_G3)
         P3 = np.array(temp_P3)
-
+        self.P3_x_data = G3
+        self.P3 = P3
         a, b = curve_fit(self.func_P3, G3, P3)
-        for i in range(len(a)) :
-            a[i] = round(a[i],4)
+
         self.C = a
         return a
 
+    def calc_pre_p3(self,):
+        P3_pre = self.C[0] + self.C[1] * self.P3_x_data + self.C[2] * self.P3_x_data * self.P3_x_data
+
+        rat = abs(1 - P3_pre / self.P3)
+        mse = np.sum((P3_pre - self.P3) ** 2) / len(self.P3)
+
+        return sum(rat) / len(rat), math.sqrt(mse)
 
     def func_Tdelta(self,T,D0,D1,D2):
         '''
@@ -127,11 +191,31 @@ class PumpFitting():
             temp_TS.append(i.temp)
         TS = np.array(temp_TS)
         Tdelta = np.array(temp_Tdelta)
+        self.Tdelta_x_data = (TS)
+        self.Tdelta = Tdelta
         a, b = curve_fit(self.func_Tdelta, (TS), Tdelta)
-        for i in range(len(a)) :
-            a[i] = round(a[i],4)
+
         self.D = a
         return a
+
+    def calc_pre_Tdelta(self):
+        '''
+
+        :param P:  实际值，观测值
+        :param W: 自变量X值
+        :return:
+        '''
+
+        predict_Tdelta = self.func_Tdelta(self.Tdelta_x_data, self.D[0], self.D[1], self.D[2])
+        rat = abs(1 - predict_Tdelta / self.Tdelta)
+
+        mse = np.sum((predict_Tdelta - self.Tdelta) ** 2) / len(self.Tdelta)
+        # print(mse)
+        # print("===")
+
+        rmse = math.sqrt(mse)
+
+        return (sum(rat) / len(rat)), rmse
 
     def func_P4(self,T, E0, E1, E2, E3):
         '''
@@ -152,12 +236,30 @@ class PumpFitting():
             temp_P4.append(i.p4)
         G3_P4 = np.array(temp_G3_P4)
         P4 = np.array(temp_P4)
+        self.P4_x_data = G3_P4
+        self.P4 = P4
         a, b = curve_fit(self.func_P4, (G3_P4), P4)
-        for i in range(len(a)) :
-            a[i] = round(a[i],4)
+
         self.E = a
         return a
 
+    def calc_pre_p4(self):
+        '''
+
+        :param P:  实际值，观测值
+        :param W: 自变量X值
+        :return:
+        '''
+        predict_P4 = self.func_P4(self.P4_x_data,self.E[0], self.E[1],  self.E[2], self.E[3])
+        rat = abs(1-predict_P4/self.P4)
+
+        mse = np.sum((predict_P4 - self.P4)**2)/len(self.P4)
+        # print(mse)
+        # print("===")
+
+        rmse = math.sqrt(mse)
+
+        return (sum(rat)/len(rat)),rmse
 
 
 
