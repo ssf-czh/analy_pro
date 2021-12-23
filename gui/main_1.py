@@ -1743,11 +1743,6 @@ class Ui_MainWindow(object):
         self.tabWidget_2.setCurrentIndex(0)
         self.toolBox.setCurrentIndex(0)
         self.pushButton.clicked.connect(self.init_params.clearContents)  # type: ignore
-        self.pushButton_41.clicked.connect(self.table_25.clearContents)  # type: ignore
-        self.pushButton_53.clicked.connect(self.table_21.clearContents)  # type: ignore
-        self.pushButton_51.clicked.connect(self.table_22.clearContents)  # type: ignore
-        self.pushButton_49.clicked.connect(self.table_23.clearContents)  # type: ignore
-        self.pushButton_47.clicked.connect(self.table_24.clearContents)  # type: ignore
         self.toolBox.currentChanged['int'].connect(self.stackedWidget.setCurrentIndex)  # type: ignore
         self.pushButton_2.clicked.connect(self.optimize_result.clearContents)  # type: ignore
         self.B3_14.clicked.connect(self.pump2_fittings.clearContents)
@@ -2926,7 +2921,12 @@ class Ui_MainWindow(object):
         self.B2_2.clicked.connect(click_load1)
         self.B2_3.clicked.connect(click_load1)
         self.B2_4.clicked.connect(click_load1)
-        self.B2_5.clicked.connect(click_cancel1)
+        self.B2_5.clicked.connect(click_load1)
         self.B3_13.clicked.connect(click_load1)
 
-        # 绑定清除事件 clicked_cancel1
+        # 绑定清除事件 clicked_cancel
+        self.pushButton_53.clicked.connect(click_cancel1)
+        self.pushButton_51.clicked.connect(click_cancel1)
+        self.pushButton_49.clicked.connect(click_cancel1)
+        self.pushButton_47.clicked.connect(click_cancel1)
+        self.pushButton_41.clicked.connect(click_cancel1)
