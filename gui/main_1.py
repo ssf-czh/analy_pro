@@ -399,6 +399,7 @@ class Ui_MainWindow(object):
 
             save("template.xlsx")
             load("template.xlsx")
+            self.statusBar().showMessage('初始化读入完成')
 
         self.B1_1.clicked.connect(init_parm_save)
 
@@ -1310,6 +1311,7 @@ class Ui_MainWindow(object):
                 item = self.main_fittings.item(4, i + 1)
                 item.setText(_translate("MainWindow", str(round(B[i + 12], 4))))
             # print(222)
+            self.statusBar().showMessage('拟合完成')
 
         self.B3_11.clicked.connect(fitting_P1)
 
@@ -1318,6 +1320,7 @@ class Ui_MainWindow(object):
             # print("=============")
             model.db.fitting_coefficients.b = list(self.PumpFit.B)
             save("template.xlsx")
+             self.statusBar().showMessage('成功保存')
 
         self.B3_12.clicked.connect(save_p1_B)
 
@@ -1349,6 +1352,7 @@ class Ui_MainWindow(object):
             item = self.pump2_fittings.item(2, 3)
             item.setText(_translate("MainWindow", str(round(A2, 4))))
             item = self.pump2_fittings.item(1, 3)
+            self.statusBar().showMessage('拟合完成')
 
         self.B3_21.clicked.connect(fitting_P2)
 
@@ -1356,6 +1360,7 @@ class Ui_MainWindow(object):
 
             model.db.fitting_coefficients.a = self.PumpFit.A
             save("template.xlsx")
+             self.statusBar().showMessage('成功保存')
 
         self.B3_22.clicked.connect(save_p2_A)
 
@@ -1386,6 +1391,7 @@ class Ui_MainWindow(object):
             self.pump3_fittings.setItem(2, 3, item)
             item = self.pump3_fittings.item(2, 3)
             item.setText(_translate("MainWindow", str(round(C2, 4))))
+            self.statusBar().showMessage('拟合完成')
 
         self.B3_31.clicked.connect(fitting_P3)
 
@@ -1394,6 +1400,7 @@ class Ui_MainWindow(object):
             model.db.fitting_coefficients.c = self.PumpFit.C
             # print("此时c：", model.db.fitting_coefficients.c)
             save("template.xlsx")
+             self.statusBar().showMessage('成功保存')
 
         self.B3_32.clicked.connect(save_p3_C)
 
@@ -1456,7 +1463,7 @@ class Ui_MainWindow(object):
             self.wet_bulb_fittings.setItem(4, 4, item)
             item = self.wet_bulb_fittings.item(4, 4)
             item.setText(_translate("MainWindow", str(round(E3, 4))))
-
+            self.statusBar().showMessage('拟合完成')
         self.B3_41.clicked.connect(fitting_wetandp4)
 
         def save_wetandp4_DE():
@@ -1464,7 +1471,7 @@ class Ui_MainWindow(object):
             model.db.fitting_coefficients.d = self.PumpFit.D
             model.db.fitting_coefficients.e = self.PumpFit.E
             save("template.xlsx")
-
+            self.statusBar().showMessage('成功保存')
         self.B3_42.clicked.connect(save_wetandp4_DE)
 
 
@@ -1630,6 +1637,7 @@ class Ui_MainWindow(object):
                     self.optimize_result.setItem(index + 1, 7 + k, item)
                     item = self.optimize_result.item(index + 1, 7 + k)
                     item.setText(_translate("MainWindow", str(res[k])))
+                 self.statusBar().showMessage('优化计算完成')
 
         self.B4_1.clicked.connect(evo_opt)
 
@@ -1643,6 +1651,7 @@ class Ui_MainWindow(object):
         def save_opt_res():
             print(222)
             save("template.xlsx")
+            self.statusBar().showMessage('成功保存')
 
         self.B4_2.clicked.connect(save_opt_res)
 
