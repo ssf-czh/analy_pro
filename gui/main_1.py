@@ -2896,7 +2896,7 @@ class Ui_MainWindow(object):
             #     item.setText(_translate("MainWindow", str(model.db.wet_bulb_fittings[i].amplitude)))
 
             # q值变化表 数据填充
-            self.table_25.setRowCount(2)
+            self.table_25.setRowCount(1)
             # for i, entry in enumerate(model.db.q_delta):
             #     for j in range(7):
             #         item = QtWidgets.QTableWidgetItem()
