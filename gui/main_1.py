@@ -1197,7 +1197,10 @@ class Ui_MainWindow(object):
         self.B3_14.setObjectName("B3_14")
         self.horizontalLayout_6.addWidget(self.B3_14)
         # ==
-        def fitting_coffi():
+
+        #拟合P1并且显示结果B
+        def fitting_P1():
+            # print(111)
             _translate = QtCore.QCoreApplication.translate
             p1_data = model.db.main_fittings
             
@@ -1209,20 +1212,33 @@ class Ui_MainWindow(object):
             # web_data = model.db.wet_bulb_fittings
             # p4_data = model.db.p4_fittings
             B = self.PumpFit.fit_P1(p1_data)
-            print(B)
+            # print(B)
             for i in range(12):
                 item = QtWidgets.QTableWidgetItem()
                 self.main_fittings.setItem(2, i + 1, item)
                 item = self.main_fittings.item(2, i + 1)
-                item.setText(_translate("MainWindow", str(B[i])))
+                item.setText(_translate("MainWindow", str(round(B[i],4))))
             for i in range(12):
                 item = QtWidgets.QTableWidgetItem()
                 self.main_fittings.setItem(4, i + 1, item)
                 item = self.main_fittings.item(4, i + 1)
-                item.setText(_translate("MainWindow", str(B[i + 12])))
+                item.setText(_translate("MainWindow", str(round(B[i + 12],4))))
+            # print(222)
 
-            # ===
-            # _translate = QtCore.QCoreApplication.translate
+
+
+        self.B3_11.clicked.connect(fitting_P1)
+
+        def save_p1_B():
+
+            # print("=============")
+            model.db.fitting_coefficients.b = list(self.PumpFit.B)
+            save("template.xlsx")
+
+        self.B3_12.clicked.connect(save_p1_B)
+
+        def fitting_P2():
+            _translate = QtCore.QCoreApplication.translate
             # print(11)
             # p1_data = model.db.main_fittings
             p2_data = model.db.pump2_fittings
@@ -1237,165 +1253,27 @@ class Ui_MainWindow(object):
             item = QtWidgets.QTableWidgetItem()
             self.pump2_fittings.setItem(2, 1, item)
             item = self.pump2_fittings.item(2, 1)
-            item.setText(_translate("MainWindow", str(A0)))
+            item.setText(_translate("MainWindow", str(round(A0,4))))
 
             item = QtWidgets.QTableWidgetItem()
             self.pump2_fittings.setItem(2, 2, item)
             item = self.pump2_fittings.item(2, 2)
-            item.setText(_translate("MainWindow", str(A1)))
+            item.setText(_translate("MainWindow", str(round(A1,4))))
 
             item = QtWidgets.QTableWidgetItem()
             self.pump2_fittings.setItem(2, 3, item)
             item = self.pump2_fittings.item(2, 3)
-            item.setText(_translate("MainWindow", str(A2)))
+            item.setText(_translate("MainWindow", str(round(A2,4))))
             item = self.pump2_fittings.item(1, 3)
 
-            # ===
-            p3_data = model.db.pump3_fittings
-            C = self.PumpFit.fit_P3(p3_data)
-            # D = self.PumpFit.fit_Tdelta(web_data)
-            # E = self.PumpFit.fit_P4(p4_data)
-
-            # print(B)
-            C0, C1, C2 = C
-
-            print(C)
-
-            item = QtWidgets.QTableWidgetItem()
-            self.pump3_fittings.setItem(2, 1, item)
-            item = self.pump3_fittings.item(2, 1)
-            item.setText(_translate("MainWindow", str(C0)))
-
-            item = QtWidgets.QTableWidgetItem()
-            self.pump3_fittings.setItem(2, 2, item)
-            item = self.pump3_fittings.item(2, 2)
-            item.setText(_translate("MainWindow", str(C1)))
-
-            item = QtWidgets.QTableWidgetItem()
-            self.pump3_fittings.setItem(2, 3, item)
-            item = self.pump3_fittings.item(2, 3)
-            item.setText(_translate("MainWindow", str(C2)))
-            # ====
-            web_data = model.db.wet_bulb_fittings
-            p4_data = model.db.p4_fittings
-            # B = self.PumpFit.fit_P1(p1_data)
-            # A = self.PumpFit.fit_P2(p2_data)
-            # C = self.PumpFit.fit_P3(p3_data)
-            D = self.PumpFit.fit_Tdelta(web_data)
-            E = self.PumpFit.fit_P4(p4_data)
-
-            # print(B)
-            D0, D1, D2 = D
-            E0, E1, E2, E3 = E
-
-            print(D)
-            print(E)
-
-            item = QtWidgets.QTableWidgetItem()
-            self.wet_bulb_fittings.setItem(2, 1, item)
-            item = self.wet_bulb_fittings.item(2, 1)
-            item.setText(_translate("MainWindow", str(D0)))
-
-            item = QtWidgets.QTableWidgetItem()
-            self.wet_bulb_fittings.setItem(2, 2, item)
-            item = self.wet_bulb_fittings.item(2, 2)
-            item.setText(_translate("MainWindow", str(D1)))
-
-            item = QtWidgets.QTableWidgetItem()
-            self.wet_bulb_fittings.setItem(2, 3, item)
-            item = self.wet_bulb_fittings.item(2, 3)
-            item.setText(_translate("MainWindow", str(D2)))
-
-            item = QtWidgets.QTableWidgetItem()
-            self.wet_bulb_fittings.setItem(4, 1, item)
-            item = self.wet_bulb_fittings.item(4, 1)
-            item.setText(_translate("MainWindow", str(E0)))
-
-            item = QtWidgets.QTableWidgetItem()
-            self.wet_bulb_fittings.setItem(4, 2, item)
-            item = self.wet_bulb_fittings.item(4, 2)
-            item.setText(_translate("MainWindow", str(E1)))
-
-            item = QtWidgets.QTableWidgetItem()
-            self.wet_bulb_fittings.setItem(4, 3, item)
-            item = self.wet_bulb_fittings.item(4, 3)
-            item.setText(_translate("MainWindow", str(E2)))
-
-            item = QtWidgets.QTableWidgetItem()
-            self.wet_bulb_fittings.setItem(4, 4, item)
-            item = self.wet_bulb_fittings.item(4, 4)
-            item.setText(_translate("MainWindow", str(E3)))
-
-        self.B3_11.clicked.connect(fitting_coffi)
-
-        def save_coffi():
-
-            print("=============")
-            model.db.fitting_coefficients.b = list(self.PumpFit.B)
-            model.db.fitting_coefficients.a = list(self.PumpFit.A)
-            model.db.fitting_coefficients.c = list(self.PumpFit.C)
-            model.db.fitting_coefficients.d = list(self.PumpFit.D)
-            model.db.fitting_coefficients.e = list(self.PumpFit.E)
-            # model.db.fitting_coefficients.a = self.PumpFit.A
-            # model.db.fitting_coefficients.c = self.PumpFit.C
-            # model.db.fitting_coefficients.d = self.PumpFit.D
-            # model.db.fitting_coefficients.e = self.PumpFit.E
-
-            # print(model.db.fitting_coefficients.b)
-            # print(len(model.db.fitting_coefficients.b))
-            # print(model.db.fitting_coefficients.a)
-            # print(len(model.db.fitting_coefficients.a))
-            # print(model.db.fitting_coefficients.c)
-            # print(len(model.db.fitting_coefficients.c))
-            # print(model.db.fitting_coefficients.d)
-            # print(len(model.db.fitting_coefficients.d))
-            # print(model.db.fitting_coefficients.e)
-            # print(len(model.db.fitting_coefficients.e))
-            #
-            #
-            #
-            #
-            save("template.xlsx")
-
-        self.B3_12.clicked.connect(save_coffi)
-
-        def fitting_P2():
-            _translate = QtCore.QCoreApplication.translate
-            print(11)
-            # p1_data = model.db.main_fittings
-            p2_data = model.db.pump2_fittings
-
-            A = self.PumpFit.fit_P2(p2_data)
-
-            # print(B)
-            A0, A1, A2 = A
-
-            print(A)
-
-            item = QtWidgets.QTableWidgetItem()
-            self.pump2_fittings.setItem(2, 1, item)
-            item = self.pump2_fittings.item(2, 1)
-            item.setText(_translate("MainWindow", str(A0)))
-
-            item = QtWidgets.QTableWidgetItem()
-            self.pump2_fittings.setItem(2, 2, item)
-            item = self.pump2_fittings.item(2, 2)
-            item.setText(_translate("MainWindow", str(A1)))
-
-            item = QtWidgets.QTableWidgetItem()
-            self.pump2_fittings.setItem(2, 3, item)
-            item = self.pump2_fittings.item(2, 3)
-            item.setText(_translate("MainWindow", str(A2)))
-            item = self.pump2_fittings.item(1, 3)
-
-        self.B3_11.clicked.connect(fitting_coffi)
+        self.B3_11.clicked.connect(fitting_P2)
 
         def save_p2_A():
 
             model.db.fitting_coefficients.a = self.PumpFit.A
             save("template.xlsx")
 
-        self.B3_12.clicked.connect(save_coffi)
+        self.B3_12.clicked.connect(save_p2_A)
 
         def fitting_P3():
             _translate = QtCore.QCoreApplication.translate
@@ -1408,36 +1286,36 @@ class Ui_MainWindow(object):
             # print(B)
             C0, C1, C2 = C
 
-            print(C)
+            # print(C)
 
             item = QtWidgets.QTableWidgetItem()
             self.pump3_fittings.setItem(2, 1, item)
             item = self.pump3_fittings.item(2, 1)
-            item.setText(_translate("MainWindow", str(C0)))
+            item.setText(_translate("MainWindow", str(round(C0,4))))
 
             item = QtWidgets.QTableWidgetItem()
             self.pump3_fittings.setItem(2, 2, item)
             item = self.pump3_fittings.item(2, 2)
-            item.setText(_translate("MainWindow", str(C1)))
+            item.setText(_translate("MainWindow", str(round(C1,4))))
 
             item = QtWidgets.QTableWidgetItem()
             self.pump3_fittings.setItem(2, 3, item)
             item = self.pump3_fittings.item(2, 3)
-            item.setText(_translate("MainWindow", str(C2)))
+            item.setText(_translate("MainWindow", str(round(C2,4))))
 
-        self.B3_11.clicked.connect(fitting_coffi)
+        self.B3_11.clicked.connect(fitting_P3)
 
         def save_p3_C():
 
             model.db.fitting_coefficients.c = self.PumpFit.C
-            print("此时c：", model.db.fitting_coefficients.c)
+            # print("此时c：", model.db.fitting_coefficients.c)
             save("template.xlsx")
 
-        self.B3_12.clicked.connect(save_coffi)
+        self.B3_12.clicked.connect(save_p3_C)
 
         def fitting_wetandp4():
             _translate = QtCore.QCoreApplication.translate
-            print(11)
+            # print(11)
             # p1_data = model.db.main_fittings
             # p2_data = model.db.pump2_fittings
             # for i in p2_data:
@@ -1456,46 +1334,46 @@ class Ui_MainWindow(object):
             D0, D1, D2 = D
             E0, E1, E2, E3 = E
 
-            print(D)
-            print(E)
+            # print(D)
+            # print(E)
 
             item = QtWidgets.QTableWidgetItem()
             self.wet_bulb_fittings.setItem(2, 1, item)
             item = self.wet_bulb_fittings.item(2, 1)
-            item.setText(_translate("MainWindow", str(D0)))
+            item.setText(_translate("MainWindow", str(round(D0,4))))
 
             item = QtWidgets.QTableWidgetItem()
             self.wet_bulb_fittings.setItem(2, 2, item)
             item = self.wet_bulb_fittings.item(2, 2)
-            item.setText(_translate("MainWindow", str(D1)))
+            item.setText(_translate("MainWindow", str(round(D1,4))))
 
             item = QtWidgets.QTableWidgetItem()
             self.wet_bulb_fittings.setItem(2, 3, item)
             item = self.wet_bulb_fittings.item(2, 3)
-            item.setText(_translate("MainWindow", str(D2)))
+            item.setText(_translate("MainWindow", str(round(D2,4))))
 
             item = QtWidgets.QTableWidgetItem()
             self.wet_bulb_fittings.setItem(4, 1, item)
             item = self.wet_bulb_fittings.item(4, 1)
-            item.setText(_translate("MainWindow", str(E0)))
+            item.setText(_translate("MainWindow", str(round(E0,4))))
 
             item = QtWidgets.QTableWidgetItem()
             self.wet_bulb_fittings.setItem(4, 2, item)
             item = self.wet_bulb_fittings.item(4, 2)
             item = self.wet_bulb_fittings.item(4, 2)
-            item.setText(_translate("MainWindow", str(E1)))
+            item.setText(_translate("MainWindow", str(round(E1,4))))
 
             item = QtWidgets.QTableWidgetItem()
             self.wet_bulb_fittings.setItem(4, 3, item)
             item = self.wet_bulb_fittings.item(4, 3)
-            item.setText(_translate("MainWindow", str(E2)))
+            item.setText(_translate("MainWindow", str(round(E2,4))))
 
             item = QtWidgets.QTableWidgetItem()
             self.wet_bulb_fittings.setItem(4, 4, item)
             item = self.wet_bulb_fittings.item(4, 4)
-            item.setText(_translate("MainWindow", str(E3)))
+            item.setText(_translate("MainWindow", str(round(E3,4))))
 
-        self.B3_11.clicked.connect(fitting_coffi)
+        self.B3_11.clicked.connect(fitting_wetandp4)
 
         def save_wetandp4_DE():
 
@@ -1503,7 +1381,7 @@ class Ui_MainWindow(object):
             model.db.fitting_coefficients.e = self.PumpFit.E
             save("template.xlsx")
 
-        self.B3_12.clicked.connect(save_coffi)
+        self.B3_12.clicked.connect(save_wetandp4_DE)
         self.verticalLayout_2.addLayout(self.horizontalLayout_6)
         self.horizontalLayout_7.addLayout(self.verticalLayout_2)
         self.stackedWidget.addWidget(self.page_3)
