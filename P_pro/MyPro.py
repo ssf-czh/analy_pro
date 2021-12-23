@@ -44,7 +44,7 @@ class MyProblem(ea.Problem): # 继承Problem父类
         # self.C = [-5.40003853e+01,2.96859204e-01,-2.09088412e-04]
         # self.D = [ 1.37779692e+01, -4.40113763e-01,  3.22959854e-03]
         # self.E = [ 3.27976744e+01, -1.67712441e-01,  2.92380418e-04, -1.11110755e-07]
-        print("test")
+        # print("test")
         print(fittingP.B)
         print(fittingP.A)
         print(fittingP.C)
@@ -57,7 +57,27 @@ class MyProblem(ea.Problem): # 继承Problem父类
         self.D = fittingP.D
         self.E = fittingP.E
 
-        print("t1")
+        # print("t1")
+
+        print("=="*10)
+        print("Q : {:s}".format(str(Q)))
+        print("TS : {:s}".format(str(TS)))
+        print("load_rat : {:s}".format(str(superP.load_rat)))
+        print("t1_range: {:s}".format(str(superP.t1_range)))
+        print("QS : {:s}".format(str(superP.q)))
+        print("n : {:s}".format(str(superP.n)))
+        print("efficiency_range : {:s}".format(str(superP.efficiency_range)))
+        print("q_min : {:s}".format(str(superP.q_min)))
+        print("t3_min : {:s}".format(str(superP.t3_min)))
+        print("G20 : {:s}".format(str(superP.G20)))
+        print("mu : {:s}".format(str(superP.mu)))
+        print("G30 : {:s}".format(str(superP.G30)))
+        print("lamb : {:s}".format(str(superP.lamb)))
+        print("P0 : {:s}".format(str(superP.P0)))
+        print("delta_t1_range : {:s}".format(str(superP.delta_t1_range)))
+        print("delta_t2_range : {:s}".format(str(superP.delta_t2_range)))
+        print("==" * 10)
+
 
         # 参数初始值============================
 
@@ -77,8 +97,8 @@ class MyProblem(ea.Problem): # 继承Problem父类
         self.QS = superP.q #单台额定冷水机组负荷QS
         # self.QS = QS #单台额定冷水机组负荷QS
         self.nita = superP.efficiency_range  #η
-        print("111")
-        print(self.nita)
+        # print("111")
+        # print(self.nita)
         # self.nita = nita   #η
         self.max_n = superP.n #最大台数
         # self.max_n = max_n #最大台数

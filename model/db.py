@@ -152,7 +152,7 @@ def load(path: str):
                 optimize_result.append(entry)
                 i += 1
     print("load completed")
-    self.statusBar().showMessage('读入结束')
+    # self.statusBar().showMessage('读入结束')
     wb.close()
 
 
@@ -194,7 +194,7 @@ def save(path: str):
             # print("主机参数")
             i = 3
             for entry in main_fittings:
-                sheet.cell(i, 1).value = str(round(entry.q / init_params.q * 100, 2))
+                sheet.cell(i, 1).value = str(entry.q / 2813.0)
                 sheet.cell(i, 2).value = str(entry.q)
                 sheet.cell(i, 3).value = str(entry.p1)
                 sheet.cell(i, 4).value = str(entry.t1)
