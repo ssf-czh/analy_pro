@@ -152,6 +152,7 @@ def load(path: str):
                 optimize_result.append(entry)
                 i += 1
     print("load completed")
+    self.statusBar().showMessage('读入结束')
     wb.close()
 
 
@@ -275,6 +276,7 @@ def save(path: str):
                 i += 1
     # print("----")
     wb.save(path)
+    self.statusBar().showMessage('保存结束')
     wb.close()
 
 
