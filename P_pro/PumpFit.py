@@ -63,11 +63,9 @@ class PumpFitting():
         T4 = np.array(temp_T4)
         Q = np.array(temp_Q)
         P1 = np.array(temp_P)
-        self.P1_x_data =  (T1, T2, T3, T4, Q)
+        self.P1_x_data = (T1, T2, T3, T4, Q)
         self.P1 = P1
-
         a, b = curve_fit(self.func_P1,self.P1_x_data, self.P1)
-
         self.B = list(a)
         return a
 

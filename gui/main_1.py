@@ -16,6 +16,7 @@ from P_pro import PumpFit, Main
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
+        self.PumpFit  = PumpFit.PumpFitting()
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1272, 754)
         MainWindow.setMinimumSize(QtCore.QSize(1239, 754))
@@ -1193,9 +1194,8 @@ class Ui_MainWindow(object):
         # ==
         def fitting_coffi():
             _translate = QtCore.QCoreApplication.translate
-            # print(11)
             p1_data = model.db.main_fittings
-            print(len(p1_data))
+            
             # p2_data = model.db.pump2_fittings
             # for i in p2_data:
             #     print(i.g2)
