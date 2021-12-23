@@ -193,7 +193,7 @@ def save(path: str):
             # print("主机参数")
             i = 3
             for entry in main_fittings:
-                sheet.cell(i, 1).value = str(entry.q / 2813.0)
+                sheet.cell(i, 1).value = str(round(entry.q / init_params.q * 100, 2))
                 sheet.cell(i, 2).value = str(entry.q)
                 sheet.cell(i, 3).value = str(entry.p1)
                 sheet.cell(i, 4).value = str(entry.t1)
