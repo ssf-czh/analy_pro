@@ -276,7 +276,7 @@ def save(path: str):
                 i += 1
     # print("----")
     wb.save(path)
-    self.statusBar().showMessage('保存结束')
+    
     wb.close()
 
 
