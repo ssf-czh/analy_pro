@@ -313,6 +313,11 @@ class Ui_MainWindow(object):
 
         # 绑定按钮事件 保存参数到文件
         def init_parm_save():
+
+            for i in range(9):
+                item = self.init_params.item(1, i + 1)
+                model.db.init_params.t1_range[i] = item.data(0)
+
             item = self.init_params.item(3, 1)
             model.db.init_params.q = item.data(0)
 
@@ -380,8 +385,8 @@ class Ui_MainWindow(object):
             # item.setText(_translate("MainWindow", ""))
             # item = self.init_params.item(23, 0)
             # item.setText(_translate("MainWindow", "单台冷却塔功率P0，Kw"))
-            # item = self.init_params.item(23, 1)
-            # item.setText(_translate("MainWindow", ""))
+            item = self.init_params.item(23, 1)
+            model.db.init_params.P0 = item.data(0)
             # item = self.init_params.item(24, 0)
             # item.setText(_translate("MainWindow", "冷却塔最多台数,台"))
             # item = self.init_params.item(24, 1)
@@ -2682,7 +2687,9 @@ class Ui_MainWindow(object):
         item = self.init_params.item(27, 2)
         item.setText(_translate("MainWindow", str(model.db.init_params.delta_t2_range[1])))
 
-
+        for i in range(9):
+            item = self.init_params.item(1, i + 1)
+            item.setText(_translate("MainWindow", str(model.db.init_params.t1_range[i])))
 
         def click_load1():
             print("11")
@@ -2804,56 +2811,8 @@ class Ui_MainWindow(object):
         # 将数据读入区域的所有数据清除
         def click_cancel1():
             self.table_21.setRowCount(2)
-            # 数据读入-主机设备 数值填充
-            # for i in range(len(model.db.main_fittings)):
-            #     item = QtWidgets.QTableWidgetItem()
-            #     self.table_21.setItem(i + 2, 0, item)
-            #     item = self.table_21.item(i + 2, 0)
-            #     # q / 2814 * 100
-            #     item.setText(
-            #         _translate("MainWindow", str(round(model.db.main_fittings[i].q / model.db.init_params.q * 100, 2))))
-            #
-            #     item = QtWidgets.QTableWidgetItem()
-            #     self.table_21.setItem(i + 2, 1, item)
-            #     item = self.table_21.item(i + 2, 1)
-            #     item.setText(_translate("MainWindow", str(model.db.main_fittings[i].q)))
-            #
-            #     item = QtWidgets.QTableWidgetItem()
-            #     self.table_21.setItem(i + 2, 3, item)
-            #     item = self.table_21.item(i + 2, 3)
-            #     item.setText(_translate("MainWindow", str(model.db.main_fittings[i].p1)))
-            #
-            #     item = QtWidgets.QTableWidgetItem()
-            #     self.table_21.setItem(i + 2, 4, item)
-            #     item = self.table_21.item(i + 2, 4)
-            #     item.setText(_translate("MainWindow", str(model.db.main_fittings[i].t1)))
-            #
-            #     item = QtWidgets.QTableWidgetItem()
-            #     self.table_21.setItem(i + 2, 5, item)
-            #     item = self.table_21.item(i + 2, 5)
-            #     item.setText(_translate("MainWindow", str(model.db.main_fittings[i].t2)))
-            #
-            #     item = QtWidgets.QTableWidgetItem()
-            #     self.table_21.setItem(i + 2, 6, item)
-            #     item = self.table_21.item(i + 2, 6)
-            #     item.setText(_translate("MainWindow", str(model.db.main_fittings[i].t3)))
-            #
-            #     item = QtWidgets.QTableWidgetItem()
-            #     self.table_21.setItem(i + 2, 7, item)
-            #     item = self.table_21.item(i + 2, 7)
-            #     item.setText(_translate("MainWindow", str(model.db.main_fittings[i].t4)))
-            #
-            #     item = QtWidgets.QTableWidgetItem()
-            #     self.table_21.setItem(i + 2, 8, item)
-            #     item = self.table_21.item(i + 2, 8)
-            #     item.setText(_translate("MainWindow", str(model.db.main_fittings[i].cop)))
-
             self.table_22.setRowCount(3)
-            # 数据读入-冷冻水泵 数据填充
-            # item = self.table_22.item(2, 0)
-            # item.setText(_translate("MainWindow", "1"))
-            # item = self.table_22.item(2, 1)
-            # item.setText(_translate("MainWindow", "冷冻泵 250KQW500-44-90/4"))
+
             for j in range(5):
                 item = QtWidgets.QTableWidgetItem()
                 self.table_22.setItem(2, (j + 1) * 2, item)
@@ -2866,11 +2825,7 @@ class Ui_MainWindow(object):
                 item.setText(_translate("MainWindow", ""))
 
             self.table_23.setRowCount(3)
-            # 数据读入-冷却水泵 数据填充
-            # item = self.table_23.item(2, 0)
-            # item.setText(_translate("MainWindow", "1"))
-            # item = self.table_23.item(2, 1)
-            # item.setText(_translate("MainWindow", "冷却泵300KQW600-24-55/4"))
+
             for j in range(5):
                 item = QtWidgets.QTableWidgetItem()
                 self.table_23.setItem(2, (j + 1) * 2, item)
@@ -2883,38 +2838,11 @@ class Ui_MainWindow(object):
                 item.setText(_translate("MainWindow", ""))
 
             self.table_24.setRowCount( 1)
-            # 数据读入-冷却塔 数据填充
-            # for i in range(len(model.db.wet_bulb_fittings)):
-            #     item = QtWidgets.QTableWidgetItem()
-            #     self.table_24.setItem(i + 1, 0, item)
-            #     item = self.table_24.item(i + 1, 0)
-            #     item.setText(_translate("MainWindow", str(model.db.wet_bulb_fittings[i].temp)))
-            #
-            #     item = QtWidgets.QTableWidgetItem()
-            #     self.table_24.setItem(i + 1, 1, item)
-            #     item = self.table_24.item(i + 1, 1)
-            #     item.setText(_translate("MainWindow", str(model.db.wet_bulb_fittings[i].amplitude)))
+
 
             # q值变化表 数据填充
             self.table_25.setRowCount(1)
-            # for i, entry in enumerate(model.db.q_delta):
-            #     for j in range(7):
-            #         item = QtWidgets.QTableWidgetItem()
-            #         if j == 0:
-            #             item.setText(_translate("MainWindow", str(entry.year)))
-            #         if j == 1:
-            #             item.setText(_translate("MainWindow", str(entry.mon)))
-            #         if j == 2:
-            #             item.setText(_translate("MainWindow", str(entry.day)))
-            #         if j == 3:
-            #             item.setText(_translate("MainWindow", str(entry.hour)))
-            #         if j == 4:
-            #             item.setText(_translate("MainWindow", str(entry.Q)))
-            #         if j == 5:
-            #             item.setText(_translate("MainWindow", str(entry.Ts)))
-            #         if j == 6:
-            #             item.setText(_translate("MainWindow", str(entry.T)))
-            #         self.table_25.setItem(i + 1, j, item)
+
 
         # 绑定读入事件
         self.B2_1.clicked.connect(click_load1)
