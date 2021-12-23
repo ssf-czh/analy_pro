@@ -1710,10 +1710,6 @@ class Ui_MainWindow(object):
         self.tabWidget_2.setCurrentIndex(0)
         self.toolBox.setCurrentIndex(0)
         self.toolBox.currentChanged['int'].connect(self.stackedWidget.setCurrentIndex) # type: ignore
-        self.statusBar = QtWidgets.QStatusBar(MainWindow)
-        self.statusBar.setInputMethodHints(QtCore.Qt.ImhNone)
-        self.statusBar.setObjectName("statusBar")
-        MainWindow.setStatusBar(self.statusBar)
         self.init_params.horizontalHeader().setStyleSheet("QHeaderView::section{background:#DDDDDD;}")
         self.table_21.horizontalHeader().setStyleSheet("QHeaderView::section{background:#DDDDDD;}")
         self.table_22.horizontalHeader().setStyleSheet("QHeaderView::section{background:#DDDDDD;}")
