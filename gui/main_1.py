@@ -3190,7 +3190,7 @@ class Ui_MainWindow(object):
 
         # 数据读入 取消按钮
         # 将数据读入区域的所有数据清除
-        def click_cancel1():
+        def click_cancel2():
             self.table_21.setRowCount(2)
             self.table_22.setRowCount(3)
 
@@ -3342,8 +3342,8 @@ class Ui_MainWindow(object):
         self.B3_43.clicked.connect(click_load2)
 
         # 绑定清除事件 clicked_cancel
-        self.B2_12.clicked.connect(click_cancel1)
-        self.B2_22.clicked.connect(click_cancel1)
-        self.B2_32.clicked.connect(click_cancel1)
-        self.B2_42.clicked.connect(click_cancel1)
-        self.B2_52.clicked.connect(click_cancel1)
+        self.B2_12.clicked.connect(click_cancel2)
+        self.B2_22.clicked.connect(click_cancel2)
+        self.B2_32.clicked.connect(click_cancel2)
+        self.B2_42.clicked.connect(click_cancel2)
+        self.B2_52.clicked.connect(click_cancel2)
