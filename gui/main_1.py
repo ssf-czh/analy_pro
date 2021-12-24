@@ -337,6 +337,7 @@ class Ui_MainWindow(object):
 
             item = self.init_params.item(11, 1)
             model.db.init_params.p2 = item.data(0)
+            model.db.init_params.p20 = model.db.init_params.p2
 
             # item = self.init_params.item(12, 0)
             # item.setText(_translate("MainWindow", "冷冻水泵台数,台"))
@@ -398,6 +399,8 @@ class Ui_MainWindow(object):
             item = self.init_params.item(27, 2)
             model.db.init_params.delta_t2_range = b, item.data(0)
 
+            item = self.init_params.item(28, 1)
+            model.db.init_params.p20 = item.data(0)
 
             save("template.xlsx")
             load("template.xlsx")
@@ -2954,7 +2957,7 @@ class Ui_MainWindow(object):
         self.toolBox.setItemText(self.toolBox.indexOf(self.page_8), _translate("MainWindow", "优化计算"))
 
 
-        self.init_params.setRowCount(28)
+        self.init_params.setRowCount(29)
         # 初始参数设置 数据填充
         item = self.init_params.item(3, 1)
         item.setText(_translate("MainWindow", str(model.db.init_params.q)))
@@ -3051,6 +3054,19 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", str(model.db.init_params.delta_t2_range[0])))
         item = self.init_params.item(27, 2)
         item.setText(_translate("MainWindow", str(model.db.init_params.delta_t2_range[1])))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.init_params.setItem(28, 0, item)
+        item = self.init_params.item(28, 0)
+        item.setText(_translate("MainWindow", "单台冷冻水泵功率P20"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.init_params.setItem(28, 1, item)
+        item = self.init_params.item(28, 1)
+        item.setText(_translate("MainWindow", str(model.db.init_params.p20)))
+
+
+
 
         for i in range(9):
             item = self.init_params.item(1, i + 1)
