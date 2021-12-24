@@ -1820,7 +1820,8 @@ class Ui_MainWindow(object):
                 TS = i.ts
                 print("Q:", Q)
                 print("TS:", TS)
-
+                if i.q ==0:
+                    break
                 opt = Main.Evoopt(Q, TS, superP, self.PumpFit)
                 res = opt.run()
                 model.db.optimize_result[index].load_percentage = res[0]
@@ -1874,6 +1875,8 @@ class Ui_MainWindow(object):
         def clean_optRes():
             _translate = QtCore.QCoreApplication.translate
             for index, i in enumerate(model.db.optimize_result):
+                if i.q ==0 :
+                    break
                 for k in range(13):
                     item = QtWidgets.QTableWidgetItem()
                     # print(index+1, 7+k)

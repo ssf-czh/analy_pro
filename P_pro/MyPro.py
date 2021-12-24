@@ -58,6 +58,23 @@ class MyProblem(ea.Problem): # 继承Problem父类
         self.E = fittingP.E
 
         print("t1")
+        print("==="*10)
+        print(superP.t1_range)
+        print(superP.load_rat)
+        print(superP.q)
+        print(superP.n)
+        print(superP.efficiency_range)
+        print(superP.t3_min)
+        print(superP.G20)
+        print(superP.G30)
+        print(superP.p20)
+        print(superP.delta_t1_range)
+        print(superP.delta_t2_range)
+        print(superP.q_min)
+        print(superP.P0)
+        print(superP.mu)
+        print(superP.lamb)
+        print("==="*10)
 
         # 参数初始值============================
 
