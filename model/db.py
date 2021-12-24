@@ -168,6 +168,7 @@ def save(path: str):
     wb = openpyxl.load_workbook(path, read_only=False)
     for sheet in wb:
         if sheet.title == "参数初始值设定":
+            print("初始值")
             sheet["B4"].value = str(init_params.q)
             sheet["B5"].value = str(init_params.n)
             sheet["B6"].value = str(init_params.efficiency_range)
@@ -190,10 +191,9 @@ def save(path: str):
                 sheet.cell(2, 2 + i).value = str(init_params.t1_range[i])
             # print("ini ok")
         elif sheet.title == "主机参数拟合":
-            # print("主机参数")
             i = 3
             for entry in main_fittings:
-                sheet.cell(i, 1).value = str(round(entry.q / init_params.q * 100, 2))
+                sheet.cell(i, 1).value = str(str(round(float(entry.q) / float(init_params.q) * 100, 2)))
                 sheet.cell(i, 2).value = str(entry.q)
                 sheet.cell(i, 3).value = str(entry.p1)
                 sheet.cell(i, 4).value = str(entry.t1)
@@ -202,10 +202,10 @@ def save(path: str):
                 sheet.cell(i, 7).value = str(entry.t4)
                 sheet.cell(i, 8).value = str(entry.cop)
                 i += 1
+            print("ok")
             while sheet.cell(i, 1).value is not None:
                 sheet.delete_rows(i)
         elif sheet.title == "水泵性能参数拟合":
-            # print("水泵性能参数拟合")
             for i in range(5):
                 sheet.cell(4, 3 + i * 2).value = str(pump2_fittings[i].g2)
                 sheet.cell(4, 4 + i * 2).value = str(pump2_fittings[i].p2)
@@ -213,7 +213,7 @@ def save(path: str):
                 sheet.cell(11, 3 + i * 2).value = str(pump3_fittings[i].g3)
                 sheet.cell(11, 4 + i * 2).value = str(pump3_fittings[i].p3)
         elif sheet.title == "冷却塔拟合":
-            # print("冷却塔拟合")
+            print("冷却塔拟、合")
             i = 0
             # wet_bulb_fittings = list()
             for entry in wet_bulb_fittings:
@@ -235,9 +235,8 @@ def save(path: str):
                 sheet.cell(3 + i, 5).value = None
                 i += 1
         elif sheet.title == "拟合系数表":
-            # print("此时c：", fitting_coefficients.c)
+            print("拟合系数表")
             for i in range(12):
-                # print(fitting_coefficients.b[i])
                 sheet.cell(3, 2 + i).value = str(fitting_coefficients.b[i])
             for i in range(12):
                 sheet.cell(5, 2 + i).value = str(fitting_coefficients.b[i + 12])
@@ -250,7 +249,7 @@ def save(path: str):
             for i in range(4):
                 sheet.cell(16, 2 + i).value = str(fitting_coefficients.e[i])
         elif sheet.title == "优化计算结果":
-            # print("优化计算结果")
+            print("优化计算结果")
             i = 0
             for entry in optimize_result:
                 sheet.cell(2 + i, 1).value = str(entry.q)
@@ -273,7 +272,7 @@ def save(path: str):
                 for j in range(1, 17):
                     sheet.cell(2 + i, j).value = None
                 i += 1
-    # print("----")
+    print("save completed")
     wb.save(path)
     wb.close()
 

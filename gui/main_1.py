@@ -398,9 +398,10 @@ class Ui_MainWindow(object):
             item = self.init_params.item(27, 2)
             model.db.init_params.delta_t2_range = b, item.data(0)
 
-
             save("template.xlsx")
+
             load("template.xlsx")
+
             # self.statusBar().showMessage('初始化读入完成')
 
         self.B1_1.clicked.connect(init_parm_save)
@@ -3029,7 +3030,7 @@ class Ui_MainWindow(object):
                 item = QtWidgets.QTableWidgetItem()
                 self.table_21.setItem(i + 2, 0, item)
                 item = self.table_21.item(i + 2, 0)
-                # q / 2814 * 100
+
                 item.setText(
                     _translate("MainWindow", str(round(model.db.main_fittings[i].q / model.db.init_params.q * 100, 2))))
 
