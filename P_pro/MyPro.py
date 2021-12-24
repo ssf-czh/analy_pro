@@ -78,26 +78,27 @@ class MyProblem(ea.Problem): # 继承Problem父类
 
         # 参数初始值============================
 
-        self.G20 = superP.G20 #G2额定功率
-        self.u1 = superP.mu #G2限定值
+        self.G20 = float(superP.G20) #G2额定功率
+        self.u1 = float(superP.mu) #G2限定值
 
-        self.G30 = superP.G30 #G3额定功率
-        self.u2 = superP.lamb #G3限定值
-        self.t3_min = superP.t3_min
-        self.t2_tuple = superP.delta_t1_range # t2 与 t1 的范围
+        self.G30 = float(superP.G30) #G3额定功率
+        self.u2 = float(superP.lamb) #G3限定值
+        self.t3_min = float(superP.t3_min)
+        self.t2_tuple = (float(superP.delta_t1_range[0]),float(superP.delta_t1_range[1])) # t2 与 t1 的范围
+
         # self.t2_tuple = T2_range # t2 与 t1 的范围
-        self.t4_tuple = superP.delta_t2_range # t4 与 t3 的范围
+        self.t4_tuple = (float(superP.delta_t2_range[0]),float(superP.delta_t2_range[1]))# t4 与 t3 的范围
         # self.t4_tuple = T4_range # t4 与 t3 的范围
-        self.P0 = superP.P0  #一定条件下P4=P0
-        self.Q = Q #负荷Q
-        self.TS = TS #湿球温度
-        self.QS = superP.q #单台额定冷水机组负荷QS
+        self.P0 = float(superP.P0)  #一定条件下P4=P0
+        self.Q = float(Q) #负荷Q
+        self.TS = float(TS) #湿球温度
+        self.QS = float(superP.q) #单台额定冷水机组负荷QS
         # self.QS = QS #单台额定冷水机组负荷QS
-        self.nita = superP.efficiency_range  #η
+        self.nita = float(superP.efficiency_range)  #η
         print("111")
         print(self.nita)
         # self.nita = nita   #η
-        self.max_n = superP.n #最大台数
+        self.max_n = float(superP.n) #最大台数
         # self.max_n = max_n #最大台数
         self.n = None   #台数
         # print("t2")
@@ -110,7 +111,7 @@ class MyProblem(ea.Problem): # 继承Problem父类
         self.T3 = self.TS + self.D[0]+self.D[1]*self.TS+self.D[2]*self.TS*self.TS  #根据TS和拟合结果D直接选取固定T3，进化T4在此基础浮动
 
         # print("t25")
-        self.q_min = superP.q_min
+        self.q_min = float(superP.q_min)
         # print(self.q_min)
         # print(Q)
         self.ifopt = True
@@ -120,7 +121,7 @@ class MyProblem(ea.Problem): # 继承Problem父类
         else:
             self.ifopt = True
         # print("t26")
-        self.P20 = superP.p20
+        self.P20 = float(superP.p20)
 
         # print("t23")
         # if self.T3 < superP.t3_min:
@@ -149,14 +150,14 @@ class MyProblem(ea.Problem): # 继承Problem父类
         temp = ((self.Q)*100)/self.QS
         for index in range(len(self.load_rat)):
             if index == len(self.load_rat)-1:
-                self.T1 = self.T1_range[index]
+                self.T1 = float(self.T1_range[index])
                 break
 
             if (temp < self.load_rat[index] or temp == self.load_rat[index]) and temp > self.load_rat[index+1]:
                 if temp - self.load_rat[index+1] <  self.load_rat[index] - temp:
-                    self.T1 = self.T1_range[index+1]
+                    self.T1 = float(self.T1_range[index])
                 else:
-                    self.T1 = self.T1_range[index]
+                    self.T1 = float(self.T1_range[index])
                 print("index",index)
                 break
         print("load_rat是(负荷百分比):",temp)
