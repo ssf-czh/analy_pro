@@ -2473,7 +2473,7 @@ class Ui_MainWindow(object):
         self.label_3.setText(_translate("MainWindow", "热源类型"))
         self.comboBox_3.setItemText(0, _translate("MainWindow", "锅炉"))
         self.comboBox_3.setItemText(1, _translate("MainWindow", "风冷热泵机组"))
-        self.B1_1.setText(_translate("MainWindow", "读入"))
+        self.B1_1.setText(_translate("MainWindow", "保存"))
         self.B1_2.setText(_translate("MainWindow", "取消"))
         self.B2_11.setText(_translate("MainWindow", "读入"))
         self.B2_12.setText(_translate("MainWindow", "取消"))
