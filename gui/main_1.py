@@ -3325,6 +3325,8 @@ class Ui_MainWindow(object):
             item.setText(_translate("MainWindow", ""))
             item = self.init_params.item(27, 2)
             item.setText(_translate("MainWindow", ""))
+            item = self.init_params.item(28, 1)
+            item.setText(_translate("MainWindow", ""))
 
 
         self.B1_2.clicked.connect(click_cancel1)
