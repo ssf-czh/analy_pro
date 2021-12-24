@@ -151,6 +151,10 @@ def load(path: str):
                 entry.mon = sheet.cell(2 + i, 2).value
                 entry.day = sheet.cell(2 + i, 3).value
                 entry.hour = sheet.cell(2 + i, 4).value
+                if sheet.cell(2 + i, 5).value is None:
+                    optimize_result.append(entry)
+                    i += 1
+                    continue
                 entry.q = float(sheet.cell(2 + i, 5).value)
                 entry.ts = float(sheet.cell(2 + i, 6).value)
                 optimize_result.append(entry)
