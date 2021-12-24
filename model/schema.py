@@ -69,7 +69,7 @@ class FittingCoefficients:
 
 class OptimizeResult:
     def __init__(self):
-        self.q = 2814.0
+        self.q = 0.0
         self.ts = 0.0
         self.load_percentage = 0.0
         self.t1 = 0.0
