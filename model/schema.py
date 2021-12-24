@@ -71,20 +71,24 @@ class OptimizeResult:
     def __init__(self):
         self.q = 2814.0
         self.ts = 0.0
-        self.load_percentage = 0.0
-        self.t1 = 0.0
-        self.t2 = 0.0
-        self.t3 = 0.0
-        self.t4 = 0.0
-        self.delta_t = 0.0
-        self.p1 = 0.0
-        self.p2 = 0.0
-        self.p3 = 0.0
-        self.p4 = 0.0
-        self.p = 0.0
-        self.cop = 0.0
+        self.load_percentage = None
+        self.t1 = None
+        self.t2 = None
+        self.t3 = None
+        self.t4 = None
+        self.delta_t = None
+        self.p1 = None
+        self.p2 = None
+        self.p3 = None
+        self.p4 = None
+        self.p = None
+        self.cop = None
         # 开启台数
         self.n = 0
+        self.year = ""
+        self.mon = ""
+        self.day = ""
+        self.hour = ""
 
 
 class QDeltaEntry:
