@@ -63,7 +63,7 @@ def load(path: str):
             for rowidx, row in enumerate(sheet.rows):
                 if rowidx <= 1:
                     continue
-                if row[1].value is None:
+                if row[1].value is None :
                     break
 
                 entry = MainFitting()
@@ -147,12 +147,8 @@ def load(path: str):
             i = 0
             while sheet.cell(2 + i, 1).value is not None:
                 entry = OptimizeResult()
-                entry.year = sheet.cell(2 + i, 1).value
-                entry.mon = sheet.cell(2 + i, 2).value
-                entry.day = sheet.cell(2 + i, 3).value
-                entry.hour = sheet.cell(2 + i, 4).value
-                entry.q = float(sheet.cell(2 + i, 5).value)
-                entry.ts = float(sheet.cell(2 + i, 6).value)
+                entry.q = float(sheet.cell(2 + i, 1).value)
+                entry.ts = float(sheet.cell(2 + i, 2).value)
                 optimize_result.append(entry)
                 i += 1
     print("load completed")
@@ -256,25 +252,21 @@ def save(path: str):
             print("优化计算结果")
             i = 0
             for entry in optimize_result:
-                sheet.cell(2 + i, 1).value = entry.year
-                sheet.cell(2 + i, 2).value = entry.mon
-                sheet.cell(2 + i, 3).value = entry.day
-                sheet.cell(2 + i, 4).value = entry.hour
-                sheet.cell(2 + i, 6).value = str(entry.q)
-                sheet.cell(2 + i, 7).value = str(entry.ts)
-                sheet.cell(2 + i, 8).value = str(entry.load_percentage)
-                sheet.cell(2 + i, 9).value = str(entry.t1)
-                sheet.cell(2 + i, 10).value = str(entry.t2)
-                sheet.cell(2 + i, 11).value = str(entry.t3)
-                sheet.cell(2 + i, 12).value = str(entry.t4)
-                sheet.cell(2 + i, 13).value = str(entry.delta_t)
-                sheet.cell(2 + i, 14).value = str(entry.p1)
-                sheet.cell(2 + i, 15).value = str(entry.p2)
-                sheet.cell(2 + i, 16).value = str(entry.p3)
-                sheet.cell(2 + i, 17).value = str(entry.p4)
-                sheet.cell(2 + i, 18).value = str(entry.p)
-                sheet.cell(2 + i, 19).value = str(entry.cop)
-                sheet.cell(2 + i, 20).value = str(entry.n)
+                sheet.cell(2 + i, 1).value = str(entry.q)
+                sheet.cell(2 + i, 2).value = str(entry.ts)
+                sheet.cell(2 + i, 4).value = str(entry.load_percentage)
+                sheet.cell(2 + i, 5).value = str(entry.t1)
+                sheet.cell(2 + i, 6).value = str(entry.t2)
+                sheet.cell(2 + i, 7).value = str(entry.t3)
+                sheet.cell(2 + i, 8).value = str(entry.t4)
+                sheet.cell(2 + i, 9).value = str(entry.delta_t)
+                sheet.cell(2 + i, 10).value = str(entry.p1)
+                sheet.cell(2 + i, 11).value = str(entry.p2)
+                sheet.cell(2 + i, 12).value = str(entry.p3)
+                sheet.cell(2 + i, 13).value = str(entry.p4)
+                sheet.cell(2 + i, 14).value = str(entry.p)
+                sheet.cell(2 + i, 15).value = str(entry.cop)
+                sheet.cell(2 + i, 16).value = str(entry.n)
                 i += 1
             while sheet.cell(2 + i, 1).value is not None:
                 for j in range(1, 17):
@@ -307,3 +299,4 @@ if __name__ == '__main__':
     optimize_result.append(entry)
     save("testtest.xlsx")
 """
+
