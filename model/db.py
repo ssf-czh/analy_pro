@@ -286,10 +286,6 @@ def save(path: str):
     wb.close()
 
 
-if __name__ == '__main__':
-    load("./template.xlsx")
-    pass
-
 """
 Test
 if __name__ == '__main__':
