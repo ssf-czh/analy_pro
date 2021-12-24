@@ -266,8 +266,8 @@ def save(path: str):
                 sheet.cell(2 + i, 2).value = entry.mon
                 sheet.cell(2 + i, 3).value = entry.day
                 sheet.cell(2 + i, 4).value = entry.hour
-                sheet.cell(2 + i, 6).value = str(entry.q)
-                sheet.cell(2 + i, 7).value = str(entry.ts)
+                sheet.cell(2 + i, 5).value = str(entry.q)
+                sheet.cell(2 + i, 6).value = str(entry.ts)
                 sheet.cell(2 + i, 8).value = str(entry.load_percentage)
                 sheet.cell(2 + i, 9).value = str(entry.t1)
                 sheet.cell(2 + i, 10).value = str(entry.t2)
