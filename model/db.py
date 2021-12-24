@@ -53,6 +53,7 @@ def load(path: str):
             init_params.delta_t2_range = (float(sheet["B25"].value), float(sheet["C25"].value))
             init_params.q_min = float(sheet["B26"].value)
             init_params.p20 = float(sheet["B27"].value)
+            init_params.P0 = float(sheet["B21"].value)
             init_params.mu = float(sheet["B28"].value)
             init_params.lamb = float(sheet["B29"].value)
             for i in range(9):
