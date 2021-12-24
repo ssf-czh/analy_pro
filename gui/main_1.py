@@ -2884,22 +2884,22 @@ class Ui_MainWindow(object):
                 item = QtWidgets.QTableWidgetItem()
                 self.optimize_result.setItem(index + 1, 0, item)
                 item = self.optimize_result.item(index + 1, 0)
-                item.setText(_translate("MainWindow", elem.year))
+                item.setText(_translate("MainWindow", str(elem.year)))
 
                 item = QtWidgets.QTableWidgetItem()
                 self.optimize_result.setItem(index + 1, 1, item)
                 item = self.optimize_result.item(index + 1, 1)
-                item.setText(_translate("MainWindow", elem.mon))
+                item.setText(_translate("MainWindow", str(elem.mon)))
 
                 item = QtWidgets.QTableWidgetItem()
                 self.optimize_result.setItem(index + 1, 2, item)
                 item = self.optimize_result.item(index + 1, 2)
-                item.setText(_translate("MainWindow", elem.day))
+                item.setText(_translate("MainWindow", str(elem.day)))
 
                 item = QtWidgets.QTableWidgetItem()
                 self.optimize_result.setItem(index + 1, 3, item)
                 item = self.optimize_result.item(index + 1, 3)
-                item.setText(_translate("MainWindow", elem.hour))
+                item.setText(_translate("MainWindow", str(elem.hour)))
 
         # item = self.optimize_result.item(1, 4)
         # item.setText(_translate("MainWindow", "2814"))
