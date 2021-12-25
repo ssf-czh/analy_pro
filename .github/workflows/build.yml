@@ -8,6 +8,9 @@ jobs:
     runs-on: "windows-latest"
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: "./site-packages"
       - name: Build and package
         uses: actions/setup-python@v2
         with:
