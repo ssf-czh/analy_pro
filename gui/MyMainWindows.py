@@ -23,5 +23,5 @@ if __name__ == '__main__':
     myWin = MyMainWindow()  # 实例化 MyMainWindow 类，创建主窗口
 
 
-    myWin.show()
+    myWin.showFullScreen()
     sys.exit(app.exec_())  # 结束进程，退出程序
