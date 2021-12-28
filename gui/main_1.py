@@ -12,6 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import model
 from model.db import save, main_fittings, load
 from P_pro import PumpFit, Main
+from model.schema import OptimizeResult
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -1823,6 +1824,40 @@ class Ui_MainWindow(object):
         def evo_opt():
             _translate = QtCore.QCoreApplication.translate
 
+            for index, elem in enumerate(model.db.optimize_result):
+                if elem.q != 0 and elem.ts != 0:
+                    item = QtWidgets.QTableWidgetItem()
+                    self.optimize_result.setItem(index + 1, 4, item)
+                    item = self.optimize_result.item(index + 1, 4)
+                    item.setText(_translate("MainWindow", str(elem.q)))
+
+                    item = QtWidgets.QTableWidgetItem()
+                    self.optimize_result.setItem(index + 1, 5, item)
+                    item = self.optimize_result.item(index + 1, 5)
+                    item.setText(_translate("MainWindow", str(elem.ts)))
+                if elem.year != "" and elem.mon != "" and elem.hour != "" and elem.day != "":
+                    item = QtWidgets.QTableWidgetItem()
+                    self.optimize_result.setItem(index + 1, 0, item)
+                    item = self.optimize_result.item(index + 1, 0)
+                    item.setText(_translate("MainWindow", str(elem.year)))
+
+                    item = QtWidgets.QTableWidgetItem()
+                    self.optimize_result.setItem(index + 1, 1, item)
+                    item = self.optimize_result.item(index + 1, 1)
+                    item.setText(_translate("MainWindow", str(elem.mon)))
+
+                    item = QtWidgets.QTableWidgetItem()
+                    self.optimize_result.setItem(index + 1, 2, item)
+                    item = self.optimize_result.item(index + 1, 2)
+                    item.setText(_translate("MainWindow", str(elem.day)))
+
+                    item = QtWidgets.QTableWidgetItem()
+                    self.optimize_result.setItem(index + 1, 3, item)
+                    item = self.optimize_result.item(index + 1, 3)
+                    item.setText(_translate("MainWindow", str(elem.hour)))
+
+
+
             superP = model.db.init_params
             for index, i in enumerate(model.db.optimize_result):
 
@@ -2890,39 +2925,22 @@ class Ui_MainWindow(object):
         item = self.optimize_result.item(0, 23)
         item.setText(_translate("MainWindow", "设备开启台数/台"))
         
-        
 
-        for index,elem in enumerate(model.db.optimize_result):
-            if elem.q !=0 and elem.ts !=0:
-                item = QtWidgets.QTableWidgetItem()
-                self.optimize_result.setItem(index+1, 4, item)
-                item = self.optimize_result.item(index+1, 4)
-                item.setText(_translate("MainWindow", str(elem.q)))
+        # 将Q值变化表的对象转换成OptResult对象
+        for item in model.db.q_delta:
+            temp = OptimizeResult()
+            temp.year = item.year
+            temp.mon = item.year
+            temp.day = item.year
+            temp.hour = item.hour
+            temp.q = float(item.Q)
+            temp.ts = float(item.Ts)
+            model.db.optimize_result.append(temp)
 
-                item = QtWidgets.QTableWidgetItem()
-                self.optimize_result.setItem(index + 1, 5, item)
-                item = self.optimize_result.item(index+1, 5)
-                item.setText(_translate("MainWindow", str(elem.ts)))
-            if elem.year != "" and elem.mon!="" and elem.hour!="" and elem.day!="":
-                item = QtWidgets.QTableWidgetItem()
-                self.optimize_result.setItem(index + 1, 0, item)
-                item = self.optimize_result.item(index + 1, 0)
-                item.setText(_translate("MainWindow", str(elem.year)))
 
-                item = QtWidgets.QTableWidgetItem()
-                self.optimize_result.setItem(index + 1, 1, item)
-                item = self.optimize_result.item(index + 1, 1)
-                item.setText(_translate("MainWindow", str(elem.mon)))
 
-                item = QtWidgets.QTableWidgetItem()
-                self.optimize_result.setItem(index + 1, 2, item)
-                item = self.optimize_result.item(index + 1, 2)
-                item.setText(_translate("MainWindow", str(elem.day)))
 
-                item = QtWidgets.QTableWidgetItem()
-                self.optimize_result.setItem(index + 1, 3, item)
-                item = self.optimize_result.item(index + 1, 3)
-                item.setText(_translate("MainWindow", str(elem.hour)))
+
 
         # item = self.optimize_result.item(1, 4)
         # item.setText(_translate("MainWindow", "2814"))

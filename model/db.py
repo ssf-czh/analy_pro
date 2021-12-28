@@ -142,24 +142,25 @@ def load(path: str):
                 if sheet.cell(16, 2 + i).value is not None:
                     val = float(sheet.cell(16, 2 + i).value)
                 fitting_coefficients.e.append(val)
-        elif sheet.title == "优化计算结果":
-            # print("6")
-            optimize_result = list()
-            i = 0
-            while sheet.cell(2 + i, 1).value is not None:
-                entry = OptimizeResult()
-                entry.year = sheet.cell(2 + i, 1).value
-                entry.mon = sheet.cell(2 + i, 2).value
-                entry.day = sheet.cell(2 + i, 3).value
-                entry.hour = sheet.cell(2 + i, 4).value
-                if sheet.cell(2 + i, 5).value is None:
-                    optimize_result.append(entry)
-                    i += 1
-                    continue
-                entry.q = float(sheet.cell(2 + i, 5).value)
-                entry.ts = float(sheet.cell(2 + i, 6).value)
-                optimize_result.append(entry)
-                i += 1
+        optimize_result = list()
+        # elif sheet.title == "优化计算结果":
+        #     # print("6")
+        #     optimize_result = list()
+        #     i = 0
+        #     while sheet.cell(2 + i, 1).value is not None:
+        #         entry = OptimizeResult()
+        #         entry.year = sheet.cell(2 + i, 1).value
+        #         entry.mon = sheet.cell(2 + i, 2).value
+        #         entry.day = sheet.cell(2 + i, 3).value
+        #         entry.hour = sheet.cell(2 + i, 4).value
+        #         if sheet.cell(2 + i, 5).value is None:
+        #             optimize_result.append(entry)
+        #             i += 1
+        #             continue
+        #         entry.q = float(sheet.cell(2 + i, 5).value)
+        #         entry.ts = float(sheet.cell(2 + i, 6).value)
+        #         optimize_result.append(entry)
+        #         i += 1
     print("load completed")
     wb.close()
 
