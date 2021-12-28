@@ -1822,6 +1822,8 @@ class Ui_MainWindow(object):
         self.B4_1.setObjectName("B4_1")
 
         def evo_opt():
+            print(222)
+            print(len(model.db.optimize_result))
             _translate = QtCore.QCoreApplication.translate
 
             for index, elem in enumerate(model.db.optimize_result):
@@ -1872,16 +1874,17 @@ class Ui_MainWindow(object):
                 model.db.optimize_result[index].load_percentage = res[0]
                 model.db.optimize_result[index].t1 = res[1]
                 model.db.optimize_result[index].t2 = res[2]
-                model.db.optimize_result[index].t3 = res[3]
-                model.db.optimize_result[index].t4 = res[4]
-                model.db.optimize_result[index].delta_t = res[5]
-                model.db.optimize_result[index].p1 = res[6]
-                model.db.optimize_result[index].p2 = res[7]
-                model.db.optimize_result[index].p3 = res[8]
-                model.db.optimize_result[index].p4 = res[9]
-                model.db.optimize_result[index].p = res[10]
-                model.db.optimize_result[index].cop = res[11]
-                model.db.optimize_result[index].n = res[12]
+
+                model.db.optimize_result[index].t3 = res[5]
+                model.db.optimize_result[index].t4 = res[6]
+                model.db.optimize_result[index].delta_t = res[9]
+                model.db.optimize_result[index].p1 = res[10]
+                model.db.optimize_result[index].p2 = res[11]
+                model.db.optimize_result[index].p3 = res[12]
+                model.db.optimize_result[index].p4 = res[13]
+                model.db.optimize_result[index].p = res[14]
+                model.db.optimize_result[index].cop = res[15]
+                model.db.optimize_result[index].n = res[16]
                 # res = (loading_ration, T1, T2, T3, T4, cold_flu, P1, P2, P3, P4, total_P, total_cop, open_num)
 
                 for k in range(len(res)):
@@ -1922,7 +1925,7 @@ class Ui_MainWindow(object):
             for index, i in enumerate(model.db.optimize_result):
                 if i.q ==0 :
                     break
-                for k in range(13):
+                for k in range(17):
                     item = QtWidgets.QTableWidgetItem()
                     # print(index+1, 7+k)
                     self.optimize_result.setItem(index + 1, 7 + k, item)
@@ -2926,16 +2929,16 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "设备开启台数/台"))
         
 
-        # 将Q值变化表的对象转换成OptResult对象
-        for item in model.db.q_delta:
-            temp = OptimizeResult()
-            temp.year = item.year
-            temp.mon = item.year
-            temp.day = item.year
-            temp.hour = item.hour
-            temp.q = float(item.Q)
-            temp.ts = float(item.Ts)
-            model.db.optimize_result.append(temp)
+        # # 将Q值变化表的对象转换成OptResult对象
+        # for item in model.db.q_delta:
+        #     temp = OptimizeResult()
+        #     temp.year = item.year
+        #     temp.mon = item.year
+        #     temp.day = item.year
+        #     temp.hour = item.hour
+        #     temp.q = float(item.Q)
+        #     temp.ts = float(item.Ts)
+        #     model.db.optimize_result.append(temp)
 
 
 

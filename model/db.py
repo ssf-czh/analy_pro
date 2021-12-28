@@ -27,6 +27,7 @@ def load(path: str):
     for sheet in wb:
         if sheet.title == "q值变化值":
             q_delta = list()
+            optimize_result = list()
             for idx, row in enumerate(sheet.rows):
                 if idx <= 0:
                     continue
@@ -39,6 +40,15 @@ def load(path: str):
                 entry.Ts = row[5].value
                 entry.T = row[6].value
                 q_delta.append(entry)
+                temp = OptimizeResult()
+                temp.year = row[0].value
+                temp.mon = row[1].value
+                temp.day = row[2].value
+                temp.hour = row[3].value
+                temp.q = float(row[4].value)
+                temp.ts = float(row[5].value)
+                optimize_result.append(temp)
+                # print(len(optimize_result))
         elif sheet.title == "参数初始值设定":
 
             init_params.q = float(sheet["B4"].value)
@@ -142,7 +152,7 @@ def load(path: str):
                 if sheet.cell(16, 2 + i).value is not None:
                     val = float(sheet.cell(16, 2 + i).value)
                 fitting_coefficients.e.append(val)
-        optimize_result = list()
+        # optimize_result = list()
         # elif sheet.title == "优化计算结果":
         #     # print("6")
         #     optimize_result = list()

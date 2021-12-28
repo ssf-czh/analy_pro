@@ -44,12 +44,12 @@ class MyProblem(ea.Problem): # 继承Problem父类
         # self.C = [-5.40003853e+01,2.96859204e-01,-2.09088412e-04]
         # self.D = [ 1.37779692e+01, -4.40113763e-01,  3.22959854e-03]
         # self.E = [ 3.27976744e+01, -1.67712441e-01,  2.92380418e-04, -1.11110755e-07]
-        print("test")
-        print(fittingP.B)
-        print(fittingP.A)
-        print(fittingP.C)
-        print(fittingP.D)
-        print(fittingP.E)
+        # print("test")
+        # print(fittingP.B)
+        # print(fittingP.A)
+        # print(fittingP.C)
+        # print(fittingP.D)
+        # print(fittingP.E)
 
         self.B = fittingP.B
         self.A = fittingP.A
@@ -57,24 +57,24 @@ class MyProblem(ea.Problem): # 继承Problem父类
         self.D = fittingP.D
         self.E = fittingP.E
 
-        print("t1")
-        print("==="*10)
-        print(superP.t1_range)
-        print(superP.load_rat)
-        print(superP.q)
-        print(superP.n)
-        print(superP.efficiency_range)
-        print(superP.t3_min)
-        print(superP.G20)
-        print(superP.G30)
-        print(superP.p20)
-        print(superP.delta_t1_range)
-        print(superP.delta_t2_range)
-        print(superP.q_min)
-        print(superP.P0)
-        print(superP.mu)
-        print(superP.lamb)
-        print("==="*10)
+        # print("t1")
+        # print("==="*10)
+        # print(superP.t1_range)
+        # print(superP.load_rat)
+        # print(superP.q)
+        # print(superP.n)
+        # print(superP.efficiency_range)
+        # print(superP.t3_min)
+        # print(superP.G20)
+        # print(superP.G30)
+        # print(superP.p20)
+        # print(superP.delta_t1_range)
+        # print(superP.delta_t2_range)
+        # print(superP.q_min)
+        # print(superP.P0)
+        # print(superP.mu)
+        # print(superP.lamb)
+        # print("==="*10)
 
         # 参数初始值============================
 
@@ -95,8 +95,8 @@ class MyProblem(ea.Problem): # 继承Problem父类
         self.QS = float(superP.q) #单台额定冷水机组负荷QS
         # self.QS = QS #单台额定冷水机组负荷QS
         self.nita = float(superP.efficiency_range)  #η
-        print("111")
-        print(self.nita)
+        # print("111")
+        # print(self.nita)
         # self.nita = nita   #η
         self.max_n = float(superP.n) #最大台数
         # self.max_n = max_n #最大台数
@@ -109,7 +109,9 @@ class MyProblem(ea.Problem): # 继承Problem父类
 
         self.T1 = None #根据计算选取固定T1，之后的进化T2都是在此基础浮动
         self.T3 = self.TS + self.D[0]+self.D[1]*self.TS+self.D[2]*self.TS*self.TS  #根据TS和拟合结果D直接选取固定T3，进化T4在此基础浮动
-
+        print(self.TS)
+        print(self.T3)
+        # print("***")
         # print("t25")
         self.q_min = float(superP.q_min)
         # print(self.q_min)
@@ -131,12 +133,31 @@ class MyProblem(ea.Problem): # 继承Problem父类
         # print(self.QS)
         # print(type(self.QS))
         # print(self.nita)
-        if Q*100/self.QS <= self.nita:
-            self.n = 1
-        elif Q*100/self.QS < 2 * self.nita:
-            self.n = 2
-        elif Q*100/self.QS > 2 * self.nita:
-            self.n = 3
+
+        for i in range(int(self.max_n)):
+            if Q*100/self.QS > i * float(self.nita) and Q*100/self.QS <= (i+1) * float(self.nita):
+                self.n = i +1
+                break
+        if self.n is None:
+            self.n = int(self.max_n)
+
+        self.z = None
+        for i in range(int(self.max_n)):
+            if Q/self.QS > i and Q/self.QS <= (i+1):
+                self.z = i+1
+                break
+        if self.z is None:
+            self.z = int(self.max_n)
+        print("yep")
+
+        print(self.n , self.z)
+
+        # if Q*100/self.QS <= self.nita:
+        #     self.n = 1
+        # elif Q*100/self.QS < 2 * self.nita:
+        #     self.n = 2
+        # elif Q*100/self.QS > 2 * self.nita:
+        #     self.n = 3
         # print(self.n)
         self.n = min(self.n,self.max_n)
         self.Q = self.Q/self.n
@@ -331,7 +352,8 @@ class MyProblem(ea.Problem): # 继承Problem父类
         # print("违反所有约束条件的：",len(exIdx))
         # print("=="*15)
         # print(P1,P2,P3,P4)
-        P = self.n * (P1+P2+P3+P4)
+        # P = self.n * (P1+P2+P3+P4)
+        P = self.n * (P1+P2+P3) +self.z *P4
 
         # print(min(P[ok_edIdx]))
         # print("Sum P value ")

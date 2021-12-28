@@ -34,7 +34,7 @@ class Evoopt():
         print("==="*20)
         if self.problem.ifopt is False:
             loading_ration = self.problem.Q / self.problem.QS *100
-            return (round(loading_ration,2),0,0,0,0,0,0,0,0,0,self.problem.P20,0,0)
+            return (round(loading_ration,2),0,0,0,0,0,0,0,0,0,0,0,0,0,self.problem.P20,0,0)
 
         else:
             #     if BestIndi.sizes != 0:
@@ -60,6 +60,40 @@ class Evoopt():
             print("选到的T4是：", T4)
 
             Q = self.problem.Q
+
+
+            P1 = self.func_P1((T1, T2, T3, T4, Q), self.problem.B)
+            # print("p1::", P1)
+            A0, A1, A2 = self.problem.A
+
+            flag_g2 = 0
+            flag_g3 = 0
+
+            G2 = 6 * Q / (7 * (T2 - T1))
+            G20 = self.problem.G20
+            u1 = self.problem.u1
+
+            if G2 <=G20*u1 or G2 >= G20:
+                flag_g2 = 1
+            # P2 = A0 + A1 * G2 + A2 * G2 * G2
+            # print("p2:", P2)
+
+            # C0, C1, C2 = self.problem.C
+            G3 = 6 * (Q + P1) / (7 * (T4 - T3))
+            G30 = self.problem.G30
+            u2 = self.problem.u2
+            if G3 <= G30*u2 or G3 >=G30:
+                flag_g3 = 1
+
+            if flag_g2 == 1:
+                T2 = T1 + 6*Q/(7*G20*u1)
+            if flag_g3 == 1:
+                T4 = T3 + 6*(Q+P1)/(7*G30*u2)
+            # G3 = max(G3, G30 * u2)
+            # G3 = min(G3, G30)
+            # print(G3)
+            # print("P3的G3：", G3)
+            # =====
             P1 = self.func_P1((T1,T2,T3, T4,Q), self.problem.B)
             print("p1::" ,P1)
             A0,A1,A2 = self.problem.A
@@ -90,7 +124,7 @@ class Evoopt():
             print("p4:",P4)
 
             print(str(P1)+"、"+str(P2)+"、"+str(P3)+"、"+str(P4))
-            total_P = self.problem.n * (P1+P2+P3+P4)
+            total_P = self.problem.n * (P1+P2+P3) + self.problem.z * P4
 
             print("MINP:",total_P)
 
@@ -98,7 +132,7 @@ class Evoopt():
             cold_flu = T3 - self.problem.TS
             open_num = self.problem.n
             total_cop = Q / (total_P/self.problem.n)
-            return (round(loading_ration,2),round(T1,3),round(T2,3),round(T3,3),round(T4,3),round(cold_flu,3),round(P1,4),round(P2,3),round(P3,3),round(P4,3),round(total_P,3),round(total_cop,3),round(open_num,3))
+            return (round(loading_ration,2),round(T1,3),round(T2,3),round(G2,3),round(50*G2/G20,3),round(T3,3),round(T4,3),round(G3,3),round(50*G3/G30),round(cold_flu,3),round(P1,4),round(P2,3),round(P3,3),round(P4,3),round(total_P,3),round(total_cop,3),round(open_num,3))
 
 
     def func_P1(self,T,B):
