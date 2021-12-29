@@ -86,9 +86,22 @@ class Evoopt():
                 flag_g3 = 1
 
             if flag_g2 == 1:
+                # print("此时TS={:s},Q = {:s}".format(str(self.problem.TS),str(Q)))
                 T2 = T1 + 6*Q/(7*G20*u1)
+                if T2 - T1 < self.problem.t2_tuple[0]:
+                    T2 = T1 + self.problem.t2_tuple[0]
+                    # print("T2被设置的过小{:s}，被设置成了{:s}".format(str(self.problem.TS),str(T2)))
+                if T2 - T1 > self.problem.t2_tuple[1]:
+                    # print("T2被设置的过大{:s}，被设置成了{:s}".format(str(self.problem.TS),str(T2)))
+                    T2 = T1 + self.problem.t2_tuple[1]
             if flag_g3 == 1:
                 T4 = T3 + 6*(Q+P1)/(7*G30*u2)
+                if T4 - T3 < self.problem.t4_tuple[0]:
+                    # print("T4被设置的过小{:s}，被设置成了{:s}".format(str(self.problem.TS),str(T4)))
+                    T4 = T3 + self.problem.t4_tuple[0]
+                if T4 - T3 > self.problem.t4_tuple[1]:
+                    # print("T4被设置的过大{:s}，被设置成了{:s}".format(str(self.problem.TS),str(T4)))
+                    T4 = T3 + self.problem.t4_tuple[0]
             # G3 = max(G3, G30 * u2)
             # G3 = min(G3, G30)
             # print(G3)
