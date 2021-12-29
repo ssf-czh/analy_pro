@@ -2894,7 +2894,7 @@ class Ui_MainWindow(object):
         item = self.optimize_result.item(0, 6)
         item.setText(_translate("MainWindow", "干球温度T/℃"))
         item = self.optimize_result.item(0, 7)
-        item.setText(_translate("MainWindow", "负荷百分比/%"))
+        item.setText(_translate("MainWindow", "单机负荷百分比/%"))
         item = self.optimize_result.item(0, 8)
         item.setText(_translate("MainWindow", "冷冻水出水温度/℃"))
         item = self.optimize_result.item(0, 9)
