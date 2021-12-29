@@ -125,6 +125,22 @@ class MyProblem(ea.Problem): # 继承Problem父类
         # print("t26")
         self.P20 = float(superP.p20)
 
+        # 除了计算T1温度时按照原本Q，其他都要Q/n
+        temp = ((self.Q) * 100) / (self.QS* self.max_n)
+        for index in range(len(self.load_rat)):
+            if index == len(self.load_rat) - 1:
+                self.T1 = float(self.T1_range[index])
+                break
+
+            if (temp < self.load_rat[index] or temp == self.load_rat[index]) and temp > self.load_rat[index + 1]:
+                if temp - self.load_rat[index + 1] < self.load_rat[index] - temp:
+                    self.T1 = float(self.T1_range[index])
+                else:
+                    self.T1 = float(self.T1_range[index])
+                print("index", index)
+                break
+        print("load_rat是(负荷百分比):", temp)
+        print(self.T1)
         # print("t23")
         # if self.T3 < superP.t3_min:
         #     self.T3 = superP.t3_min
@@ -168,21 +184,7 @@ class MyProblem(ea.Problem): # 继承Problem父类
         # self.load_rat = [100, 95, 90,85, 80, 75, 70,60]
 
         # temp = ((self.Q/self.n)*100)/self.QS
-        temp = ((self.Q)*100)/self.QS
-        for index in range(len(self.load_rat)):
-            if index == len(self.load_rat)-1:
-                self.T1 = float(self.T1_range[index])
-                break
 
-            if (temp < self.load_rat[index] or temp == self.load_rat[index]) and temp > self.load_rat[index+1]:
-                if temp - self.load_rat[index+1] <  self.load_rat[index] - temp:
-                    self.T1 = float(self.T1_range[index])
-                else:
-                    self.T1 = float(self.T1_range[index])
-                print("index",index)
-                break
-        print("load_rat是(负荷百分比):",temp)
-        print(self.T1)
 
 
         # B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23 =  1.25592470e+02,  5.39445250e+01, -5.22395970e+01,  6.29397302e-02, -2.06962469e-05, -3.33850530e+01, -3.30937615e+01,  1.13915116e+02, -1.13920754e+02,  6.62996700e+01, -5.43024482e+01,  4.63683510e+01, -2.01032174e+03, -2.00895336e+03,  1.97466857e+02, -1.97464621e+02,  4.01945845e+03,  5.63936524e+01, -9.05705574e+01,  3.25980615e+01,  2.00722896e+03,  1.13929510e+02,  1.97486520e+02, -3.39669822e+00
