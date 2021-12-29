@@ -142,10 +142,13 @@ class Evoopt():
             print("MINP:",total_P)
 
             loading_ration = Q/self.problem.QS * 100
+            # print("此时Q={:s}".format(str(Q*self.problem.n)))
+            system_loading_ration = (Q*self.problem.n*100)/(self.problem.QS*self.problem.max_n)
             cold_flu = T3 - self.problem.TS
             open_num = self.problem.n
             total_cop = Q / (total_P/self.problem.n)
-            return (round(loading_ration,2),round(T1,3),round(T2,3),round(G2,3),round(50*G2/G20,3),round(T3,3),round(T4,3),round(G3,3),round(50*G3/G30),round(cold_flu,3),round(P1,4),round(P2,3),round(P3,3),round(P4,3),round(total_P,3),round(total_cop,3),round(open_num,3))
+
+            return (round(loading_ration,2),round(system_loading_ration,2),round(T1,3),round(T2,3),round(G2,3),round(50*G2/G20,3),round(T3,3),round(T4,3),round(G3,3),round(50*G3/G30),round(cold_flu,3),round(P1,4),round(P2,3),round(P3,3),round(P4,3),round(total_P,3),round(total_cop,3),round(open_num,3))
 
 
     def func_P1(self,T,B):
