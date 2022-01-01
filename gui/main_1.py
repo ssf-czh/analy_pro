@@ -3098,6 +3098,28 @@ class Ui_MainWindow(object):
         self.comboBox_4.setItemText(4, _translate("MainWindow", "四对一"))
         self.comboBox_4.setItemText(5, _translate("MainWindow", "三对二"))
         self.comboBox_4.setItemText(6, _translate("MainWindow", "四对三"))
+
+        def selectCalcType(i):
+            '''
+
+            :param i: 0 自动计算
+                    1: 1to1
+                    2: 2to1
+                    3:3to 1
+                    4: 4to1
+                    5: 3to2
+                    6: 4to3
+            :return:
+
+            '''
+            model.db.init_params.calcType = i
+        self.comboBox_4.currentIndexChanged.connect(selectCalcType)
+
+
+
+
+
+
         self.B1_1.setText(_translate("MainWindow", "保存"))
         self.B1_2.setText(_translate("MainWindow", "取消"))
         self.B2_11.setText(_translate("MainWindow", "读入"))

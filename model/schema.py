@@ -1,5 +1,6 @@
 class InitialParameters:
     def __init__(self):
+        self.calcType = 0 #计算类型
         self.q = 2814.0
         self.n = 3
         self.efficiency_range = 80.0
