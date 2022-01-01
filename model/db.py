@@ -117,14 +117,15 @@ def load(path: str):
                 i += 1
 
             i = 0
+            wet_bulb_fittings_2to1 = list()
             while sheet.cell(3 + i, 3).value is not None:
                 entry = WetBulbFitting_2to1()
                 entry.temp = float(sheet.cell(3 + i, 3).value)
                 entry.amplitude = float(sheet.cell(3 + i, 4).value)
                 wet_bulb_fittings_2to1.append(entry)
                 i += 1
-
             i = 0
+            wet_bulb_fittings_3to1 = list()
             while sheet.cell(3 + i, 5).value is not None:
                 entry = WetBulbFitting_3to1()
                 entry.temp = float(sheet.cell(3 + i, 5).value)
@@ -133,6 +134,7 @@ def load(path: str):
                 i += 1
 
             i = 0
+            wet_bulb_fittings_4to1 = list()
             while sheet.cell(3 + i, 7).value is not None:
                 entry = WetBulbFitting_4to1()
                 entry.temp = float(sheet.cell(3 + i, 7).value)
@@ -141,6 +143,7 @@ def load(path: str):
                 i += 1
 
             i = 0
+            wet_bulb_fittings_3to2 = list()
             while sheet.cell(3 + i, 9).value is not None:
                 entry = WetBulbFitting_3to2()
                 entry.temp = float(sheet.cell(3 + i, 9).value)
@@ -149,6 +152,7 @@ def load(path: str):
                 i += 1
 
             i = 0
+            wet_bulb_fittings_4to3 = list()
             while sheet.cell(3 + i, 11).value is not None:
                 entry = WetBulbFitting_4to3()
                 entry.temp = float(sheet.cell(3 + i, 11).value)

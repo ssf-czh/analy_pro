@@ -3253,33 +3253,115 @@ class Ui_MainWindow(object):
         __sortingEnabled = self.table_24.isSortingEnabled()
         self.table_24.setSortingEnabled(False)
         item = self.table_24.item(0, 0)
+        item.setText(_translate("MainWindow", "一对一"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.table_24.setItem(1, 0, item)
+        item = self.table_24.item(1, 0)
         item.setText(_translate("MainWindow", "湿球温度"))
-        item = self.table_24.item(0, 1)
-        item.setText(_translate("MainWindow", "冷幅T3-Ts"))
-        item = self.table_24.item(0, 2)
-        item.setText(_translate("MainWindow", "进水温度"))
-        item = self.table_24.item(0, 3)
-        item.setText(_translate("MainWindow", "出水温度"))
-        item = self.table_24.item(0, 4)
-        item.setText(_translate("MainWindow", "水流量（m3/h）"))
-        item = self.table_24.item(0, 5)
-        item.setText(_translate("MainWindow", "空气流量（m3/h）"))
-        item = self.table_24.item(0, 6)
-        item.setText(_translate("MainWindow", "功率（Kw）P0"))
-        item = self.table_24.item(34, 0)
-        item.setText(_translate("MainWindow", "湿球温度"))
-        item = self.table_24.item(34, 1)
+
+        item = QtWidgets.QTableWidgetItem()
+        self.table_24.setItem(1, 1, item)
+        item = self.table_24.item(1,1)
         item.setText(_translate("MainWindow", "冷幅"))
-        item = self.table_24.item(34, 2)
-        item.setText(_translate("MainWindow", "进水温度"))
-        item = self.table_24.item(34, 3)
-        item.setText(_translate("MainWindow", "出水温度"))
-        item = self.table_24.item(34, 4)
+
+        item = self.table_24.item(0, 2)
+        item.setText(_translate("MainWindow", "二对一"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.table_24.setItem(1, 2, item)
+        item = self.table_24.item(1, 2)
+        item.setText(_translate("MainWindow", "湿球温度"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.table_24.setItem(1, 3, item)
+        item = self.table_24.item(1, 3)
+        item.setText(_translate("MainWindow", "冷幅"))
+
+        item = self.table_24.item(0, 4)
+        item.setText(_translate("MainWindow", "三对一"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.table_24.setItem(1, 4, item)
+        item = self.table_24.item(1, 4)
+        item.setText(_translate("MainWindow", "湿球温度"))
+        item = QtWidgets.QTableWidgetItem()
+        self.table_24.setItem(1, 5, item)
+        item = self.table_24.item(1, 5)
+        item.setText(_translate("MainWindow", "冷幅"))
+
+
+
+        item = self.table_24.item(0, 6)
+        item.setText(_translate("MainWindow", "四对一"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.table_24.setItem(1, 6, item)
+        item = self.table_24.item(1, 6)
+        item.setText(_translate("MainWindow", "湿球温度"))
+        item = QtWidgets.QTableWidgetItem()
+        self.table_24.setItem(1, 7, item)
+        item = self.table_24.item(1, 7)
+        item.setText(_translate("MainWindow", "冷幅"))
+
+
+        item = QtWidgets.QTableWidgetItem()
+        self.table_24.setItem(0, 8, item)
+        item = self.table_24.item(0, 8)
+        item.setText(_translate("MainWindow", "三对二"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.table_24.setItem(1, 8, item)
+        item = self.table_24.item(1, 8)
+        item.setText(_translate("MainWindow", "湿球温度"))
+        item = QtWidgets.QTableWidgetItem()
+        self.table_24.setItem(1, 9, item)
+        item = self.table_24.item(1, 9)
+        item.setText(_translate("MainWindow", "冷幅"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.table_24.setItem(0, 10, item)
+        item = self.table_24.item(0, 10)
+        item.setText(_translate("MainWindow", "四对三"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.table_24.setItem(1, 10, item)
+        item = self.table_24.item(1, 10)
+        item.setText(_translate("MainWindow", "湿球温度"))
+        item = QtWidgets.QTableWidgetItem()
+        self.table_24.setItem(1, 11, item)
+        item = self.table_24.item(1, 11)
+        item.setText(_translate("MainWindow", "冷幅"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.table_24.setItem(0, 12, item)
+        item = self.table_24.item(0, 12)
+        item.setText(_translate("MainWindow", "P4功率和流量的拟合"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.table_24.setItem(1, 12, item)
+        item = self.table_24.item(1, 12)
         item.setText(_translate("MainWindow", "水流量G（m3/h）"))
+        item = QtWidgets.QTableWidgetItem()
+        self.table_24.setItem(1, 13, item)
+        item = self.table_24.item(1, 13)
+        item.setText(_translate("MainWindow", "功率P4（KW）"))
+
+
+        item = self.table_24.item(34, 0)
+        # item.setText(_translate("MainWindow", "湿球温度"))
+        item = self.table_24.item(34, 1)
+        # item.setText(_translate("MainWindow", "冷幅"))
+        item = self.table_24.item(34, 2)
+        # item.setText(_translate("MainWindow", "进水温度"))
+        item = self.table_24.item(34, 3)
+        # item.setText(_translate("MainWindow", "出水温度"))
+        item = self.table_24.item(34, 4)
+        # item.setText(_translate("MainWindow", "水流量G（m3/h）"))
         item = self.table_24.item(34, 5)
-        item.setText(_translate("MainWindow", "功率P4（Kw）"))
+        # item.setText(_translate("MainWindow", "功率P4（Kw）"))
         item = self.table_24.item(34, 6)
-        item.setText(_translate("MainWindow", "空气流量（m3/h）"))
+        # item.setText(_translate("MainWindow", "空气流量（m3/h）"))
         self.table_24.setSortingEnabled(__sortingEnabled)
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_9), _translate("MainWindow", "冷却塔"))
         self.B2_51.setText(_translate("MainWindow", "读入"))
@@ -3685,8 +3767,10 @@ class Ui_MainWindow(object):
             item.setText(_translate("MainWindow", str(model.db.init_params.t1_range[i])))
 
         def click_load2():
-            print("11")
+
             load("template.xlsx")
+
+
             self.table_21.setRowCount(len(model.db.main_fittings) + 2)
             # 数据读入-主机设备 数值填充
             for i in range(len(model.db.main_fittings)):
@@ -3766,19 +3850,86 @@ class Ui_MainWindow(object):
                 item = self.table_23.item(2, (j + 1) * 2 + 1)
                 item.setText(_translate("MainWindow", str(model.db.pump3_fittings[j].p3)))
 
-            self.table_24.setRowCount(len(model.db.wet_bulb_fittings) + 1)
+            self.table_24.setRowCount(len(model.db.wet_bulb_fittings_1to1) + 2)
             # 数据读入-冷却塔 数据填充
-            for i in range(len(model.db.wet_bulb_fittings)):
+            for i in range(len(model.db.wet_bulb_fittings_1to1)):
                 item = QtWidgets.QTableWidgetItem()
-                self.table_24.setItem(i + 1, 0, item)
-                item = self.table_24.item(i + 1, 0)
-                item.setText(_translate("MainWindow", str(model.db.wet_bulb_fittings[i].temp)))
+                self.table_24.setItem(i + 2, 0, item)
+                item = self.table_24.item(i + 2, 0)
+                item.setText(_translate("MainWindow", str(round(model.db.wet_bulb_fittings_1to1[i].temp,1))))
 
                 item = QtWidgets.QTableWidgetItem()
-                self.table_24.setItem(i + 1, 1, item)
-                item = self.table_24.item(i + 1, 1)
-                item.setText(_translate("MainWindow", str(model.db.wet_bulb_fittings[i].amplitude)))
+                self.table_24.setItem(i + 2, 1, item)
+                item = self.table_24.item(i + 2, 1)
+                item.setText(_translate("MainWindow", str(round(model.db.wet_bulb_fittings_1to1[i].amplitude,1))))
 
+
+
+            for i in range(len(model.db.wet_bulb_fittings_2to1)):
+                item = QtWidgets.QTableWidgetItem()
+                self.table_24.setItem(i + 2, 2, item)
+                item = self.table_24.item(i + 2, 2)
+                item.setText(_translate("MainWindow", str(round(model.db.wet_bulb_fittings_2to1[i].temp,1))))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.table_24.setItem(i + 2, 3, item)
+                item = self.table_24.item(i + 2, 3)
+                item.setText(_translate("MainWindow", str(round(model.db.wet_bulb_fittings_2to1[i].amplitude,1))))
+
+            for i in range(len(model.db.wet_bulb_fittings_3to1)):
+                item = QtWidgets.QTableWidgetItem()
+                self.table_24.setItem(i + 2, 4, item)
+                item = self.table_24.item(i + 2, 4)
+                item.setText(_translate("MainWindow", str(round(model.db.wet_bulb_fittings_3to1[i].temp,1))))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.table_24.setItem(i + 2, 5, item)
+                item = self.table_24.item(i + 2, 5)
+                item.setText(_translate("MainWindow", str(round(model.db.wet_bulb_fittings_3to1[i].amplitude,1))))
+
+            for i in range(len(model.db.wet_bulb_fittings_4to1)):
+                item = QtWidgets.QTableWidgetItem()
+                self.table_24.setItem(i + 2, 6, item)
+                item = self.table_24.item(i + 2, 6)
+                item.setText(_translate("MainWindow", str(round(model.db.wet_bulb_fittings_4to1[i].temp,1))))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.table_24.setItem(i + 2, 7, item)
+                item = self.table_24.item(i + 2, 7)
+                item.setText(_translate("MainWindow", str(round(model.db.wet_bulb_fittings_4to1[i].amplitude,1))))
+
+            for i in range(len(model.db.wet_bulb_fittings_3to2)):
+                item = QtWidgets.QTableWidgetItem()
+                self.table_24.setItem(i + 2, 8, item)
+                item = self.table_24.item(i + 2, 8)
+                item.setText(_translate("MainWindow", str(round(model.db.wet_bulb_fittings_3to2[i].temp,1))))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.table_24.setItem(i + 2, 9, item)
+                item = self.table_24.item(i + 2, 9)
+                item.setText(_translate("MainWindow", str(round(model.db.wet_bulb_fittings_3to2[i].amplitude,1))))
+
+            for i in range(len(model.db.wet_bulb_fittings_4to3)):
+                item = QtWidgets.QTableWidgetItem()
+                self.table_24.setItem(i + 2, 10, item)
+                item = self.table_24.item(i + 2, 10)
+                item.setText(_translate("MainWindow", str(round(model.db.wet_bulb_fittings_4to3[i].temp,1))))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.table_24.setItem(i + 2, 11, item)
+                item = self.table_24.item(i + 2, 11)
+                item.setText(_translate("MainWindow", str(round(model.db.wet_bulb_fittings_4to3[i].amplitude,1))))
+
+            for i in range(len(model.db.p4_fittings)):
+                item = QtWidgets.QTableWidgetItem()
+                self.table_24.setItem(i + 2, 12, item)
+                item = self.table_24.item(i + 2, 12)
+                item.setText(_translate("MainWindow", str(round(model.db.p4_fittings[i].g,1))))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.table_24.setItem(i + 2, 13, item)
+                item = self.table_24.item(i + 2, 13)
+                item.setText(_translate("MainWindow", str(model.db.p4_fittings[i].p4)))
             # q值变化表 数据填充
             self.table_25.setRowCount(len(model.db.q_delta) + 1)
             for i, entry in enumerate(model.db.q_delta):
