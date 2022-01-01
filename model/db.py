@@ -11,7 +11,12 @@ init_params = InitialParameters()
 main_fittings: List[MainFitting] = list()
 pump2_fittings: List[Pump2Fitting] = list()
 pump3_fittings: List[Pump3Fitting] = list()
-wet_bulb_fittings: List[WetBulbFitting] = list()
+wet_bulb_fittings_1to1: List[WetBulbFitting_1to1] = list()
+wet_bulb_fittings_2to1: List[WetBulbFitting_2to1] = list()
+wet_bulb_fittings_3to1: List[WetBulbFitting_3to1] = list()
+wet_bulb_fittings_4to1: List[WetBulbFitting_4to1] = list()
+wet_bulb_fittings_3to2: List[WetBulbFitting_3to2] = list()
+wet_bulb_fittings_4to3: List[WetBulbFitting_4to3] = list()
 p4_fittings: List[P4Fitting] = list()
 fitting_coefficients = FittingCoefficients()
 optimize_result: List[OptimizeResult] = list()
@@ -19,7 +24,7 @@ q_delta: List[QDeltaEntry] = list()
 
 
 def load(path: str):
-    global init_params, main_fittings, pump2_fittings, pump3_fittings, wet_bulb_fittings, p4_fittings, \
+    global init_params, main_fittings, pump2_fittings, pump3_fittings, wet_bulb_fittings_1to1, wet_bulb_fittings_2to1, wet_bulb_fittings_3to1, wet_bulb_fittings_4to1, wet_bulb_fittings_3to2, wet_bulb_fittings_4to3, p4_fittings, \
         fitting_coefficients, optimize_result, q_delta
     if not os.path.exists(path):
         save_default(path)
@@ -103,22 +108,63 @@ def load(path: str):
         elif sheet.title == "冷却塔拟合":
             # print("4")
             i = 0
-            wet_bulb_fittings = list()
+            wet_bulb_fittings_1to1 = list()
             while sheet.cell(3 + i, 1).value is not None:
-                entry = WetBulbFitting()
+                entry = WetBulbFitting_1to1()
                 entry.temp = float(sheet.cell(3 + i, 1).value)
                 entry.amplitude = float(sheet.cell(3 + i, 2).value)
-                wet_bulb_fittings.append(entry)
+                wet_bulb_fittings_1to1.append(entry)
+                i += 1
+
+            i = 0
+            while sheet.cell(3 + i, 3).value is not None:
+                entry = WetBulbFitting_2to1()
+                entry.temp = float(sheet.cell(3 + i, 3).value)
+                entry.amplitude = float(sheet.cell(3 + i, 4).value)
+                wet_bulb_fittings_2to1.append(entry)
+                i += 1
+
+            i = 0
+            while sheet.cell(3 + i, 5).value is not None:
+                entry = WetBulbFitting_3to1()
+                entry.temp = float(sheet.cell(3 + i, 5).value)
+                entry.amplitude = float(sheet.cell(3 + i, 6).value)
+                wet_bulb_fittings_3to1.append(entry)
+                i += 1
+
+            i = 0
+            while sheet.cell(3 + i, 7).value is not None:
+                entry = WetBulbFitting_4to1()
+                entry.temp = float(sheet.cell(3 + i, 7).value)
+                entry.amplitude = float(sheet.cell(3 + i, 8).value)
+                wet_bulb_fittings_4to1.append(entry)
+                i += 1
+
+            i = 0
+            while sheet.cell(3 + i, 9).value is not None:
+                entry = WetBulbFitting_3to2()
+                entry.temp = float(sheet.cell(3 + i, 9).value)
+                entry.amplitude = float(sheet.cell(3 + i, 10).value)
+                wet_bulb_fittings_3to2.append(entry)
+                i += 1
+
+            i = 0
+            while sheet.cell(3 + i, 11).value is not None:
+                entry = WetBulbFitting_4to3()
+                entry.temp = float(sheet.cell(3 + i, 11).value)
+                entry.amplitude = float(sheet.cell(3 + i, 12).value)
+                wet_bulb_fittings_4to3.append(entry)
                 i += 1
 
             i = 0
             p4_fittings = list()
-            while sheet.cell(3 + i, 4).value is not None:
+            while sheet.cell(3 + i, 13).value is not None:
                 entry = P4Fitting()
-                entry.g = float(sheet.cell(3 + i, 4).value)
-                entry.p4 = float(sheet.cell(3 + i, 5).value)
+                entry.g = float(sheet.cell(3 + i, 13).value)
+                entry.p4 = float(sheet.cell(3 + i, 14).value)
                 p4_fittings.append(entry)
                 i += 1
+
         elif sheet.title == "拟合系数表":
             # print("5")
             fitting_coefficients = FittingCoefficients()
@@ -236,10 +282,31 @@ def save(path: str):
             # print("冷却塔拟合")
             i = 0
             # wet_bulb_fittings = list()
-            for entry in wet_bulb_fittings:
+            for entry in wet_bulb_fittings_1to1:
                 sheet.cell(3 + i, 1).value = str(entry.temp)
                 sheet.cell(3 + i, 2).value = str(entry.amplitude)
                 i += 1
+            for entry in wet_bulb_fittings_2to1:
+                sheet.cell(3 + i, 3).value = str(entry.temp)
+                sheet.cell(3 + i, 4).value = str(entry.amplitude)
+                i += 1
+            for entry in wet_bulb_fittings_3to1:
+                sheet.cell(3 + i, 5).value = str(entry.temp)
+                sheet.cell(3 + i, 6).value = str(entry.amplitude)
+                i += 1
+            for entry in wet_bulb_fittings_4to1:
+                sheet.cell(3 + i, 7).value = str(entry.temp)
+                sheet.cell(3 + i, 8).value = str(entry.amplitude)
+                i += 1
+            for entry in wet_bulb_fittings_3to2:
+                sheet.cell(3 + i, 9).value = str(entry.temp)
+                sheet.cell(3 + i, 10).value = str(entry.amplitude)
+                i += 1
+            for entry in wet_bulb_fittings_4to3:
+                sheet.cell(3 + i, 11).value = str(entry.temp)
+                sheet.cell(3 + i, 12).value = str(entry.amplitude)
+                i += 1
+
             while sheet.cell(3 + i, 1).value is not None:
                 sheet.cell(3 + i, 1).value = None
                 sheet.cell(3 + i, 2).value = None
@@ -247,8 +314,8 @@ def save(path: str):
 
             i = 0
             for entry in p4_fittings:
-                sheet.cell(3 + i, 4).value = str(entry.g)
-                sheet.cell(3 + i, 5).value = str(entry.p4)
+                sheet.cell(3 + i, 13).value = str(entry.g)
+                sheet.cell(3 + i, 14).value = str(entry.p4)
                 i += 1
             while sheet.cell(3 + i, 4).value is not None:
                 sheet.cell(3 + i, 4).value = None

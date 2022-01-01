@@ -45,7 +45,37 @@ class Pump3Fitting:
         self.p3 = 0.0
 
 
-class WetBulbFitting:
+class WetBulbFitting_1to1:
+    def __init__(self):
+        self.temp = 0.0
+        # 冷幅
+        self.amplitude = 0.0
+
+class WetBulbFitting_2to1:
+    def __init__(self):
+        self.temp = 0.0
+        # 冷幅
+        self.amplitude = 0.0
+
+class WetBulbFitting_3to1:
+    def __init__(self):
+        self.temp = 0.0
+        # 冷幅
+        self.amplitude = 0.0
+
+class WetBulbFitting_4to1:
+    def __init__(self):
+        self.temp = 0.0
+        # 冷幅
+        self.amplitude = 0.0
+
+class WetBulbFitting_3to2:
+    def __init__(self):
+        self.temp = 0.0
+        # 冷幅
+        self.amplitude = 0.0
+
+class WetBulbFitting_4to3:
     def __init__(self):
         self.temp = 0.0
         # 冷幅
