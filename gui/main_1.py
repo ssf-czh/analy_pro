@@ -1564,77 +1564,245 @@ class Ui_MainWindow(object):
             #     print(i.g2)
             #     print(i.p2)
             # p3_data = model.db.pump3_fittings
-            web_data = model.db.wet_bulb_fittings
+            web_data_1to1 = model.db.wet_bulb_fittings_1to1
+            web_data_2to1 = model.db.wet_bulb_fittings_2to1
+            web_data_3to1 = model.db.wet_bulb_fittings_3to1
+            web_data_4to1 = model.db.wet_bulb_fittings_4to1
+            web_data_3to2 = model.db.wet_bulb_fittings_3to2
+            web_data_4to3 = model.db.wet_bulb_fittings_4to3
+
             p4_data = model.db.p4_fittings
+
             # B = self.PumpFit.fit_P1(p1_data)
             # A = self.PumpFit.fit_P2(p2_data)
             # C = self.PumpFit.fit_P3(p3_data)
-            D = self.PumpFit.fit_Tdelta(web_data)
+            D_1to1 = self.PumpFit.fit_Tdelta_1to1(web_data_1to1)
+            D_2to1 = self.PumpFit.fit_Tdelta_2to1(web_data_2to1)
+            D_3to1 = self.PumpFit.fit_Tdelta_3to1(web_data_3to1)
+            D_4to1 = self.PumpFit.fit_Tdelta_4to1(web_data_4to1)
+            D_3to2 = self.PumpFit.fit_Tdelta_3to2(web_data_3to2)
+            D_4to3 = self.PumpFit.fit_Tdelta_4to3(web_data_4to3)
+
+            # self.PumpFit.D_1to1 = D_1to1
+            # print(D_1to1)
+
             E = self.PumpFit.fit_P4(p4_data)
 
             # print(B)
-            D0, D1, D2 = D
+            D0_1to1, D1_1to1, D2_1to1 = D_1to1
+            D0_2to1, D1_2to1, D2_2to1 = D_2to1
+            D0_3to1, D1_3to1, D2_3to1 = D_3to1
+            D0_4to1, D1_4to1, D2_4to1 = D_4to1
+            D0_3to2, D1_3to2, D2_3to2 = D_3to2
+            D0_4to3, D1_4to3, D2_4to3 = D_4to3
+
+            mapD_1to1, mseD_1to1 = self.PumpFit.calc_pre_Tdelta_1to1()
+            mapD_2to1, mseD_2to1 = self.PumpFit.calc_pre_Tdelta_2to1()
+            mapD_3to1, mseD_3to1 = self.PumpFit.calc_pre_Tdelta_3to1()
+            mapD_4to1, mseD_4to1 = self.PumpFit.calc_pre_Tdelta_4to1()
+            mapD_3to2, mseD_3to2 = self.PumpFit.calc_pre_Tdelta_3to2()
+            mapD_4to3, mseD_4to3 = self.PumpFit.calc_pre_Tdelta_4to3()
+
             E0, E1, E2, E3 = E
 
             # print(D)
             # print(E)
-
+            # print(111)
             item = QtWidgets.QTableWidgetItem()
             self.wet_bulb_fittings.setItem(2, 1, item)
             item = self.wet_bulb_fittings.item(2, 1)
-            item.setText(_translate("MainWindow", str(round(D0, 6))))
+            item.setText(_translate("MainWindow", str(round(D0_1to1, 6))))
 
             item = QtWidgets.QTableWidgetItem()
             self.wet_bulb_fittings.setItem(2, 2, item)
             item = self.wet_bulb_fittings.item(2, 2)
-            item.setText(_translate("MainWindow", str(round(D1, 6))))
+            item.setText(_translate("MainWindow", str(round(D1_1to1, 6))))
 
             item = QtWidgets.QTableWidgetItem()
             self.wet_bulb_fittings.setItem(2, 3, item)
             item = self.wet_bulb_fittings.item(2, 3)
-            item.setText(_translate("MainWindow", str(round(D2, 6))))
+            item.setText(_translate("MainWindow", str(round(D2_1to1, 6))))
 
-            mapD, mseD = self.PumpFit.calc_pre_Tdelta()
-            item = QtWidgets.QTableWidgetItem()
-            self.wet_bulb_fittings.setItem(6, 0, item)
-            item = self.wet_bulb_fittings.item(6, 0)
-            item.setText(_translate("MainWindow", str(round(mapD, 6))))
 
-            item = QtWidgets.QTableWidgetItem()
-            self.wet_bulb_fittings.setItem(6, 2, item)
-            item = self.wet_bulb_fittings.item(6, 2)
-            item.setText(_translate("MainWindow", str(round(mseD, 6))))
 
             item = QtWidgets.QTableWidgetItem()
             self.wet_bulb_fittings.setItem(4, 1, item)
             item = self.wet_bulb_fittings.item(4, 1)
-            item.setText(_translate("MainWindow", str(round(E0, 6))))
-
-            item = QtWidgets.QTableWidgetItem()
-            self.wet_bulb_fittings.setItem(4, 2, item)
-            item = self.wet_bulb_fittings.item(4, 2)
-            item.setText(_translate("MainWindow", str(round(E1, 6))))
+            item.setText(_translate("MainWindow", str(round(mapD_1to1, 6))))
 
             item = QtWidgets.QTableWidgetItem()
             self.wet_bulb_fittings.setItem(4, 3, item)
             item = self.wet_bulb_fittings.item(4, 3)
+            item.setText(_translate("MainWindow", str(round(mseD_1to1, 6))))
+            # ==
+
+            item = QtWidgets.QTableWidgetItem()
+            self.wet_bulb_fittings.setItem(2, 6, item)
+            item = self.wet_bulb_fittings.item(2, 6)
+            item.setText(_translate("MainWindow", str(round(D0_2to1, 6))))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.wet_bulb_fittings.setItem(2, 7, item)
+            item = self.wet_bulb_fittings.item(2, 7)
+            item.setText(_translate("MainWindow", str(round(D1_2to1, 6))))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.wet_bulb_fittings.setItem(2, 8, item)
+            item = self.wet_bulb_fittings.item(2, 8)
+            item.setText(_translate("MainWindow", str(round(D2_2to1, 6))))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.wet_bulb_fittings.setItem(4, 6, item)
+            item = self.wet_bulb_fittings.item(4, 6)
+            item.setText(_translate("MainWindow", str(round(mapD_2to1, 6))))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.wet_bulb_fittings.setItem(4, 8, item)
+            item = self.wet_bulb_fittings.item(4, 8)
+            item.setText(_translate("MainWindow", str(round(mseD_2to1, 6))))
+            # ==
+
+            item = QtWidgets.QTableWidgetItem()
+            self.wet_bulb_fittings.setItem(2, 11, item)
+            item = self.wet_bulb_fittings.item(2, 11)
+            item.setText(_translate("MainWindow", str(round(D0_3to1, 6))))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.wet_bulb_fittings.setItem(2, 12, item)
+            item = self.wet_bulb_fittings.item(2, 12)
+            item.setText(_translate("MainWindow", str(round(D1_3to1, 6))))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.wet_bulb_fittings.setItem(2, 13, item)
+            item = self.wet_bulb_fittings.item(2, 13)
+            item.setText(_translate("MainWindow", str(round(D2_3to1, 6))))
+
+
+            item = QtWidgets.QTableWidgetItem()
+            self.wet_bulb_fittings.setItem(4, 11, item)
+            item = self.wet_bulb_fittings.item(4, 11)
+            item.setText(_translate("MainWindow", str(round(mapD_3to1, 6))))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.wet_bulb_fittings.setItem(4, 13, item)
+            item = self.wet_bulb_fittings.item(4, 13)
+            item.setText(_translate("MainWindow", str(round(mseD_3to1, 6))))
+            # ==
+
+            # ==
+
+            item = QtWidgets.QTableWidgetItem()
+            self.wet_bulb_fittings.setItem(2, 16, item)
+            item = self.wet_bulb_fittings.item(2, 16)
+            item.setText(_translate("MainWindow", str(round(D0_4to1, 6))))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.wet_bulb_fittings.setItem(2, 17, item)
+            item = self.wet_bulb_fittings.item(2, 17)
+            item.setText(_translate("MainWindow", str(round(D1_4to1, 6))))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.wet_bulb_fittings.setItem(2, 18, item)
+            item = self.wet_bulb_fittings.item(2, 18)
+            item.setText(_translate("MainWindow", str(round(D2_4to1, 6))))
+
+
+            item = QtWidgets.QTableWidgetItem()
+            self.wet_bulb_fittings.setItem(4, 16, item)
+            item = self.wet_bulb_fittings.item(4, 16)
+            item.setText(_translate("MainWindow", str(round(mapD_4to1, 6))))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.wet_bulb_fittings.setItem(4, 18, item)
+            item = self.wet_bulb_fittings.item(4, 18)
+            item.setText(_translate("MainWindow", str(round(mseD_4to1, 6))))
+            # ==
+            # ==
+
+            item = QtWidgets.QTableWidgetItem()
+            self.wet_bulb_fittings.setItem(2, 26, item)
+            item = self.wet_bulb_fittings.item(2, 26)
+            item.setText(_translate("MainWindow", str(round(D0_3to2, 6))))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.wet_bulb_fittings.setItem(2, 27, item)
+            item = self.wet_bulb_fittings.item(2, 27)
+            item.setText(_translate("MainWindow", str(round(D1_3to2, 6))))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.wet_bulb_fittings.setItem(2, 28, item)
+            item = self.wet_bulb_fittings.item(2, 28)
+            item.setText(_translate("MainWindow", str(round(D2_3to2, 6))))
+
+
+            item = QtWidgets.QTableWidgetItem()
+            self.wet_bulb_fittings.setItem(4, 26, item)
+            item = self.wet_bulb_fittings.item(4, 26)
+            item.setText(_translate("MainWindow", str(round(mapD_3to2, 6))))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.wet_bulb_fittings.setItem(4, 28, item)
+            item = self.wet_bulb_fittings.item(4, 28)
+            item.setText(_translate("MainWindow", str(round(mseD_3to2, 6))))
+            # ==
+            # ==
+
+            item = QtWidgets.QTableWidgetItem()
+            self.wet_bulb_fittings.setItem(2, 21, item)
+            item = self.wet_bulb_fittings.item(2, 21)
+            item.setText(_translate("MainWindow", str(round(D0_4to3, 6))))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.wet_bulb_fittings.setItem(2, 22, item)
+            item = self.wet_bulb_fittings.item(2, 22)
+            item.setText(_translate("MainWindow", str(round(D1_4to3, 6))))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.wet_bulb_fittings.setItem(2, 23, item)
+            item = self.wet_bulb_fittings.item(2, 23)
+            item.setText(_translate("MainWindow", str(round(D2_4to3, 6))))
+
+
+            item = QtWidgets.QTableWidgetItem()
+            self.wet_bulb_fittings.setItem(4, 21, item)
+            item = self.wet_bulb_fittings.item(4, 21)
+            item.setText(_translate("MainWindow", str(round(mapD_4to3, 6))))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.wet_bulb_fittings.setItem(4, 23, item)
+            item = self.wet_bulb_fittings.item(4, 23)
+            item.setText(_translate("MainWindow", str(round(mseD_4to3, 6))))
+            # ==
+            item = QtWidgets.QTableWidgetItem()
+            self.wet_bulb_fittings.setItem(6, 1, item)
+            item = self.wet_bulb_fittings.item(6, 1)
+            item.setText(_translate("MainWindow", str(round(E0, 6))))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.wet_bulb_fittings.setItem(6, 2, item)
+            item = self.wet_bulb_fittings.item(6, 2)
+            item.setText(_translate("MainWindow", str(round(E1, 6))))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.wet_bulb_fittings.setItem(6, 3, item)
+            item = self.wet_bulb_fittings.item(6, 3)
             item.setText(_translate("MainWindow", str(round(E2, 6))))
 
             item = QtWidgets.QTableWidgetItem()
-            self.wet_bulb_fittings.setItem(4, 4, item)
-            item = self.wet_bulb_fittings.item(4, 4)
+            self.wet_bulb_fittings.setItem(6, 4, item)
+            item = self.wet_bulb_fittings.item(6, 4)
             item.setText(_translate("MainWindow", str(round(E3, 6))))
 
             mapE, mseE = self.PumpFit.calc_pre_p4()
 
             item = QtWidgets.QTableWidgetItem()
-            self.wet_bulb_fittings.setItem(8, 0, item)
-            item = self.wet_bulb_fittings.item(8, 0)
+            self.wet_bulb_fittings.setItem(8, 1, item)
+            item = self.wet_bulb_fittings.item(8, 1)
             item.setText(_translate("MainWindow", str(round(mapE, 6))))
 
             item = QtWidgets.QTableWidgetItem()
-            self.wet_bulb_fittings.setItem(8, 2, item)
-            item = self.wet_bulb_fittings.item(8, 2)
+            self.wet_bulb_fittings.setItem(8, 3, item)
+            item = self.wet_bulb_fittings.item(8,3)
             item.setText(_translate("MainWindow", str(round(mseE, 6))))
             # self.statusBar().showMessage('拟合完成')
 
@@ -3521,7 +3689,7 @@ class Ui_MainWindow(object):
 
         item = self.wet_bulb_fittings.item(1, 0)
         item.setText(_translate("MainWindow", "系数（冷幅)"))
-        item = self.wet_bulb_fittings.item(3, 0)
+        item = self.wet_bulb_fittings.item(5, 0)
         item.setText(_translate("MainWindow", "系数(功率)"))
 
         item = QtWidgets.QTableWidgetItem()
@@ -3535,23 +3703,37 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "D1"))
         item = self.wet_bulb_fittings.item(1, 3)
         item.setText(_translate("MainWindow", "D2"))
-        item = self.wet_bulb_fittings.item(3, 0)
+        item = self.wet_bulb_fittings.item(5, 0)
         item.setText(_translate("MainWindow", "系数(功率)"))
-        item = self.wet_bulb_fittings.item(3, 1)
-        item.setText(_translate("MainWindow", "E0"))
-        item = self.wet_bulb_fittings.item(3, 2)
-        item.setText(_translate("MainWindow", "E1"))
-        item = self.wet_bulb_fittings.item(3, 3)
-        item.setText(_translate("MainWindow", "E2"))
-        item = self.wet_bulb_fittings.item(3, 4)
-        item.setText(_translate("MainWindow", "E3"))
+
         item = QtWidgets.QTableWidgetItem()
-        self.wet_bulb_fittings.setItem(5, 1, item)
+        self.wet_bulb_fittings.setItem(5,1,item)
         item = self.wet_bulb_fittings.item(5, 1)
-        item.setText(_translate("MainWindow", "MAPE(D)"))
+        item.setText(_translate("MainWindow", "E0"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.wet_bulb_fittings.setItem(5, 2, item)
+        item = self.wet_bulb_fittings.item(5, 2)
+        item.setText(_translate("MainWindow", "E1"))
+
         item = QtWidgets.QTableWidgetItem()
         self.wet_bulb_fittings.setItem(5, 3, item)
         item = self.wet_bulb_fittings.item(5, 3)
+        item.setText(_translate("MainWindow", "E2"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.wet_bulb_fittings.setItem(5, 4, item)
+        item = self.wet_bulb_fittings.item(5, 4)
+        item.setText(_translate("MainWindow", "E3"))
+
+
+        item = QtWidgets.QTableWidgetItem()
+        self.wet_bulb_fittings.setItem(3, 1, item)
+        item = self.wet_bulb_fittings.item(3, 1)
+        item.setText(_translate("MainWindow", "MAPE(D)"))
+        item = QtWidgets.QTableWidgetItem()
+        self.wet_bulb_fittings.setItem(3, 3, item)
+        item = self.wet_bulb_fittings.item(3, 3)
         item.setText(_translate("MainWindow", "RMSE(D)"))
 
         item = QtWidgets.QTableWidgetItem()
@@ -3587,45 +3769,45 @@ class Ui_MainWindow(object):
         item = self.wet_bulb_fittings.item(1, 8)
         item.setText(_translate("MainWindow", "D2"))
 
+        # item = QtWidgets.QTableWidgetItem()
+        # self.wet_bulb_fittings.setItem(3, 6, item)
+        # item = self.wet_bulb_fittings.item(3, 6)
+        # item.setText(_translate("MainWindow", "E0"))
+        #
+        # item = QtWidgets.QTableWidgetItem()
+        # self.wet_bulb_fittings.setItem(3, 7, item)
+        # item = self.wet_bulb_fittings.item(3, 7)
+        # item.setText(_translate("MainWindow", "E1"))
+        #
+        # item = QtWidgets.QTableWidgetItem()
+        # self.wet_bulb_fittings.setItem(3, 8, item)
+        # item = self.wet_bulb_fittings.item(3, 8)
+        # item.setText(_translate("MainWindow", "E2"))
+        #
+        # item = QtWidgets.QTableWidgetItem()
+        # self.wet_bulb_fittings.setItem(3, 9, item)
+        # item = self.wet_bulb_fittings.item(3, 9)
+        # item.setText(_translate("MainWindow", "E3"))
+
         item = QtWidgets.QTableWidgetItem()
         self.wet_bulb_fittings.setItem(3, 6, item)
         item = self.wet_bulb_fittings.item(3, 6)
-        item.setText(_translate("MainWindow", "E0"))
-
-        item = QtWidgets.QTableWidgetItem()
-        self.wet_bulb_fittings.setItem(3, 7, item)
-        item = self.wet_bulb_fittings.item(3, 7)
-        item.setText(_translate("MainWindow", "E1"))
+        item.setText(_translate("MainWindow", "MAPE(D)"))
 
         item = QtWidgets.QTableWidgetItem()
         self.wet_bulb_fittings.setItem(3, 8, item)
         item = self.wet_bulb_fittings.item(3, 8)
-        item.setText(_translate("MainWindow", "E2"))
-
-        item = QtWidgets.QTableWidgetItem()
-        self.wet_bulb_fittings.setItem(3, 9, item)
-        item = self.wet_bulb_fittings.item(3, 9)
-        item.setText(_translate("MainWindow", "E3"))
-
-        item = QtWidgets.QTableWidgetItem()
-        self.wet_bulb_fittings.setItem(5, 6, item)
-        item = self.wet_bulb_fittings.item(5, 6)
-        item.setText(_translate("MainWindow", "MAPE(D)"))
-
-        item = QtWidgets.QTableWidgetItem()
-        self.wet_bulb_fittings.setItem(5, 8, item)
-        item = self.wet_bulb_fittings.item(5, 8)
         item.setText(_translate("MainWindow", "RMSE(D)"))
 
-        item = QtWidgets.QTableWidgetItem()
-        self.wet_bulb_fittings.setItem(7, 6, item)
-        item = self.wet_bulb_fittings.item(7, 6)
-        item.setText(_translate("MainWindow", "MAPE(E)"))
-
-        item = QtWidgets.QTableWidgetItem()
-        self.wet_bulb_fittings.setItem(7, 8, item)
-        item = self.wet_bulb_fittings.item(7, 8)
-        item.setText(_translate("MainWindow", "RMSE(E)"))
+        # item = QtWidgets.QTableWidgetItem()
+        # self.wet_bulb_fittings.setItem(7, 6, item)
+        # item = self.wet_bulb_fittings.item(7, 6)
+        # item.setText(_translate("MainWindow", "MAPE(E)"))
+        #
+        # item = QtWidgets.QTableWidgetItem()
+        # self.wet_bulb_fittings.setItem(7, 8, item)
+        # item = self.wet_bulb_fittings.item(7, 8)
+        # item.setText(_translate("MainWindow", "RMSE(E)"))
         # ==
 
         item = QtWidgets.QTableWidgetItem()
@@ -3649,45 +3831,45 @@ class Ui_MainWindow(object):
         item = self.wet_bulb_fittings.item(1, 13)
         item.setText(_translate("MainWindow", "D2"))
 
+        # item = QtWidgets.QTableWidgetItem()
+        # self.wet_bulb_fittings.setItem(3, 11, item)
+        # item = self.wet_bulb_fittings.item(3, 11)
+        # item.setText(_translate("MainWindow", "E0"))
+        #
+        # item = QtWidgets.QTableWidgetItem()
+        # self.wet_bulb_fittings.setItem(3, 12, item)
+        # item = self.wet_bulb_fittings.item(3, 12)
+        # item.setText(_translate("MainWindow", "E1"))
+        #
+        # item = QtWidgets.QTableWidgetItem()
+        # self.wet_bulb_fittings.setItem(3, 13, item)
+        # item = self.wet_bulb_fittings.item(3, 13)
+        # item.setText(_translate("MainWindow", "E2"))
+        #
+        # item = QtWidgets.QTableWidgetItem()
+        # self.wet_bulb_fittings.setItem(3, 14, item)
+        # item = self.wet_bulb_fittings.item(3, 14)
+        # item.setText(_translate("MainWindow", "E3"))
+
         item = QtWidgets.QTableWidgetItem()
         self.wet_bulb_fittings.setItem(3, 11, item)
         item = self.wet_bulb_fittings.item(3, 11)
-        item.setText(_translate("MainWindow", "E0"))
-
-        item = QtWidgets.QTableWidgetItem()
-        self.wet_bulb_fittings.setItem(3, 12, item)
-        item = self.wet_bulb_fittings.item(3, 12)
-        item.setText(_translate("MainWindow", "E1"))
+        item.setText(_translate("MainWindow", "MAPE(D)"))
 
         item = QtWidgets.QTableWidgetItem()
         self.wet_bulb_fittings.setItem(3, 13, item)
         item = self.wet_bulb_fittings.item(3, 13)
-        item.setText(_translate("MainWindow", "E2"))
-
-        item = QtWidgets.QTableWidgetItem()
-        self.wet_bulb_fittings.setItem(3, 14, item)
-        item = self.wet_bulb_fittings.item(3, 14)
-        item.setText(_translate("MainWindow", "E3"))
-
-        item = QtWidgets.QTableWidgetItem()
-        self.wet_bulb_fittings.setItem(5, 11, item)
-        item = self.wet_bulb_fittings.item(5, 11)
-        item.setText(_translate("MainWindow", "MAPE(D)"))
-
-        item = QtWidgets.QTableWidgetItem()
-        self.wet_bulb_fittings.setItem(5, 13, item)
-        item = self.wet_bulb_fittings.item(5, 13)
         item.setText(_translate("MainWindow", "RMSE(D)"))
 
-        item = QtWidgets.QTableWidgetItem()
-        self.wet_bulb_fittings.setItem(7, 11, item)
-        item = self.wet_bulb_fittings.item(7, 11)
-        item.setText(_translate("MainWindow", "MAPE(E)"))
-
-        item = QtWidgets.QTableWidgetItem()
-        self.wet_bulb_fittings.setItem(7, 13, item)
-        item = self.wet_bulb_fittings.item(7, 13)
-        item.setText(_translate("MainWindow", "RMSE(E)"))
+        # item = QtWidgets.QTableWidgetItem()
+        # self.wet_bulb_fittings.setItem(7, 11, item)
+        # item = self.wet_bulb_fittings.item(7, 11)
+        # item.setText(_translate("MainWindow", "MAPE(E)"))
+        #
+        # item = QtWidgets.QTableWidgetItem()
+        # self.wet_bulb_fittings.setItem(7, 13, item)
+        # item = self.wet_bulb_fittings.item(7, 13)
+        # item.setText(_translate("MainWindow", "RMSE(E)"))
         # ==
 
         item = QtWidgets.QTableWidgetItem()
@@ -3710,45 +3892,45 @@ class Ui_MainWindow(object):
         item = self.wet_bulb_fittings.item(1, 18)
         item.setText(_translate("MainWindow", "D2"))
 
+        # item = QtWidgets.QTableWidgetItem()
+        # self.wet_bulb_fittings.setItem(3, 16, item)
+        # item = self.wet_bulb_fittings.item(3, 16)
+        # item.setText(_translate("MainWindow", "E0"))
+        #
+        # item = QtWidgets.QTableWidgetItem()
+        # self.wet_bulb_fittings.setItem(3, 17, item)
+        # item = self.wet_bulb_fittings.item(3, 17)
+        # item.setText(_translate("MainWindow", "E1"))
+        #
+        # item = QtWidgets.QTableWidgetItem()
+        # self.wet_bulb_fittings.setItem(3, 18, item)
+        # item = self.wet_bulb_fittings.item(3, 18)
+        # item.setText(_translate("MainWindow", "E2"))
+        #
+        # item = QtWidgets.QTableWidgetItem()
+        # self.wet_bulb_fittings.setItem(3, 19, item)
+        # item = self.wet_bulb_fittings.item(3, 19)
+        # item.setText(_translate("MainWindow", "E3"))
+
         item = QtWidgets.QTableWidgetItem()
         self.wet_bulb_fittings.setItem(3, 16, item)
         item = self.wet_bulb_fittings.item(3, 16)
-        item.setText(_translate("MainWindow", "E0"))
-
-        item = QtWidgets.QTableWidgetItem()
-        self.wet_bulb_fittings.setItem(3, 17, item)
-        item = self.wet_bulb_fittings.item(3, 17)
-        item.setText(_translate("MainWindow", "E1"))
+        item.setText(_translate("MainWindow", "MAPE(D)"))
 
         item = QtWidgets.QTableWidgetItem()
         self.wet_bulb_fittings.setItem(3, 18, item)
         item = self.wet_bulb_fittings.item(3, 18)
-        item.setText(_translate("MainWindow", "E2"))
-
-        item = QtWidgets.QTableWidgetItem()
-        self.wet_bulb_fittings.setItem(3, 19, item)
-        item = self.wet_bulb_fittings.item(3, 19)
-        item.setText(_translate("MainWindow", "E3"))
-
-        item = QtWidgets.QTableWidgetItem()
-        self.wet_bulb_fittings.setItem(5, 16, item)
-        item = self.wet_bulb_fittings.item(5, 16)
-        item.setText(_translate("MainWindow", "MAPE(D)"))
-
-        item = QtWidgets.QTableWidgetItem()
-        self.wet_bulb_fittings.setItem(5, 18, item)
-        item = self.wet_bulb_fittings.item(5, 18)
         item.setText(_translate("MainWindow", "RMSE(D)"))
 
-        item = QtWidgets.QTableWidgetItem()
-        self.wet_bulb_fittings.setItem(7, 16, item)
-        item = self.wet_bulb_fittings.item(7, 16)
-        item.setText(_translate("MainWindow", "MAPE(E)"))
-
-        item = QtWidgets.QTableWidgetItem()
-        self.wet_bulb_fittings.setItem(7, 18, item)
-        item = self.wet_bulb_fittings.item(7, 18)
-        item.setText(_translate("MainWindow", "RMSE(E)"))
+        # item = QtWidgets.QTableWidgetItem()
+        # self.wet_bulb_fittings.setItem(7, 16, item)
+        # item = self.wet_bulb_fittings.item(7, 16)
+        # item.setText(_translate("MainWindow", "MAPE(E)"))
+        #
+        # item = QtWidgets.QTableWidgetItem()
+        # self.wet_bulb_fittings.setItem(7, 18, item)
+        # item = self.wet_bulb_fittings.item(7, 18)
+        # item.setText(_translate("MainWindow", "RMSE(E)"))
         # ==
 
         item = QtWidgets.QTableWidgetItem()
@@ -3771,45 +3953,45 @@ class Ui_MainWindow(object):
         item = self.wet_bulb_fittings.item(1, 23)
         item.setText(_translate("MainWindow", "D2"))
 
+        # item = QtWidgets.QTableWidgetItem()
+        # self.wet_bulb_fittings.setItem(3, 21, item)
+        # item = self.wet_bulb_fittings.item(3, 21)
+        # item.setText(_translate("MainWindow", "E0"))
+        #
+        # item = QtWidgets.QTableWidgetItem()
+        # self.wet_bulb_fittings.setItem(3, 22, item)
+        # item = self.wet_bulb_fittings.item(3, 22)
+        # item.setText(_translate("MainWindow", "E1"))
+        #
+        # item = QtWidgets.QTableWidgetItem()
+        # self.wet_bulb_fittings.setItem(3, 23, item)
+        # item = self.wet_bulb_fittings.item(3, 23)
+        # item.setText(_translate("MainWindow", "E2"))
+        #
+        # item = QtWidgets.QTableWidgetItem()
+        # self.wet_bulb_fittings.setItem(3, 24, item)
+        # item = self.wet_bulb_fittings.item(3, 24)
+        # item.setText(_translate("MainWindow", "E3"))
+
         item = QtWidgets.QTableWidgetItem()
         self.wet_bulb_fittings.setItem(3, 21, item)
         item = self.wet_bulb_fittings.item(3, 21)
-        item.setText(_translate("MainWindow", "E0"))
-
-        item = QtWidgets.QTableWidgetItem()
-        self.wet_bulb_fittings.setItem(3, 22, item)
-        item = self.wet_bulb_fittings.item(3, 22)
-        item.setText(_translate("MainWindow", "E1"))
+        item.setText(_translate("MainWindow", "MAPE(D)"))
 
         item = QtWidgets.QTableWidgetItem()
         self.wet_bulb_fittings.setItem(3, 23, item)
         item = self.wet_bulb_fittings.item(3, 23)
-        item.setText(_translate("MainWindow", "E2"))
-
-        item = QtWidgets.QTableWidgetItem()
-        self.wet_bulb_fittings.setItem(3, 24, item)
-        item = self.wet_bulb_fittings.item(3, 24)
-        item.setText(_translate("MainWindow", "E3"))
-
-        item = QtWidgets.QTableWidgetItem()
-        self.wet_bulb_fittings.setItem(5, 21, item)
-        item = self.wet_bulb_fittings.item(5, 21)
-        item.setText(_translate("MainWindow", "MAPE(D)"))
-
-        item = QtWidgets.QTableWidgetItem()
-        self.wet_bulb_fittings.setItem(5, 23, item)
-        item = self.wet_bulb_fittings.item(5, 23)
         item.setText(_translate("MainWindow", "RMSE(D)"))
 
-        item = QtWidgets.QTableWidgetItem()
-        self.wet_bulb_fittings.setItem(7, 21, item)
-        item = self.wet_bulb_fittings.item(7, 21)
-        item.setText(_translate("MainWindow", "MAPE(E)"))
-
-        item = QtWidgets.QTableWidgetItem()
-        self.wet_bulb_fittings.setItem(7, 23, item)
-        item = self.wet_bulb_fittings.item(7, 23)
-        item.setText(_translate("MainWindow", "RMSE(E)"))
+        # item = QtWidgets.QTableWidgetItem()
+        # self.wet_bulb_fittings.setItem(7, 21, item)
+        # item = self.wet_bulb_fittings.item(7, 21)
+        # item.setText(_translate("MainWindow", "MAPE(E)"))
+        #
+        # item = QtWidgets.QTableWidgetItem()
+        # self.wet_bulb_fittings.setItem(7, 23, item)
+        # item = self.wet_bulb_fittings.item(7, 23)
+        # item.setText(_translate("MainWindow", "RMSE(E)"))
         # ==
 
         item = QtWidgets.QTableWidgetItem()
@@ -3832,45 +4014,45 @@ class Ui_MainWindow(object):
         item = self.wet_bulb_fittings.item(1, 28)
         item.setText(_translate("MainWindow", "D2"))
 
+        # item = QtWidgets.QTableWidgetItem()
+        # self.wet_bulb_fittings.setItem(3, 26, item)
+        # item = self.wet_bulb_fittings.item(3, 26)
+        # item.setText(_translate("MainWindow", "E0"))
+        #
+        # item = QtWidgets.QTableWidgetItem()
+        # self.wet_bulb_fittings.setItem(3, 27, item)
+        # item = self.wet_bulb_fittings.item(3, 27)
+        # item.setText(_translate("MainWindow", "E1"))
+        #
+        # item = QtWidgets.QTableWidgetItem()
+        # self.wet_bulb_fittings.setItem(3, 28, item)
+        # item = self.wet_bulb_fittings.item(3, 28)
+        # item.setText(_translate("MainWindow", "E2"))
+        #
+        # item = QtWidgets.QTableWidgetItem()
+        # self.wet_bulb_fittings.setItem(3, 29, item)
+        # item = self.wet_bulb_fittings.item(3, 29)
+        # item.setText(_translate("MainWindow", "E3"))
+
         item = QtWidgets.QTableWidgetItem()
         self.wet_bulb_fittings.setItem(3, 26, item)
         item = self.wet_bulb_fittings.item(3, 26)
-        item.setText(_translate("MainWindow", "E0"))
-
-        item = QtWidgets.QTableWidgetItem()
-        self.wet_bulb_fittings.setItem(3, 27, item)
-        item = self.wet_bulb_fittings.item(3, 27)
-        item.setText(_translate("MainWindow", "E1"))
+        item.setText(_translate("MainWindow", "MAPE(D)"))
 
         item = QtWidgets.QTableWidgetItem()
         self.wet_bulb_fittings.setItem(3, 28, item)
         item = self.wet_bulb_fittings.item(3, 28)
-        item.setText(_translate("MainWindow", "E2"))
-
-        item = QtWidgets.QTableWidgetItem()
-        self.wet_bulb_fittings.setItem(3, 29, item)
-        item = self.wet_bulb_fittings.item(3, 29)
-        item.setText(_translate("MainWindow", "E3"))
-
-        item = QtWidgets.QTableWidgetItem()
-        self.wet_bulb_fittings.setItem(5, 26, item)
-        item = self.wet_bulb_fittings.item(5, 26)
-        item.setText(_translate("MainWindow", "MAPE(D)"))
-
-        item = QtWidgets.QTableWidgetItem()
-        self.wet_bulb_fittings.setItem(5, 28, item)
-        item = self.wet_bulb_fittings.item(5, 28)
         item.setText(_translate("MainWindow", "RMSE(D)"))
 
-        item = QtWidgets.QTableWidgetItem()
-        self.wet_bulb_fittings.setItem(7, 26, item)
-        item = self.wet_bulb_fittings.item(7, 26)
-        item.setText(_translate("MainWindow", "MAPE(E)"))
-
-        item = QtWidgets.QTableWidgetItem()
-        self.wet_bulb_fittings.setItem(7, 2828, item)
-        item = self.wet_bulb_fittings.item(7, 18)
-        item.setText(_translate("MainWindow", "RMSE(E)"))
+        # item = QtWidgets.QTableWidgetItem()
+        # self.wet_bulb_fittings.setItem(7, 26, item)
+        # item = self.wet_bulb_fittings.item(7, 26)
+        # item.setText(_translate("MainWindow", "MAPE(E)"))
+        #
+        # item = QtWidgets.QTableWidgetItem()
+        # self.wet_bulb_fittings.setItem(7, 2828, item)
+        # item = self.wet_bulb_fittings.item(7, 18)
+        # item.setText(_translate("MainWindow", "RMSE(E)"))
         # ==
 
 

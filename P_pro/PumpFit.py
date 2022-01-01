@@ -14,7 +14,12 @@ class PumpFitting():
         self.B = [1]*24
         self.A = [1]*3
         self.C = [1]*3
-        self.D = [1]*3
+        self.D_1to1 = [1]*3
+        self.D_2to1 = [1]*3
+        self.D_3to1 = [1]*3
+        self.D_4to1 = [1]*3
+        self.D_3to2 = [1]*3
+        self.D_4to3 = [1]*3
         self.E = [1]*4
         self.P1_x_data = None
         self.P1 = None
@@ -26,8 +31,26 @@ class PumpFitting():
         self.P3 = None
 
 
-        self.Tdelta_x_data = None
-        self.Tdelta = None
+        self.Tdelta_x_data_1to1 = None
+        self.Tdelta_1to1 = None
+
+        self.Tdelta_x_data_2to1 = None
+        self.Tdelta_2to1 = None
+
+
+        self.Tdelta_x_data_3to1 = None
+        self.Tdelta_3to1 = None
+
+
+        self.Tdelta_x_data_4to1 = None
+        self.Tdelta_4to1 = None
+
+
+        self.Tdelta_x_data_3to2 = None
+        self.Tdelta_3to2 = None
+
+        self.Tdelta_x_data_4to3 = None
+        self.Tdelta_4to3 = None
 
         self.P4_x_data = None
         self.P4 = None
@@ -170,6 +193,7 @@ class PumpFitting():
 
         return sum(rat) / len(rat), math.sqrt(mse)
 
+# ==
     def func_Tdelta(self,T,D0,D1,D2):
         '''
         T相当于自变量X
@@ -181,7 +205,7 @@ class PumpFitting():
         Tdelta = D0+D1*TS+D2*TS*TS
         return Tdelta
 
-    def fit_Tdelta(self,WetBulb_data):
+    def fit_Tdelta_1to1(self,WetBulb_data):
         temp_Tdelta = []
         temp_TS = []
         for i in WetBulb_data:
@@ -189,14 +213,14 @@ class PumpFitting():
             temp_TS.append(i.temp)
         TS = np.array(temp_TS)
         Tdelta = np.array(temp_Tdelta)
-        self.Tdelta_x_data = (TS)
-        self.Tdelta = Tdelta
+        self.Tdelta_x_data_1to1 = (TS)
+        self.Tdelta_1to1 = Tdelta
         a, b = curve_fit(self.func_Tdelta, (TS), Tdelta)
 
-        self.D = a
+        self.D_1to1 = a
         return a
 
-    def calc_pre_Tdelta(self):
+    def calc_pre_Tdelta_1to1(self):
         '''
 
         :param P:  实际值，观测值
@@ -204,10 +228,181 @@ class PumpFitting():
         :return:
         '''
 
-        predict_Tdelta = self.func_Tdelta(self.Tdelta_x_data, self.D[0], self.D[1], self.D[2])
-        rat = abs(1 - predict_Tdelta / self.Tdelta)
+        predict_Tdelta = self.func_Tdelta(self.Tdelta_x_data_1to1, self.D_1to1[0], self.D_1to1[1], self.D_1to1[2])
+        rat = abs(1 - predict_Tdelta / self.Tdelta_1to1)
 
-        mse = np.sum((predict_Tdelta - self.Tdelta) ** 2) / len(self.Tdelta)
+        mse = np.sum((predict_Tdelta - self.Tdelta_1to1) ** 2) / len(self.Tdelta_1to1)
+        # print(mse)
+        # print("===")
+
+        rmse = math.sqrt(mse)
+
+        return (sum(rat) / len(rat)), rmse
+# ==
+
+    def fit_Tdelta_2to1(self,WetBulb_data):
+        temp_Tdelta = []
+        temp_TS = []
+        for i in WetBulb_data:
+            temp_Tdelta.append(i.amplitude)
+            temp_TS.append(i.temp)
+        TS = np.array(temp_TS)
+        Tdelta = np.array(temp_Tdelta)
+        self.Tdelta_x_data_2to1 = (TS)
+        self.Tdelta_2to1 = Tdelta
+        a, b = curve_fit(self.func_Tdelta, (TS), Tdelta)
+
+        self.D_2to1 = a
+        return a
+
+    def calc_pre_Tdelta_2to1(self):
+        '''
+
+        :param P:  实际值，观测值
+        :param W: 自变量X值
+        :return:
+        '''
+
+        predict_Tdelta = self.func_Tdelta(self.Tdelta_x_data_2to1, self.D_2to1[0], self.D_2to1[1], self.D_2to1[2])
+        rat = abs(1 - predict_Tdelta / self.Tdelta_2to1)
+
+        mse = np.sum((predict_Tdelta - self.Tdelta_2to1) ** 2) / len(self.Tdelta_2to1)
+        # print(mse)
+        # print("===")
+
+        rmse = math.sqrt(mse)
+
+        return (sum(rat) / len(rat)), rmse
+# ==
+    def fit_Tdelta_3to1(self,WetBulb_data):
+        temp_Tdelta = []
+        temp_TS = []
+        for i in WetBulb_data:
+            temp_Tdelta.append(i.amplitude)
+            temp_TS.append(i.temp)
+        TS = np.array(temp_TS)
+        Tdelta = np.array(temp_Tdelta)
+        self.Tdelta_x_data_3to1 = (TS)
+        self.Tdelta_3to1 = Tdelta
+        a, b = curve_fit(self.func_Tdelta, (TS), Tdelta)
+
+        self.D_3to1 = a
+        return a
+
+    def calc_pre_Tdelta_3to1(self):
+        '''
+
+        :param P:  实际值，观测值
+        :param W: 自变量X值
+        :return:
+        '''
+
+        predict_Tdelta = self.func_Tdelta(self.Tdelta_x_data_3to1, self.D_3to1[0], self.D_3to1[1], self.D_3to1[2])
+        rat = abs(1 - predict_Tdelta / self.Tdelta_3to1)
+
+        mse = np.sum((predict_Tdelta - self.Tdelta_3to1) ** 2) / len(self.Tdelta_3to1)
+        # print(mse)
+        # print("===")
+
+        rmse = math.sqrt(mse)
+
+        return (sum(rat) / len(rat)), rmse
+# ==
+    def fit_Tdelta_4to1(self,WetBulb_data):
+        temp_Tdelta = []
+        temp_TS = []
+        for i in WetBulb_data:
+            temp_Tdelta.append(i.amplitude)
+            temp_TS.append(i.temp)
+        TS = np.array(temp_TS)
+        Tdelta = np.array(temp_Tdelta)
+        self.Tdelta_x_data_4to1 = (TS)
+        self.Tdelta_4to1 = Tdelta
+        a, b = curve_fit(self.func_Tdelta, (TS), Tdelta)
+
+        self.D_4to1 = a
+        return a
+
+    def calc_pre_Tdelta_4to1(self):
+        '''
+
+        :param P:  实际值，观测值
+        :param W: 自变量X值
+        :return:
+        '''
+
+        predict_Tdelta = self.func_Tdelta(self.Tdelta_x_data_4to1, self.D_4to1[0], self.D_4to1[1], self.D_4to1[2])
+        rat = abs(1 - predict_Tdelta / self.Tdelta_4to1)
+
+        mse = np.sum((predict_Tdelta - self.Tdelta_4to1) ** 2) / len(self.Tdelta_4to1)
+        # print(mse)
+        # print("===")
+
+        rmse = math.sqrt(mse)
+
+        return (sum(rat) / len(rat)), rmse
+# ==
+    def fit_Tdelta_3to2(self,WetBulb_data):
+        temp_Tdelta = []
+        temp_TS = []
+        for i in WetBulb_data:
+            temp_Tdelta.append(i.amplitude)
+            temp_TS.append(i.temp)
+        TS = np.array(temp_TS)
+        Tdelta = np.array(temp_Tdelta)
+        self.Tdelta_x_data_3to2 = (TS)
+        self.Tdelta_3to2 = Tdelta
+        a, b = curve_fit(self.func_Tdelta, (TS), Tdelta)
+
+        self.D_3to2 = a
+        return a
+
+    def calc_pre_Tdelta_3to2(self):
+        '''
+
+        :param P:  实际值，观测值
+        :param W: 自变量X值
+        :return:
+        '''
+
+        predict_Tdelta = self.func_Tdelta(self.Tdelta_x_data_3to2, self.D_3to2[0], self.D_3to2[1], self.D_3to2[2])
+        rat = abs(1 - predict_Tdelta / self.Tdelta_3to2)
+
+        mse = np.sum((predict_Tdelta - self.Tdelta_3to2) ** 2) / len(self.Tdelta_3to2)
+        # print(mse)
+        # print("===")
+
+        rmse = math.sqrt(mse)
+
+        return (sum(rat) / len(rat)), rmse
+#==
+    def fit_Tdelta_4to3(self, WetBulb_data):
+        temp_Tdelta = []
+        temp_TS = []
+        for i in WetBulb_data:
+            temp_Tdelta.append(i.amplitude)
+            temp_TS.append(i.temp)
+        TS = np.array(temp_TS)
+        Tdelta = np.array(temp_Tdelta)
+        self.Tdelta_x_data_4to3 = (TS)
+        self.Tdelta_4to3 = Tdelta
+        a, b = curve_fit(self.func_Tdelta, (TS), Tdelta)
+
+        self.D_4to3 = a
+        return a
+
+    def calc_pre_Tdelta_4to3(self):
+        '''
+
+        :param P:  实际值，观测值
+        :param W: 自变量X值
+        :return:
+        '''
+
+        predict_Tdelta = self.func_Tdelta(self.Tdelta_x_data_4to3, self.D_4to3[0], self.D_4to3[1], self.D_4to3[2])
+        rat = abs(1 - predict_Tdelta / self.Tdelta_4to3)
+
+        mse = np.sum((predict_Tdelta - self.Tdelta_4to3) ** 2) / len(self.Tdelta_4to3)
         # print(mse)
         # print("===")
 
@@ -215,6 +410,7 @@ class PumpFitting():
 
         return (sum(rat) / len(rat)), rmse
 
+# ==
     def func_P4(self,T, E0, E1, E2, E3):
         '''
         T相当于自变量X
