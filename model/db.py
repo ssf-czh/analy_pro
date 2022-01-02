@@ -194,13 +194,38 @@ def load(path: str):
                 fitting_coefficients.c.append(val)
             for i in range(3):
                 val = 0.0
-                if sheet.cell(14, 2 + i).value is not None:
-                    val = float(sheet.cell(14, 2 + i).value)
-                fitting_coefficients.d.append(val)
+                if sheet.cell(15, 2 + i).value is not None:
+                    val = float(sheet.cell(15, 2 + i).value)
+                fitting_coefficients.d_1to1.append(val)
+            for i in range(3):
+                val = 0.0
+                if sheet.cell(17, 2 + i).value is not None:
+                    val = float(sheet.cell(17, 2 + i).value)
+                fitting_coefficients.d_2to1.append(val)
+            for i in range(3):
+                val = 0.0
+                if sheet.cell(19, 2 + i).value is not None:
+                    val = float(sheet.cell(19, 2 + i).value)
+                fitting_coefficients.d_3to1.append(val)
+            for i in range(3):
+                val = 0.0
+                if sheet.cell(21, 2 + i).value is not None:
+                    val = float(sheet.cell(21, 2 + i).value)
+                fitting_coefficients.d_4to1.append(val)
+            for i in range(3):
+                val = 0.0
+                if sheet.cell(23, 2 + i).value is not None:
+                    val = float(sheet.cell(23, 2 + i).value)
+                fitting_coefficients.d_3to2.append(val)
+            for i in range(3):
+                val = 0.0
+                if sheet.cell(25, 2 + i).value is not None:
+                    val = float(sheet.cell(25, 2 + i).value)
+                fitting_coefficients.d_4to3.append(val)
             for i in range(4):
                 val = 0.0
-                if sheet.cell(16, 2 + i).value is not None:
-                    val = float(sheet.cell(16, 2 + i).value)
+                if sheet.cell(25, 2 + i).value is not None:
+                    val = float(sheet.cell(25, 2 + i).value)
                 fitting_coefficients.e.append(val)
         # optimize_result = list()
         # elif sheet.title == "优化计算结果":
@@ -337,9 +362,19 @@ def save(path: str):
             for i in range(3):
                 sheet.cell(11, 2 + i).value = str(fitting_coefficients.c[i])
             for i in range(3):
-                sheet.cell(14, 2 + i).value = str(fitting_coefficients.d[i])
+                sheet.cell(15, 2 + i).value = str(fitting_coefficients.d_1to1[i])
+            for i in range(3):
+                sheet.cell(17, 2 + i).value = str(fitting_coefficients.d_2to1[i])
+            for i in range(3):
+                sheet.cell(19, 2 + i).value = str(fitting_coefficients.d_3to1[i])
+            for i in range(3):
+                sheet.cell(21, 2 + i).value = str(fitting_coefficients.d_4to1[i])
+            for i in range(3):
+                sheet.cell(23, 2 + i).value = str(fitting_coefficients.d_3to2[i])
+            for i in range(3):
+                sheet.cell(25, 2 + i).value = str(fitting_coefficients.d_4to3[i])
             for i in range(4):
-                sheet.cell(16, 2 + i).value = str(fitting_coefficients.e[i])
+                sheet.cell(27, 2 + i).value = str(fitting_coefficients.e[i])
         elif sheet.title == "优化计算结果":
             # print("优化计算结果")
             i = 0

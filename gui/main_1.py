@@ -1809,7 +1809,12 @@ class Ui_MainWindow(object):
         self.B3_41.clicked.connect(fitting_wetandp4)
 
         def save_wetandp4_DE():
-            model.db.fitting_coefficients.d = self.PumpFit.D
+            model.db.fitting_coefficients.d_1to1 = self.PumpFit.D_1to1
+            model.db.fitting_coefficients.d_2to1 = self.PumpFit.D_2to1
+            model.db.fitting_coefficients.d_3to1 = self.PumpFit.D_3to1
+            model.db.fitting_coefficients.d_4to1 = self.PumpFit.D_4to1
+            model.db.fitting_coefficients.d_3to2 = self.PumpFit.D_3to2
+            model.db.fitting_coefficients.d_4to3 = self.PumpFit.D_4to3
             model.db.fitting_coefficients.e = self.PumpFit.E
             save("template.xlsx")
             # self.statusBar().showMessage('成功保存')

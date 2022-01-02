@@ -94,7 +94,12 @@ class FittingCoefficients:
         self.a = []  # 0-2
         self.b = []  # 0-23
         self.c = []  # 0-2
-        self.d = []  # 0-2
+        self.d_1to1 = []  # 0-2
+        self.d_2to1 = []  # 0-2
+        self.d_3to1 = []  # 0-2
+        self.d_4to1 = []  # 0-2
+        self.d_3to2 = []  # 0-2
+        self.d_4to3 = []  # 0-2
         self.e = []  # 0-3
 
 
