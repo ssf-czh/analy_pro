@@ -308,6 +308,16 @@ class PumpFitting():
 
         return (sum(rat) / len(rat)), rmse
 # ==
+    def func_Tdelta_4to1(self,T,D0,D1,D2,D3):
+        '''
+        T相当于自变量X
+        B相当于参数W
+        拟合D0-D2
+        '''
+        # TS,G = T
+        TS = T
+        Tdelta = D0+D1*TS+D2*TS*TS+D3*TS*TS*TS
+        return Tdelta
     def fit_Tdelta_4to1(self,WetBulb_data):
         temp_Tdelta = []
         temp_TS = []
@@ -318,7 +328,7 @@ class PumpFitting():
         Tdelta = np.array(temp_Tdelta)
         self.Tdelta_x_data_4to1 = (TS)
         self.Tdelta_4to1 = Tdelta
-        a, b = curve_fit(self.func_Tdelta, (TS), Tdelta)
+        a, b = curve_fit(self.func_Tdelta_4to1, (TS), Tdelta)
 
         self.D_4to1 = a
         return a

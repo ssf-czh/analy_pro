@@ -54,8 +54,18 @@ class MyProblem(ea.Problem): # 继承Problem父类
         self.B = fittingP.B
         self.A = fittingP.A
         self.C = fittingP.C
-        self.D = fittingP.D
+        self.D_1to1 = fittingP.D_1to1
+        self.D_2to1 = fittingP.D_2to1
+        self.D_3to1 = fittingP.D_3to1
+        self.D_4to1 = fittingP.D_4to1
+        self.D_3to2 = fittingP.D_3to2
+        self.D_4to3 = fittingP.D_4to3
+
+        self.typeToD = {1:self.D_1to1,2:self.D_2to1,3:self.D_3to1,4:self.D_4to1,5:self.D_3to2,6:self.D_4to3}
+
+
         self.E = fittingP.E
+        self.selectType = superP.calcType
 
         # print("t1")
         # print("==="*10)
@@ -108,9 +118,9 @@ class MyProblem(ea.Problem): # 继承Problem父类
         # print("t24")
 
         self.T1 = None #根据计算选取固定T1，之后的进化T2都是在此基础浮动
-        self.T3 = self.TS + self.D[0]+self.D[1]*self.TS+self.D[2]*self.TS*self.TS  #根据TS和拟合结果D直接选取固定T3，进化T4在此基础浮动
+
         print(self.TS)
-        print(self.T3)
+        # print(self.T3)
         # print("***")
         # print("t25")
         self.q_min = float(superP.q_min)
@@ -157,17 +167,56 @@ class MyProblem(ea.Problem): # 继承Problem父类
         if self.n is None:
             self.n = int(self.max_n)
 
+
+        print("yep")
+
+        self.n = min(self.n, self.max_n)
+
+        self.Q = self.Q / self.n
+
+        if self.selectType == 0:
+            temp = self.max_n / self.n
+            if temp == 1:
+                self.selectType = 1
+            elif temp == 2:
+                self.selectType = 2
+            elif temp == 3:
+                self.selectType = 3
+            elif temp == 4:
+                self.selectType = 4
+            elif temp == 3/2:
+                self.selectType = 5
+            elif temp == 4/3:
+                self.selectType = 6
+
+        D0,D1,D2 = self.typeToD[self.selectType]
+        self.T3 = self.TS + D0 + D1 * self.TS + D2 * self.TS * self.TS
+
+        while self.T3 < self.t3_min and self.selectType != 1:
+            if self.selectType <= 4:
+                self.selectType -= 1
+                D0,D1,D2 = self.typeToD[self.selectType]
+                self.T3 = self.TS + D0 + D1 * self.TS + D2 * self.TS * self.TS
+            else:
+                self.selectType = 1
+                D0, D1, D2 = self.typeToD[self.selectType]
+                self.T3 = self.TS + D0 + D1 * self.TS + D2 * self.TS * self.TS
+
+        print("最后确定类型：{:s}".format(str(self.selectType)))
         self.z = None
         for i in range(int(self.max_n)):
-            if Q/self.QS > i and Q/self.QS <= (i+1):
-                self.z = i+1
+            if Q / self.QS > i and Q / self.QS <= (i + 1):
+                self.z = i + 1
                 break
         if self.z is None:
             self.z = int(self.max_n)
-        print("yep")
 
-        print(self.n , self.z)
-
+        if self.selectType <=4:
+            self.z = self.z * self.selectType
+        elif self.selectType ==5:
+            self.z = self.z * 1.5
+        else:
+            self.z = self.z * 4/3
         # if Q*100/self.QS <= self.nita:
         #     self.n = 1
         # elif Q*100/self.QS < 2 * self.nita:
@@ -175,8 +224,8 @@ class MyProblem(ea.Problem): # 继承Problem父类
         # elif Q*100/self.QS > 2 * self.nita:
         #     self.n = 3
         # print(self.n)
-        self.n = min(self.n,self.max_n)
-        self.Q = self.Q/self.n
+
+
         # print("t3")
         print("最大台数：{:s}".format(str(self.n)))
         # print(self.nita)

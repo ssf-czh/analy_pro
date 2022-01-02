@@ -224,8 +224,8 @@ def load(path: str):
                 fitting_coefficients.d_4to3.append(val)
             for i in range(4):
                 val = 0.0
-                if sheet.cell(25, 2 + i).value is not None:
-                    val = float(sheet.cell(25, 2 + i).value)
+                if sheet.cell(27, 2 + i).value is not None:
+                    val = float(sheet.cell(27, 2 + i).value)
                 fitting_coefficients.e.append(val)
         # optimize_result = list()
         # elif sheet.title == "优化计算结果":
