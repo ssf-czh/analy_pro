@@ -1592,7 +1592,7 @@ class Ui_MainWindow(object):
             D0_1to1, D1_1to1, D2_1to1 = D_1to1
             D0_2to1, D1_2to1, D2_2to1 = D_2to1
             D0_3to1, D1_3to1, D2_3to1 = D_3to1
-            D0_4to1, D1_4to1, D2_4to1 = D_4to1
+            D0_4to1, D1_4to1, D2_4to1 , D3_4to1= D_4to1
             D0_3to2, D1_3to2, D2_3to2 = D_3to2
             D0_4to3, D1_4to3, D2_4to3 = D_4to3
 
@@ -1705,6 +1705,11 @@ class Ui_MainWindow(object):
             self.wet_bulb_fittings.setItem(2, 18, item)
             item = self.wet_bulb_fittings.item(2, 18)
             item.setText(_translate("MainWindow", str(round(D2_4to1, 6))))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.wet_bulb_fittings.setItem(2, 19, item)
+            item = self.wet_bulb_fittings.item(2, 19)
+            item.setText(_translate("MainWindow", str(round(D3_4to1, 6))))
 
 
             item = QtWidgets.QTableWidgetItem()
@@ -2026,7 +2031,7 @@ class Ui_MainWindow(object):
         self.B4_1.setObjectName("B4_1")
 
         def evo_opt():
-            print(222)
+            # print(222)
             print(len(model.db.optimize_result))
             _translate = QtCore.QCoreApplication.translate
 
@@ -3896,6 +3901,11 @@ class Ui_MainWindow(object):
         self.wet_bulb_fittings.setItem(1, 18, item)
         item = self.wet_bulb_fittings.item(1, 18)
         item.setText(_translate("MainWindow", "D2"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.wet_bulb_fittings.setItem(1, 19, item)
+        item = self.wet_bulb_fittings.item(1, 19)
+        item.setText(_translate("MainWindow", "D3"))
 
         # item = QtWidgets.QTableWidgetItem()
         # self.wet_bulb_fittings.setItem(3, 16, item)

@@ -207,7 +207,7 @@ def load(path: str):
                 if sheet.cell(19, 2 + i).value is not None:
                     val = float(sheet.cell(19, 2 + i).value)
                 fitting_coefficients.d_3to1.append(val)
-            for i in range(3):
+            for i in range(4):
                 val = 0.0
                 if sheet.cell(21, 2 + i).value is not None:
                     val = float(sheet.cell(21, 2 + i).value)
@@ -262,6 +262,7 @@ def save(path: str):
         save_default(path)
     wb = openpyxl.load_workbook(path, read_only=False)
     for sheet in wb:
+
         if sheet.title == "参数初始值设定":
             sheet["B4"].value = str(init_params.q)
             sheet["B5"].value = str(init_params.n)
@@ -284,72 +285,79 @@ def save(path: str):
             for i in range(9):
                 sheet.cell(2, 2 + i).value = str(init_params.t1_range[i])
             # print("ini ok")
-        elif sheet.title == "主机参数拟合":
-            # print("主机参数")
-            i = 3
-            for entry in main_fittings:
-                sheet.cell(i, 1).value = str(round(float(entry.q) / float(init_params.q) * 100, 2))
-                sheet.cell(i, 2).value = str(entry.q)
-                sheet.cell(i, 3).value = str(entry.p1)
-                sheet.cell(i, 4).value = str(entry.t1)
-                sheet.cell(i, 5).value = str(entry.t2)
-                sheet.cell(i, 6).value = str(entry.t3)
-                sheet.cell(i, 7).value = str(entry.t4)
-                sheet.cell(i, 8).value = str(entry.cop)
-                i += 1
-            while sheet.cell(i, 1).value is not None:
-                sheet.delete_rows(i)
-        elif sheet.title == "水泵性能参数拟合":
-            # print("水泵性能参数拟合")
-            for i in range(5):
-                sheet.cell(4, 3 + i * 2).value = str(pump2_fittings[i].g2)
-                sheet.cell(4, 4 + i * 2).value = str(pump2_fittings[i].p2)
-            for i in range(5):
-                sheet.cell(11, 3 + i * 2).value = str(pump3_fittings[i].g3)
-                sheet.cell(11, 4 + i * 2).value = str(pump3_fittings[i].p3)
-        elif sheet.title == "冷却塔拟合":
-            # print("冷却塔拟合")
-            i = 0
-            # wet_bulb_fittings = list()
-            for entry in wet_bulb_fittings_1to1:
-                sheet.cell(3 + i, 1).value = str(entry.temp)
-                sheet.cell(3 + i, 2).value = str(entry.amplitude)
-                i += 1
-            for entry in wet_bulb_fittings_2to1:
-                sheet.cell(3 + i, 3).value = str(entry.temp)
-                sheet.cell(3 + i, 4).value = str(entry.amplitude)
-                i += 1
-            for entry in wet_bulb_fittings_3to1:
-                sheet.cell(3 + i, 5).value = str(entry.temp)
-                sheet.cell(3 + i, 6).value = str(entry.amplitude)
-                i += 1
-            for entry in wet_bulb_fittings_4to1:
-                sheet.cell(3 + i, 7).value = str(entry.temp)
-                sheet.cell(3 + i, 8).value = str(entry.amplitude)
-                i += 1
-            for entry in wet_bulb_fittings_3to2:
-                sheet.cell(3 + i, 9).value = str(entry.temp)
-                sheet.cell(3 + i, 10).value = str(entry.amplitude)
-                i += 1
-            for entry in wet_bulb_fittings_4to3:
-                sheet.cell(3 + i, 11).value = str(entry.temp)
-                sheet.cell(3 + i, 12).value = str(entry.amplitude)
-                i += 1
-
-            while sheet.cell(3 + i, 1).value is not None:
-                sheet.cell(3 + i, 1).value = None
-                sheet.cell(3 + i, 2).value = None
-                i += 1
-
-            i = 0
-            for entry in p4_fittings:
-                sheet.cell(3 + i, 13).value = str(entry.g)
-                sheet.cell(3 + i, 14).value = str(entry.p4)
-                i += 1
-            while sheet.cell(3 + i, 4).value is not None:
-                sheet.cell(3 + i, 4).value = None
-                sheet.cell(3 + i, 5).value = None
-                i += 1
+        # elif sheet.title == "主机参数拟合":
+        #     # print("主机参数")
+        #     i = 3
+        #     for entry in main_fittings:
+        #         sheet.cell(i, 1).value = str(round(float(entry.q) / float(init_params.q) * 100, 2))
+        #         sheet.cell(i, 2).value = str(entry.q)
+        #         sheet.cell(i, 3).value = str(entry.p1)
+        #         sheet.cell(i, 4).value = str(entry.t1)
+        #         sheet.cell(i, 5).value = str(entry.t2)
+        #         sheet.cell(i, 6).value = str(entry.t3)
+        #         sheet.cell(i, 7).value = str(entry.t4)
+        #         sheet.cell(i, 8).value = str(entry.cop)
+        #         i += 1
+        #     while sheet.cell(i, 1).value is not None:
+        #         sheet.delete_rows(i)
+        # elif sheet.title == "水泵性能参数拟合":
+        #     # print("水泵性能参数拟合")
+        #     for i in range(5):
+        #         sheet.cell(4, 3 + i * 2).value = str(pump2_fittings[i].g2)
+        #         sheet.cell(4, 4 + i * 2).value = str(pump2_fittings[i].p2)
+        #     for i in range(5):
+        #         sheet.cell(11, 3 + i * 2).value = str(pump3_fittings[i].g3)
+        #         sheet.cell(11, 4 + i * 2).value = str(pump3_fittings[i].p3)
+        # elif sheet.title == "冷却塔拟合":
+        #     # print("冷却塔拟合")
+        #     i = 0
+        #     # wet_bulb_fittings = list()
+        #     for entry in wet_bulb_fittings_1to1:
+        #         sheet.cell(3 + i, 1).value = str(entry.temp)
+        #         sheet.cell(3 + i, 2).value = str(entry.amplitude)
+        #         i += 1
+        #     i = 0
+        #     for entry in wet_bulb_fittings_2to1:
+        #         print(i)
+        #         print(entry.temp, entry.amplitude)
+        #         sheet.cell(3 + i, 3).value = str(1)
+        #         sheet.cell(3 + i, 4).value = str(1)
+        #         i += 1
+        #     i = 0
+        #     for entry in wet_bulb_fittings_3to1:
+        #         sheet.cell(3 + i, 5).value = str(entry.temp)
+        #         sheet.cell(3 + i, 6).value = str(entry.amplitude)
+        #         i += 1
+        #     i = 0
+        #     for entry in wet_bulb_fittings_4to1:
+        #         sheet.cell(3 + i, 7).value = str(entry.temp)
+        #         sheet.cell(3 + i, 8).value = str(entry.amplitude)
+        #         i += 1
+        #     i = 0
+        #     for entry in wet_bulb_fittings_3to2:
+        #         sheet.cell(3 + i, 9).value = str(entry.temp)
+        #         sheet.cell(3 + i, 10).value = str(entry.amplitude)
+        #         i += 1
+        #     i = 0
+        #     for entry in wet_bulb_fittings_4to3:
+        #         sheet.cell(3 + i, 11).value = str(entry.temp)
+        #         sheet.cell(3 + i, 12).value = str(entry.amplitude)
+        #         i += 1
+        #
+        #     while sheet.cell(3 + i, 1).value is not None:
+        #         sheet.cell(3 + i, 1).value = None
+        #         sheet.cell(3 + i, 2).value = None
+        #         i += 1
+        #
+        #     i = 0
+        #     for entry in p4_fittings:
+        #         sheet.cell(3 + i, 13).value = str(entry.g)
+        #         sheet.cell(3 + i, 14).value = str(entry.p4)
+        #         i += 1
+        #     while sheet.cell(3 + i, 4).value is not None:
+        #         sheet.cell(3 + i, 4).value = None
+        #         sheet.cell(3 + i, 5).value = None
+        #         i += 1
         elif sheet.title == "拟合系数表":
             # print("此时c：", fitting_coefficients.c)
             for i in range(12):
@@ -367,7 +375,7 @@ def save(path: str):
                 sheet.cell(17, 2 + i).value = str(fitting_coefficients.d_2to1[i])
             for i in range(3):
                 sheet.cell(19, 2 + i).value = str(fitting_coefficients.d_3to1[i])
-            for i in range(3):
+            for i in range(4):
                 sheet.cell(21, 2 + i).value = str(fitting_coefficients.d_4to1[i])
             for i in range(3):
                 sheet.cell(23, 2 + i).value = str(fitting_coefficients.d_3to2[i])
@@ -403,6 +411,7 @@ def save(path: str):
                 for j in range(1, 17):
                     sheet.cell(2 + i, j).value = None
                 i += 1
+
     # print("----")
     wb.save(path)
     wb.close()

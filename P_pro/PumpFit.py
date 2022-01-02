@@ -17,7 +17,7 @@ class PumpFitting():
         self.D_1to1 = [1]*3
         self.D_2to1 = [1]*3
         self.D_3to1 = [1]*3
-        self.D_4to1 = [1]*3
+        self.D_4to1 = [1]*4
         self.D_3to2 = [1]*3
         self.D_4to3 = [1]*3
         self.E = [1]*4
@@ -341,7 +341,7 @@ class PumpFitting():
         :return:
         '''
 
-        predict_Tdelta = self.func_Tdelta(self.Tdelta_x_data_4to1, self.D_4to1[0], self.D_4to1[1], self.D_4to1[2])
+        predict_Tdelta = self.func_Tdelta_4to1(self.Tdelta_x_data_4to1, self.D_4to1[0], self.D_4to1[1], self.D_4to1[2],self.D_4to1[3])
         rat = abs(1 - predict_Tdelta / self.Tdelta_4to1)
 
         mse = np.sum((predict_Tdelta - self.Tdelta_4to1) ** 2) / len(self.Tdelta_4to1)

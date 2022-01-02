@@ -188,16 +188,21 @@ class MyProblem(ea.Problem): # 继承Problem父类
                 self.selectType = 5
             elif temp == 4/3:
                 self.selectType = 6
+        D3 = 0
+        if len(self.typeToD[self.selectType]) == 3:
+            D0,D1,D2 = self.typeToD[self.selectType]
+        else:
+            D0, D1, D2, D3 = self.typeToD[self.selectType]
 
-        D0,D1,D2 = self.typeToD[self.selectType]
-        self.T3 = self.TS + D0 + D1 * self.TS + D2 * self.TS * self.TS
+        self.T3 = self.TS + D0 + D1 * self.TS + D2 * self.TS * self.TS + D3 * self.TS * self.TS * self.TS
 
         while self.T3 < self.t3_min and self.selectType != 1:
-            if self.selectType <= 4:
+            if self.selectType <= 4:#刚好等于4的情况下(4to1)，此时降为3（3to1），此时参数D就为3个
                 self.selectType -= 1
                 D0,D1,D2 = self.typeToD[self.selectType]
-                self.T3 = self.TS + D0 + D1 * self.TS + D2 * self.TS * self.TS
+                self.T3 = self.TS + D0 + D1 * self.TS + D2 * self.TS * self.TS + D3 * self.TS * self.TS * self.TS
             else:
+                #type=5,6 参数D一定为3个
                 self.selectType = 1
                 D0, D1, D2 = self.typeToD[self.selectType]
                 self.T3 = self.TS + D0 + D1 * self.TS + D2 * self.TS * self.TS
