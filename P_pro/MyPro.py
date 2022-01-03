@@ -109,6 +109,7 @@ class MyProblem(ea.Problem): # 继承Problem父类
         # print(self.nita)
         # self.nita = nita   #η
         self.max_n = float(superP.n) #最大台数
+        self.lengque_maxn = superP.lengque_maxn
         # self.max_n = max_n #最大台数
         self.n = None   #台数
         # print("t2")
@@ -133,7 +134,7 @@ class MyProblem(ea.Problem): # 继承Problem父类
         else:
             self.ifopt = True
         # print("t26")
-        self.P20 = float(superP.p20)
+        self.P20 = float(superP.p2)
 
         # 除了计算T1温度时按照原本Q，其他都要Q/n
         temp = ((self.Q) * 100) / (self.QS* self.max_n)
@@ -175,7 +176,7 @@ class MyProblem(ea.Problem): # 继承Problem父类
         self.Q = self.Q / self.n
 
         if self.selectType == 0:
-            temp = self.max_n / self.n
+            temp = self.lengque_maxn / self.n
             if temp == 1:
                 self.selectType = 1
             elif temp == 2:

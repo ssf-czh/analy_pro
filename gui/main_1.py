@@ -424,6 +424,9 @@ class Ui_MainWindow(object):
             # item.setText(_translate("MainWindow", "单台冷却塔功率P0，Kw"))
             item = self.init_params.item(23, 1)
             model.db.init_params.P0 = item.data(0)
+
+            item = self.init_params.item(24,1)
+            model.db.init_params.lengque_maxn = item.data(0)
             # item = self.init_params.item(24, 0)
             # item.setText(_translate("MainWindow", "冷却塔最多台数,台"))
             # item = self.init_params.item(24, 1)
@@ -439,8 +442,8 @@ class Ui_MainWindow(object):
             item = self.init_params.item(27, 2)
             model.db.init_params.delta_t2_range = b, item.data(0)
 
-            item = self.init_params.item(28, 1)
-            model.db.init_params.p20 = item.data(0)
+            # item = self.init_params.item(28, 1)
+            # model.db.init_params.p20 = item.data(0)
 
             save("template.xlsx")
             load("template.xlsx")
@@ -2741,10 +2744,10 @@ class Ui_MainWindow(object):
         self.tabWidget_2.setCurrentIndex(0)
         self.toolBox.setCurrentIndex(0)
         self.toolBox.currentChanged['int'].connect(self.stackedWidget.setCurrentIndex)  # type: ignore
-        self.statusBar = QtWidgets.QStatusBar(MainWindow)
-        self.statusBar.setInputMethodHints(QtCore.Qt.ImhNone)
-        self.statusBar.setObjectName("statusBar")
-        MainWindow.setStatusBar(self.statusBar)
+        # self.statusBar = QtWidgets.QStatusBar(MainWindow)
+        # self.statusBar.setInputMethodHints(QtCore.Qt.ImhNone)
+        # self.statusBar.setObjectName("statusBar")
+        # MainWindow.setStatusBar(self.statusBar)
         self.init_params.horizontalHeader().setStyleSheet("QHeaderView::section{background:#DDDDDD;}")
         self.table_21.horizontalHeader().setStyleSheet("QHeaderView::section{background:#DDDDDD;}")
         self.table_22.horizontalHeader().setStyleSheet("QHeaderView::section{background:#DDDDDD;}")
@@ -4279,7 +4282,7 @@ class Ui_MainWindow(object):
         item = self.init_params.item(24, 0)
         item.setText(_translate("MainWindow", "冷却塔最多台数,台"))
         item = self.init_params.item(24, 1)
-        item.setText(_translate("MainWindow", ""))
+        item.setText(_translate("MainWindow", str(model.db.init_params.lengque_maxn)))
         item = self.init_params.item(25, 0)
         item.setText(_translate("MainWindow", "进出口温差设定"))
         item = self.init_params.item(26, 0)
@@ -4295,15 +4298,15 @@ class Ui_MainWindow(object):
         item = self.init_params.item(27, 2)
         item.setText(_translate("MainWindow", str(model.db.init_params.delta_t2_range[1])))
 
-        item = QtWidgets.QTableWidgetItem()
-        self.init_params.setItem(28, 0, item)
-        item = self.init_params.item(28, 0)
-        item.setText(_translate("MainWindow", "单台冷冻水泵功率P20"))
-
-        item = QtWidgets.QTableWidgetItem()
-        self.init_params.setItem(28, 1, item)
-        item = self.init_params.item(28, 1)
-        item.setText(_translate("MainWindow", str(model.db.init_params.p20)))
+        # item = QtWidgets.QTableWidgetItem()
+        # self.init_params.setItem(28, 0, item)
+        # item = self.init_params.item(28, 0)
+        # item.setText(_translate("MainWindow", "单台冷冻水泵功率P20"))
+        #
+        # item = QtWidgets.QTableWidgetItem()
+        # self.init_params.setItem(28, 1, item)
+        # item = self.init_params.item(28, 1)
+        # item.setText(_translate("MainWindow", str(model.db.init_params.p20)))
 
         for i in range(9):
             item = self.init_params.item(1, i + 1)
