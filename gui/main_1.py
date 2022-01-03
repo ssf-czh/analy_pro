@@ -2700,6 +2700,9 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.dockWidget.sizePolicy().hasHeightForWidth())
         self.dockWidget.setSizePolicy(sizePolicy)
+
+        self.dockWidget.setMinimumSize(QtCore.QSize(190,281))
+
         self.dockWidget.setObjectName("dockWidget")
         self.dockWidgetContents = QtWidgets.QWidget()
         self.dockWidgetContents.setObjectName("dockWidgetContents")
@@ -3550,6 +3553,14 @@ class Ui_MainWindow(object):
         item = self.table_24.item(1, 13)
         item.setText(_translate("MainWindow", "功率P4（KW）"))
 
+        self.table_24.setSpan(0,0,1,2)
+        self.table_24.setSpan(0,2,1,2)
+        self.table_24.setSpan(0,4,1,2)
+        self.table_24.setSpan(0,6,1,2)
+        self.table_24.setSpan(0,8,1,2)
+        self.table_24.setSpan(0,10,1,2)
+        self.table_24.setSpan(0,12,1,2)
+        self.table_24.setSpan(0,14,1,2)
 
         item = self.table_24.item(34, 0)
         # item.setText(_translate("MainWindow", "湿球温度"))
