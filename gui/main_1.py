@@ -10,7 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 import model
-from model.db import save, main_fittings, load,db_save_showAll
+from model.db import save, main_fittings, load,db_save_showAll,db_save_temperature
 from P_pro import PumpFit, Main
 from model.schema import OptimizeResult
 
@@ -1994,6 +1994,7 @@ class Ui_MainWindow(object):
         item = QtWidgets.QTableWidgetItem()
         self.optimize_result.setItem(10, 4, item)
         item = QtWidgets.QTableWidgetItem()
+        # 设置宽距
         self.optimize_result.setItem(10, 5, item)
         self.optimize_result.setLineWidth(100)
         self.optimize_result.setColumnWidth(0, 50)
@@ -2577,7 +2578,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_102.setObjectName("verticalLayout_102")
         self.tableWidget_53 = QtWidgets.QTableWidget(self.tab_60)
         self.tableWidget_53.setRowCount(25)
-        self.tableWidget_53.setColumnCount(20)
+        self.tableWidget_53.setColumnCount(16)
         self.tableWidget_53.setObjectName("tableWidget_53")
         # ==
         _translate = QtCore.QCoreApplication.translate
@@ -2640,6 +2641,24 @@ class Ui_MainWindow(object):
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget_53.setItem(0, 11, item)
         item = self.tableWidget_53.item(0, 11)
+        item.setText(_translate("MainWindow", "冷却水回水温度/℃"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_53.setItem(0, 12, item)
+        item = self.tableWidget_53.item(0, 12)
+        item.setText(_translate("MainWindow", "冷却水回水温度/℃"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_53.setItem(0, 13, item)
+        item = self.tableWidget_53.item(0, 13)
+        item.setText(_translate("MainWindow", "冷冻水进出口温差/℃"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_53.setItem(0, 14, item)
+        item = self.tableWidget_53.item(0, 14)
+        item.setText(_translate("MainWindow", "冷却水进出口温差/℃"))
+
+
         # ==
         self.verticalLayout_102.addWidget(self.tableWidget_53)
         self.horizontalLayout_5333 = QtWidgets.QHBoxLayout()
@@ -5082,7 +5101,7 @@ class Ui_MainWindow(object):
             calc_sum.year = "合计"
             calc_sum.mon = self.table_51_records[-1].mon
             calc_sum.day = self.table_51_records[-1].day
-            calc_sum.hour = self.table_51_records[-1].hour
+            calc_sum.hour = self.table_51_records[-1].hour+1
             print(Q_sum)
             print(p1_sum)
             print(p2_sum)
@@ -5424,11 +5443,135 @@ class Ui_MainWindow(object):
         # self.pushButton_523.setText(_translate("MainWindow", "取消"))
         # self.pushButton_524.setText(_translate("MainWindow", "导出"))
         # self.tabWidget_11.setTabText(self.tabWidget_11.indexOf(self.tab_2), _translate("MainWindow", "所有"))
-        self.pushButton_531.setText(_translate("MainWindow", "显示111"))
+        self.pushButton_531.setText(_translate("MainWindow", "显示"))
+
+        self.table_53_records = []
+        def show_Temperature():
+            self.table_53_records = []
+            y1 = float(self.year_1.text())
+            y2 = float(self.year_2.text())
+            m1 = float(self.m1)
+            m2 = float(self.m2)
+            d1 = float(self.d1)
+            d2 = float(self.d2)
+            h1 = float(self.h1)
+            h2 = float(self.h2)
+
+            fit_res_index = []
+
+            for index, res in enumerate(model.db.optimize_result):
+                year = float(res.year)
+                month = float(res.mon)
+                day = float(res.day)
+                hour = float(res.hour)
+
+                if year >= y1 and year <= y2 and month >= m1 and month <= m2 and day >= d1 and day <= d2 and hour >= h1 and hour <= h2:
+                    fit_res_index.append(index)
+                    self.table_53_records.append(res)
+
+            self.table_53_count = len(fit_res_index)
+            self.tableWidget_53.setRowCount(len(fit_res_index) + 1)
+            self.tableWidget_53.setColumnCount(16)
+            
+            count = 0
+            for index in fit_res_index:
+                count += 1
+                res = model.db.optimize_result[index]
+                year = res.year
+                month = res.mon
+                day = res.day
+                hour = res.hour
+                
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_53.setItem(count, 0, item)
+                item = self.tableWidget_53.item(count, 0)
+                item.setText(_translate("MainWindow", str(int(year))))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_53.setItem(count, 1, item)
+                item = self.tableWidget_53.item(count, 1)
+                item.setText(_translate("MainWindow", str(int(month))))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_53.setItem(count, 2, item)
+                item = self.tableWidget_53.item(count, 2)
+                item.setText(_translate("MainWindow", str(int(day))))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_53.setItem(count, 3, item)
+                item = self.tableWidget_53.item(count, 3)
+                item.setText(_translate("MainWindow", str(int(hour))))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_53.setItem(count, 4, item)
+                item = self.tableWidget_53.item(count, 4)
+                item.setText(_translate("MainWindow", str(res.q)))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_53.setItem(count, 5, item)
+                item = self.tableWidget_53.item(count, 5)
+                item.setText(_translate("MainWindow", str(res.ts)))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_53.setItem(count, 7, item)
+                item = self.tableWidget_53.item(count, 7)
+                item.setText(_translate("MainWindow", str(res.load_percentage)))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_53.setItem(count, 8, item)
+                item = self.tableWidget_53.item(count, 8)
+                item.setText(_translate("MainWindow", str(res.system_load_percentage)))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_53.setItem(count, 9, item)
+                item = self.tableWidget_53.item(count, 9)
+                item.setText(_translate("MainWindow", str(res.t1)))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_53.setItem(count, 10, item)
+                item = self.tableWidget_53.item(count, 10)
+                item.setText(_translate("MainWindow", str(res.t2)))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_53.setItem(count, 11, item)
+                item = self.tableWidget_53.item(count, 11)
+                item.setText(_translate("MainWindow", str(res.t3)))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_53.setItem(count, 12, item)
+                item = self.tableWidget_53.item(count, 12)
+                item.setText(_translate("MainWindow", str(res.t4)))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_53.setItem(count, 13, item)
+                item = self.tableWidget_53.item(count, 13)
+                item.setText(_translate("MainWindow", str(round(res.t2-res.t1,3))))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_53.setItem(count, 14, item)
+                item = self.tableWidget_53.item(count, 14)
+                item.setText(_translate("MainWindow", str(round(res.t4-res.t3,3))))
+
+        self.pushButton_531.clicked.connect(show_Temperature)
+
         # self.pushButton_532.setText(_translate("MainWindow", "保存"))
         self.pushButton_533.setText(_translate("MainWindow", "图表"))
         self.pushButton_534.setText(_translate("MainWindow", "导出"))
+        def save_temperatrue():
+            db_save_temperature("template.xlsx",self.table_53_records)
+        self.pushButton_534.clicked.connect(save_temperatrue)
+
         self.pushButton_535.setText(_translate("MainWindow", "取消"))
+        def clean_temperature():
+            for i in range(self.table_53_count):
+                for k in range(16):
+                    item = QtWidgets.QTableWidgetItem()
+                    self.tableWidget_53.setItem(i+1, k, item)
+                    item = self.tableWidget_53.item(i+1, k)
+                    item.setText(_translate("MainWindow", ""))
+        self.pushButton_535.clicked.connect(clean_temperature)
+
         self.tabWidget_11.setTabText(self.tabWidget_11.indexOf(self.tab_60), _translate("MainWindow", "温度"))
         self.pushButton_541.setText(_translate("MainWindow", "显示"))
         # self.pushButton_542.setText(_translate("MainWindow", "保存"))
