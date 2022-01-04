@@ -109,10 +109,16 @@ class OptimizeResult:
         self.q = 0.0
         self.ts = 0.0
         self.load_percentage = None
+        self.system_load_percentage =None
         self.t1 = None
         self.t2 = None
+        self.G2_lendong = None
+        self.fluency_lendong = None
+
         self.t3 = None
         self.t4 = None
+        self.G3_lenque = None
+        self.fluency_lenque = None
         self.delta_t = None
         self.p1 = None
         self.p2 = None

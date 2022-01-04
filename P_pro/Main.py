@@ -9,7 +9,7 @@ from P_pro import PumpFit
 
 class Evoopt():
     def __init__(self,Q,TS,superP,fittingP):
-        print("---test")
+        # print("---test")
         self.problem = MyProblem(Q,TS,superP,fittingP)
         """==================================种群设置=================================="""
         # Encoding = 'BG'       # 编码方式
@@ -31,7 +31,7 @@ class Evoopt():
         # self.myAlgorithm.verbose = True  # 设置是否打印输出日志信息
         self.myAlgorithm.drawing = 0  # 设置绘图方式（0：不绘图；1：绘制结果图；2：绘制目标空间过程动画；3：绘制决策空间过程动画）
     def run(self):
-        print("==="*20)
+        # print("==="*20)
         if self.problem.ifopt is False:
             loading_ration = self.problem.Q / self.problem.QS *100
             return (round(loading_ration,2),0,0,0,0,0,0,0,0,0,0,0,0,0,self.problem.P20,0,0)
@@ -48,16 +48,16 @@ class Evoopt():
             [BestIndi, population] = self.myAlgorithm.run()  # 执行算法模板，得到最优个体以及最后一代种群
             # [BestIndi, population] = myAlgorithm.run()  # 执行算法模板，得到最优个体以及最后一代种群
             # BestIndi.save()  # 把最优个体的信息保存到文件中
-            print('最优的目标函数值为：%s' % BestIndi.ObjV[0][0])
+            # print('最优的目标函数值为：%s' % BestIndi.ObjV[0][0])
 
             T1 = self.problem.T1
             T2 = BestIndi.Phen[0, 0]
             T3 = self.problem.T3
             T4 = BestIndi.Phen[0, 1]
-            print("选到的T1是:", T1)
-            print("选到的T2是:", T2)
-            print("选到的T3是:", T3)
-            print("选到的T4是：", T4)
+            # print("选到的T1是:", T1)
+            # print("选到的T2是:", T2)
+            # print("选到的T3是:", T3)
+            # print("选到的T4是：", T4)
 
             Q = self.problem.Q
 
@@ -108,7 +108,7 @@ class Evoopt():
             # print("P3的G3：", G3)
             # =====
             P1 = self.func_P1((T1,T2,T3, T4,Q), self.problem.B)
-            print("p1::" ,P1)
+            # print("p1::" ,P1)
             A0,A1,A2 = self.problem.A
 
             G2 = 6 * Q / (7 * (T2 - T1))
@@ -117,7 +117,7 @@ class Evoopt():
             G2= max(G2, G20 * u1)
             G2 = min(G2, G20)
             P2 = A0+A1*G2+A2*G2*G2
-            print("p2:",P2)
+            # print("p2:",P2)
 
             C0,C1,C2 = self.problem.C
             G3 = 6 * (Q + P1) / (7 * (T4 - T3))
@@ -128,18 +128,18 @@ class Evoopt():
             # print(G3)
             # print("P3的G3：", G3)
             P3 = C0+C1*G3+C2*G3*G3
-            print("p3",P3)
+            # print("p3",P3)
 
             E0,E1,E2,E3 = self.problem.E
             P4=E0+E1*G3+E2*G3*G3+E3*G3*G3*G3
             if T3 >= self.problem.t3_min:
                 P4 = self.problem.P0
-            print("p4:",P4)
+            # print("p4:",P4)
 
-            print(str(P1)+"、"+str(P2)+"、"+str(P3)+"、"+str(P4))
+            # print(str(P1)+"、"+str(P2)+"、"+str(P3)+"、"+str(P4))
             total_P = self.problem.n * (P1+P2+P3) + self.problem.z * P4
 
-            print("MINP:",total_P)
+            # print("MINP:",total_P)
 
             loading_ration = Q/self.problem.QS * 100
             # print("此时Q={:s}".format(str(Q*self.problem.n)))

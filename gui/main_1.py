@@ -2033,6 +2033,8 @@ class Ui_MainWindow(object):
         self.B4_1.setFont(font)
         self.B4_1.setObjectName("B4_1")
 
+        self.res  = None
+        self.optimize_result.setRowCount(len(model.db.optimize_result)+1)
         def evo_opt():
             # print(222)
             print(len(model.db.optimize_result))
@@ -2072,37 +2074,43 @@ class Ui_MainWindow(object):
 
             superP = model.db.init_params
             for index, i in enumerate(model.db.optimize_result):
-
+                print(index)
                 Q = i.q
                 TS = i.ts
-                print("Q:", Q)
-                print("TS:", TS)
+                # print("Q:", Q)
+                # print("TS:", TS)
                 if i.q == 0:
                     break
                 opt = Main.Evoopt(Q, TS, superP, self.PumpFit)
-                res = opt.run()
-                model.db.optimize_result[index].load_percentage = res[0]
-                model.db.optimize_result[index].t1 = res[2]
-                model.db.optimize_result[index].t2 = res[3]
+                self.res = opt.run()
+                model.db.optimize_result[index].load_percentage = self.res[0]
+                model.db.optimize_result[index].system_load_percentage = self.res[1]
+                model.db.optimize_result[index].t1 = self.res[2]
+                model.db.optimize_result[index].t2 = self.res[3]
+                model.db.optimize_result[index].G2_lendong = self.res[4]
+                model.db.optimize_result[index].fluency_lendong = self.res[5]
 
-                model.db.optimize_result[index].t3 = res[6]
-                model.db.optimize_result[index].t4 = res[7]
-                model.db.optimize_result[index].delta_t = res[10]
-                model.db.optimize_result[index].p1 = res[11]
-                model.db.optimize_result[index].p2 = res[12]
-                model.db.optimize_result[index].p3 = res[13]
-                model.db.optimize_result[index].p4 = res[14]
-                model.db.optimize_result[index].p = res[15]
-                model.db.optimize_result[index].cop = res[16]
-                model.db.optimize_result[index].n = res[17]
+                model.db.optimize_result[index].t3 = self.res[6]
+                model.db.optimize_result[index].t4 = self.res[7]
+                model.db.optimize_result[index].G3_lenque = self.res[8]
+                model.db.optimize_result[index].fluency_lenque = self.res[9]
+
+                model.db.optimize_result[index].delta_t = self.res[10]
+                model.db.optimize_result[index].p1 = self.res[11]
+                model.db.optimize_result[index].p2 = self.res[12]
+                model.db.optimize_result[index].p3 = self.res[13]
+                model.db.optimize_result[index].p4 = self.res[14]
+                model.db.optimize_result[index].p = self.res[15]
+                model.db.optimize_result[index].cop = self.res[16]
+                model.db.optimize_result[index].n = self.res[17]
                 # res = (loading_ration, T1, T2, T3, T4, cold_flu, P1, P2, P3, P4, total_P, total_cop, open_num)
 
-                for k in range(len(res)):
+                for k in range(len(self.res)):
                     item = QtWidgets.QTableWidgetItem()
                     # print(index+1, 7+k)
                     self.optimize_result.setItem(index + 1, 7 + k, item)
                     item = self.optimize_result.item(index + 1, 7 + k)
-                    item.setText(_translate("MainWindow", str(res[k])))
+                    item.setText(_translate("MainWindow", str(self.res[k])))
                 # self.statusBar().showMessage('优化计算完成')
 
         self.B4_1.clicked.connect(evo_opt)
@@ -3716,9 +3724,10 @@ class Ui_MainWindow(object):
         item = self.wet_bulb_fittings.item(5, 0)
         item.setText(_translate("MainWindow", "系数(功率)"))
 
+        self.wet_bulb_fittings.setSpan(0, 1, 1, 3)
         item = QtWidgets.QTableWidgetItem()
-        self.wet_bulb_fittings.setItem(0, 2, item)
-        item = self.wet_bulb_fittings.item(0, 2)
+        self.wet_bulb_fittings.setItem(0, 1, item)
+        item = self.wet_bulb_fittings.item(0, 1)
         item.setText(_translate("MainWindow", "一对一"))
         # ==
         item = self.wet_bulb_fittings.item(1, 1)
@@ -3772,10 +3781,10 @@ class Ui_MainWindow(object):
         # ==
 
 
-
+        self.wet_bulb_fittings.setSpan(0,6,1,3)
         item = QtWidgets.QTableWidgetItem()
-        self.wet_bulb_fittings.setItem(0, 7, item)
-        item = self.wet_bulb_fittings.item(0, 7)
+        self.wet_bulb_fittings.setItem(0, 6, item)
+        item = self.wet_bulb_fittings.item(0, 6)
         item.setText(_translate("MainWindow", "二对一"))
         # ==
         item = QtWidgets.QTableWidgetItem()
@@ -3834,9 +3843,10 @@ class Ui_MainWindow(object):
         # item.setText(_translate("MainWindow", "RMSE(E)"))
         # ==
 
+        self.wet_bulb_fittings.setSpan(0,11,1,3)
         item = QtWidgets.QTableWidgetItem()
-        self.wet_bulb_fittings.setItem(0, 12, item)
-        item = self.wet_bulb_fittings.item(0, 12)
+        self.wet_bulb_fittings.setItem(0, 11, item)
+        item = self.wet_bulb_fittings.item(0, 11)
         item.setText(_translate("MainWindow", "三对一"))
 
         # ==
@@ -3896,9 +3906,10 @@ class Ui_MainWindow(object):
         # item.setText(_translate("MainWindow", "RMSE(E)"))
         # ==
 
+        self.wet_bulb_fittings.setSpan(0,16,1,3)
         item = QtWidgets.QTableWidgetItem()
-        self.wet_bulb_fittings.setItem(0, 17, item)
-        item = self.wet_bulb_fittings.item(0, 17)
+        self.wet_bulb_fittings.setItem(0, 16, item)
+        item = self.wet_bulb_fittings.item(0, 16)
         item.setText(_translate("MainWindow", "四对一"))
         # ==
         item = QtWidgets.QTableWidgetItem()
@@ -3962,9 +3973,10 @@ class Ui_MainWindow(object):
         # item.setText(_translate("MainWindow", "RMSE(E)"))
         # ==
 
+        self.wet_bulb_fittings.setSpan(0,21,1,3)
         item = QtWidgets.QTableWidgetItem()
-        self.wet_bulb_fittings.setItem(0, 22, item)
-        item = self.wet_bulb_fittings.item(0, 22)
+        self.wet_bulb_fittings.setItem(0, 21, item)
+        item = self.wet_bulb_fittings.item(0, 21)
         item.setText(_translate("MainWindow", "三对二"))
         # ==
         item = QtWidgets.QTableWidgetItem()
@@ -4023,9 +4035,10 @@ class Ui_MainWindow(object):
         # item.setText(_translate("MainWindow", "RMSE(E)"))
         # ==
 
+        self.wet_bulb_fittings.setSpan(0,26,1,3)
         item = QtWidgets.QTableWidgetItem()
-        self.wet_bulb_fittings.setItem(0, 27, item)
-        item = self.wet_bulb_fittings.item(0, 27)
+        self.wet_bulb_fittings.setItem(0, 26, item)
+        item = self.wet_bulb_fittings.item(0, 26)
         item.setText(_translate("MainWindow", "四对三"))
         # ==
         item = QtWidgets.QTableWidgetItem()
@@ -4072,6 +4085,8 @@ class Ui_MainWindow(object):
         self.wet_bulb_fittings.setItem(3, 28, item)
         item = self.wet_bulb_fittings.item(3, 28)
         item.setText(_translate("MainWindow", "RMSE(D)"))
+
+
 
         # item = QtWidgets.QTableWidgetItem()
         # self.wet_bulb_fittings.setItem(7, 26, item)
@@ -4666,6 +4681,226 @@ class Ui_MainWindow(object):
         self.B2_42.clicked.connect(click_cancel2)
         self.B2_52.clicked.connect(click_cancel2)
         self.pushButton.setText(_translate("MainWindow", "全显示"))
+        # self.
+        self.m1 = 1
+        self.m2 = 1
+        def selectMonth_1(i):
+            self.m1 = i
+        self.month_1.currentTextChanged.connect(selectMonth_1)
+        def selectMonth_2(i):
+            self.m2 = i
+        self.month_2.currentTextChanged.connect(selectMonth_2)
+        self.d1 = 1
+        self.d2 = 1
+        def selectDay_1(i):
+            self.d1 = i
+        self.day_1.currentTextChanged.connect(selectDay_1)
+        def selectDay_2(i):
+            self.d2 = i
+        self.day_2.currentTextChanged.connect(selectDay_2)
+        self.h1 = 1
+        self.h2 = 1
+        def selectHour_1(i):
+            self.h1 = i
+        self.hour_1.currentTextChanged.connect(selectHour_1)
+        def selectHour_2(i):
+            self.h2 = i
+        self.hour_2.currentTextChanged.connect(selectHour_2)
+
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_51.setItem(0, 0, item)
+        item = self.tableWidget_51.item(0, 0)
+        # item.setText(_translate("MainWindow", ))
+        # self.tableWidget_51.setRowCount(len(fit_res_index) + 1)
+        self.tableWidget_51.setRowCount(25)
+        self.tableWidget_51.setColumnCount(25)
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_51.setItem(0, 0, item)
+        item = self.tableWidget_51.item(0, 0)
+        item.setText(_translate("MainWindow", "年"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_51.setItem(0, 1, item)
+        item = self.tableWidget_51.item(0, 1)
+        item.setText(_translate("MainWindow", "月"))
+        self.tableWidget_51.setItem(0, 0, item)
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_51.setItem(0,2, item)
+        item = self.tableWidget_51.item(0, 2)
+        item.setText(_translate("MainWindow", "日"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_51.setItem(0, 3, item)
+        item = self.tableWidget_51.item(0, 3)
+        item.setText(_translate("MainWindow", "时"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_51.setItem(0, 4, item)
+        item = self.tableWidget_51.item(0, 4)
+        item.setText(_translate("MainWindow", "负荷Q/Kw"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_51.setItem(0, 5, item)
+        item = self.tableWidget_51.item(0, 5)
+        item.setText(_translate("MainWindow", "湿球温度Ts/℃"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_51.setItem(0, 6, item)
+        item = self.tableWidget_51.item(0, 6)
+        item.setText(_translate("MainWindow", "干球温度T/℃"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_51.setItem(0, 7, item)
+        item = self.tableWidget_51.item(0, 7)
+        item.setText(_translate("MainWindow", "单机负荷百分比/%"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_51.setItem(0, 8, item)
+        item = self.tableWidget_51.item(0, 8)
+        item.setText(_translate("MainWindow", "系统负荷百分比/%"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_51.setItem(0, 9 ,item)
+        item = self.tableWidget_51.item(0, 9)
+        item.setText(_translate("MainWindow", "冷冻水出水温度/℃"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_51.setItem(0, 10, item)
+        item = self.tableWidget_51.item(0, 10)
+        item.setText(_translate("MainWindow", "冷冻水回水温度/℃"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_51.setItem(0, 11, item)
+        item = self.tableWidget_51.item(0, 11)
+        item.setText(_translate("MainWindow", "冷冻水泵流量m3/h"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_51.setItem(0, 12, item)
+        item = self.tableWidget_51.item(0, 12)
+        item.setText(_translate("MainWindow", "冷冻水泵频率Hz"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_51.setItem(0, 13, item)
+        item = self.tableWidget_51.item(0, 13)
+        item.setText(_translate("MainWindow", "冷却水出水温度/℃"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_51.setItem(0, 14, item)
+        item = self.tableWidget_51.item(0, 14)
+        item.setText(_translate("MainWindow", "冷却水回水温度/℃"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_51.setItem(0, 15, item)
+        item = self.tableWidget_51.item(0, 15)
+        item.setText(_translate("MainWindow", "冷却水泵流量m3/h"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_51.setItem(0, 16, item)
+        item = self.tableWidget_51.item(0, 16)
+        item.setText(_translate("MainWindow", "冷却水泵频率Hz"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_51.setItem(0, 17, item)
+        item = self.tableWidget_51.item(0, 17)
+        item.setText(_translate("MainWindow", "冷却塔冷幅/℃"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_51.setItem(0, 18, item)
+        item = self.tableWidget_51.item(0, 18)
+        item.setText(_translate("MainWindow", "主机功率/Kw"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_51.setItem(0, 19, item)
+        item = self.tableWidget_51.item(0, 19)
+        item.setText(_translate("MainWindow", "冷冻水泵功率/Kw"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_51.setItem(0, 20, item)
+        item = self.tableWidget_51.item(0, 20)
+        item.setText(_translate("MainWindow", "冷却水泵功率/Kw"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_51.setItem(0, 21, item)
+        item = self.tableWidget_51.item(0, 21)
+        item.setText(_translate("MainWindow", "冷却塔功率/Kw"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_51.setItem(0, 22, item)
+        item = self.tableWidget_51.item(0, 22)
+        item.setText(_translate("MainWindow", "总功率/Kw"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_51.setItem(0, 23, item)
+        item = self.tableWidget_51.item(0, 23)
+        item.setText(_translate("MainWindow", "系统COP"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_51.setItem(0, 24, item)
+        item = self.tableWidget_51.item(0, 24)
+        item.setText(_translate("MainWindow", "设备开启台数/台"))
+        def showAll():
+            # print(123)
+            y1 = float(self.year_1.text())
+            y2 = float(self.year_2.text())
+            m1 = float(self.m1)
+            m2 = float(self.m2)
+            d1 = float(self.d1)
+            d2 = float(self.d2)
+            h1 = float(self.h1)
+            h2 = float(self.h2)
+
+            fit_res_index = []
+
+            for index, res in enumerate(model.db.optimize_result):
+                year = float(res.year)
+                month = float(res.mon)
+                day = float(res.day)
+                hour = float(res.hour)
+
+                if year>=y1 and year<=y2  and month>= m1 and month <=m2 and day>=d1 and day<=d2 and hour>=h1 and hour<=h2:
+                    fit_res_index .append(index)
+
+            self.tableWidget_51.setRowCount(len(fit_res_index)+1)
+            self.tableWidget_51.setColumnCount(20)
+
+            count = 0
+            for index in fit_res_index:
+                count += 1
+                res = model.db.optimize_result[index]
+                year = res.year
+                month = res.mon
+                day = res.day
+                hour = res.hour
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_51.setItem(count, 0, item)
+                item = self.tableWidget_51.item(count, 0)
+                item.setText(_translate("MainWindow", str(int(year))))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_51.setItem(count, 1, item)
+                item = self.tableWidget_51.item(count, 1)
+                item.setText(_translate("MainWindow", str(int(month))))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_51.setItem(count, 2, item)
+                item = self.tableWidget_51.item(count, 2)
+                item.setText(_translate("MainWindow", str(int(day))))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_51.setItem(count, 3, item)
+                item = self.tableWidget_51.item(count, 3)
+                item.setText(_translate("MainWindow", str(int(hour))))
+
+
+
+
+
+
+
+        self.pushButton.clicked.connect(showAll)
         self.label_21.setText(_translate("MainWindow", "年份"))
         self.label_22.setText(_translate("MainWindow", "月份"))
         self.month_1.setItemText(0, _translate("MainWindow", "1"))
@@ -4692,6 +4927,7 @@ class Ui_MainWindow(object):
         self.month_2.setItemText(9, _translate("MainWindow", "10"))
         self.month_2.setItemText(10, _translate("MainWindow", "11"))
         self.month_2.setItemText(11, _translate("MainWindow", "12"))
+
         self.label_23.setText(_translate("MainWindow", "日"))
         self.day_1.setItemText(0, _translate("MainWindow", "1"))
         self.day_1.setItemText(1, _translate("MainWindow", "2"))
@@ -4831,6 +5067,9 @@ class Ui_MainWindow(object):
         # self.pushButton_513.setText(_translate("MainWindow", "取消"))
         self.pushButton_514.setText(_translate("MainWindow", "导出"))
         self.tabWidget_11.setTabText(self.tabWidget_11.indexOf(self.tab), _translate("MainWindow", "全显示"))
+
+
+
         # self.pushButton_521.setText(_translate("MainWindow", "显示"))
         # self.pushButton_522.setText(_translate("MainWindow", "保存"))
         # self.pushButton_523.setText(_translate("MainWindow", "取消"))

@@ -114,13 +114,13 @@ class MyProblem(ea.Problem): # 继承Problem父类
         self.n = None   #台数
         # print("t2")
         self.T1_range = superP.t1_range
-        print(superP.t1_range)
+        # print(superP.t1_range)
         self.load_rat = superP.load_rat
         # print("t24")
 
         self.T1 = None #根据计算选取固定T1，之后的进化T2都是在此基础浮动
 
-        print(self.TS)
+        # print(self.TS)
         # print(self.T3)
         # print("***")
         # print("t25")
@@ -148,10 +148,10 @@ class MyProblem(ea.Problem): # 继承Problem父类
                     self.T1 = float(self.T1_range[index])
                 else:
                     self.T1 = float(self.T1_range[index])
-                print("index", index)
+                # print("index", index)
                 break
-        print("load_rat是(负荷百分比):", temp)
-        print(self.T1)
+        # print("load_rat是(负荷百分比):", temp)
+        # print(self.T1)
         # print("t23")
         # if self.T3 < superP.t3_min:
         #     self.T3 = superP.t3_min
@@ -169,7 +169,7 @@ class MyProblem(ea.Problem): # 继承Problem父类
             self.n = int(self.max_n)
 
 
-        print("yep")
+        # print("yep")
 
         self.n = min(self.n, self.max_n)
 
@@ -208,7 +208,7 @@ class MyProblem(ea.Problem): # 继承Problem父类
                 D0, D1, D2 = self.typeToD[self.selectType]
                 self.T3 = self.TS + D0 + D1 * self.TS + D2 * self.TS * self.TS
 
-        print("最后确定类型：{:s}".format(str(self.selectType)))
+        # print("最后确定类型：{:s}".format(str(self.selectType)))
         self.z = None
         for i in range(int(self.max_n)):
             if Q / self.QS > i and Q / self.QS <= (i + 1):
@@ -233,7 +233,7 @@ class MyProblem(ea.Problem): # 继承Problem父类
 
 
         # print("t3")
-        print("最大台数：{:s}".format(str(self.n)))
+        # print("最大台数：{:s}".format(str(self.n)))
         # print(self.nita)
         # self.T1_range = [7,7.5,8,8.5,9,9.5,10,10]
         # self.load_rat = [100, 95, 90,85, 80, 75, 70,60]
