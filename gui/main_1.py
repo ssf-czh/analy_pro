@@ -2375,9 +2375,9 @@ class Ui_MainWindow(object):
         spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_178.addItem(spacerItem4)
         self.verticalLayout_1114.addLayout(self.horizontalLayout_178)
-        self.checkBox_1 = QtWidgets.QCheckBox(self.page_10)
-        self.checkBox_1.setObjectName("checkBox_1")
-        self.verticalLayout_1114.addWidget(self.checkBox_1)
+        # self.checkBox_1 = QtWidgets.QCheckBox(self.page_10)
+        # self.checkBox_1.setObjectName("checkBox_1")
+        # self.verticalLayout_1114.addWidget(self.checkBox_1)
         self.horizontalLayout_81111 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_81111.setSizeConstraint(QtWidgets.QLayout.SetNoConstraint)
         self.horizontalLayout_81111.setContentsMargins(-1, -1, 0, 0)
@@ -2387,6 +2387,10 @@ class Ui_MainWindow(object):
         self.verticalLayout_7111.setObjectName("verticalLayout_7111")
         self.checkBox_40 = QtWidgets.QCheckBox(self.page_10)
         self.checkBox_40.setObjectName("checkBox_40")
+
+
+
+
         self.verticalLayout_7111.addWidget(self.checkBox_40)
         self.checkBox_54 = QtWidgets.QCheckBox(self.page_10)
         self.checkBox_54.setObjectName("checkBox_54")
@@ -2575,6 +2579,68 @@ class Ui_MainWindow(object):
         self.tableWidget_53.setRowCount(25)
         self.tableWidget_53.setColumnCount(20)
         self.tableWidget_53.setObjectName("tableWidget_53")
+        # ==
+        _translate = QtCore.QCoreApplication.translate
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_53.setItem(0, 0, item)
+        item = self.tableWidget_53.item(0, 0)
+        item.setText(_translate("MainWindow", "年"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_53.setItem(0, 1, item)
+        item = self.tableWidget_53.item(0, 1)
+        item.setText(_translate("MainWindow", "月"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_53.setItem(0, 2, item)
+        item = self.tableWidget_53.item(0, 2)
+        item.setText(_translate("MainWindow", "日"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_53.setItem(0, 3, item)
+        item = self.tableWidget_53.item(0, 3)
+        item.setText(_translate("MainWindow", "时"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_53.setItem(0, 4, item)
+        item = self.tableWidget_53.item(0, 4)
+        item.setText(_translate("MainWindow", "负荷Q/Kw"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_53.setItem(0, 5, item)
+        item = self.tableWidget_53.item(0, 5)
+        item.setText(_translate("MainWindow", "湿球温度Ts/℃"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_53.setItem(0, 6, item)
+        item = self.tableWidget_53.item(0, 6)
+        item.setText(_translate("MainWindow", "干球温度T/℃"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_53.setItem(0, 7, item)
+        item = self.tableWidget_53.item(0, 7)
+        item.setText(_translate("MainWindow", "单机负荷百分比/%"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_53.setItem(0, 8, item)
+        item = self.tableWidget_53.item(0, 8)
+        item.setText(_translate("MainWindow", "系统负荷百分比/%"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_53.setItem(0, 9, item)
+        item = self.tableWidget_53.item(0, 9)
+        item.setText(_translate("MainWindow", "冷冻水出水温度/℃"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_53.setItem(0, 10, item)
+        item = self.tableWidget_53.item(0, 10)
+        item.setText(_translate("MainWindow", "冷冻水回水温度/℃"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_53.setItem(0, 11, item)
+        item = self.tableWidget_53.item(0, 11)
+        # ==
         self.verticalLayout_102.addWidget(self.tableWidget_53)
         self.horizontalLayout_5333 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_5333.setObjectName("horizontalLayout_5333")
@@ -5222,8 +5288,94 @@ class Ui_MainWindow(object):
         self.hour_2.setItemText(21, _translate("MainWindow", "21"))
         self.hour_2.setItemText(22, _translate("MainWindow", "22"))
         self.hour_2.setItemText(23, _translate("MainWindow", "23"))
-        self.checkBox_1.setText(_translate("MainWindow", "所有"))
+        # self.checkBox_1.setText(_translate("MainWindow", "所有"))
+        # 单选框
         self.checkBox_40.setText(_translate("MainWindow", "温度"))
+
+        self.lengdong_out_status = False
+        self.lengdong_in_status = False
+        self.lengque_out_status = False
+        self.lengque_in_status = False
+        self.lengdong_delta_status = False
+        self.lengque_delta_status = False
+        def temperatrue_Checkbox():
+
+            status = self.checkBox_40.isChecked()
+            if status is True:
+                self.checkBox_48.setChecked(True)
+                self.checkBox_49.setChecked(True)
+                self.checkBox_50.setChecked(True)
+                self.checkBox_51.setChecked(True)
+                self.checkBox_52.setChecked(True)
+                self.checkBox_53.setChecked(True)
+            else:
+                self.checkBox_48.setChecked(False)
+                self.checkBox_49.setChecked(False)
+                self.checkBox_50.setChecked(False)
+                self.checkBox_51.setChecked(False)
+                self.checkBox_52.setChecked(False)
+                self.checkBox_53.setChecked(False)
+
+
+        self.checkBox_40.stateChanged.connect(temperatrue_Checkbox)
+
+
+        def lengdong_out_Checkbox():
+            if self.checkBox_48.isChecked():
+                self.lengdong_out_status = True
+            else:
+                self.lengdong_out_status = False
+            print("lengdong_out:", self.lengdong_out_status)
+        self.checkBox_48.stateChanged.connect(lengdong_out_Checkbox)
+
+        def lengdong_in_Checkbox():
+            if self.checkBox_49.isChecked():
+                self.lengdong_in_status = True
+            else:
+                self.lengdong_in_status = False
+            print("lengdong_in:", self.lengdong_in_status)
+        self.checkBox_49.stateChanged.connect(lengdong_in_Checkbox)
+
+        def lengque_out_Checkbox():
+            if self.checkBox_50.isChecked():
+                self.lengque_out_status = True
+            else:
+                self.lengque_out_status = False
+            print("lengque_out:", self.lengque_out_status)
+        self.checkBox_50.stateChanged.connect(lengque_out_Checkbox)
+
+        def lengque_in_Checkbox():
+            if self.checkBox_51.isChecked():
+                self.lengque_in_status = True
+            else:
+                self.lengque_in_status = False
+            print("lengque_in", self.lengque_in_status)
+        self.checkBox_51.stateChanged.connect(lengque_in_Checkbox)
+
+        def lengdong_delta_Checkbox():
+            if self.checkBox_52.isChecked():
+                self.lengdong_delta_status = True
+            else:
+                self.lengdong_delta_status = False
+            print("lengdong_delta", self.lengdong_delta_status)
+        self.checkBox_52.stateChanged.connect(lengdong_delta_Checkbox)
+
+        def lengque_delta_Checkbox():
+            if self.checkBox_53.isChecked():
+                self.lengque_delta_status = True
+            else:
+                self.lengque_delta_status = False
+            print("lengque_delta", self.lengque_delta_status)
+        self.checkBox_53.stateChanged.connect(lengque_delta_Checkbox)
+
+
+
+
+
+
+
+
+
         self.checkBox_48.setText(_translate("MainWindow", "冷冻出水温度"))
         self.checkBox_49.setText(_translate("MainWindow", "冷冻回水温度"))
         self.checkBox_50.setText(_translate("MainWindow", "冷却出水温度"))
@@ -5266,12 +5418,13 @@ class Ui_MainWindow(object):
 
         self.pushButton_514.clicked.connect(save_showAll)
 
+
         # self.pushButton_521.setText(_translate("MainWindow", "显示"))
         # self.pushButton_522.setText(_translate("MainWindow", "保存"))
         # self.pushButton_523.setText(_translate("MainWindow", "取消"))
         # self.pushButton_524.setText(_translate("MainWindow", "导出"))
         # self.tabWidget_11.setTabText(self.tabWidget_11.indexOf(self.tab_2), _translate("MainWindow", "所有"))
-        self.pushButton_531.setText(_translate("MainWindow", "显示"))
+        self.pushButton_531.setText(_translate("MainWindow", "显示111"))
         # self.pushButton_532.setText(_translate("MainWindow", "保存"))
         self.pushButton_533.setText(_translate("MainWindow", "图表"))
         self.pushButton_534.setText(_translate("MainWindow", "导出"))
