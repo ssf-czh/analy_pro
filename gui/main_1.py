@@ -10,7 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 import model
-from model.db import save, main_fittings, load
+from model.db import save, main_fittings, load,db_save_showAll
 from P_pro import PumpFit, Main
 from model.schema import OptimizeResult
 
@@ -2525,12 +2525,12 @@ class Ui_MainWindow(object):
         # self.pushButton_511 = QtWidgets.QPushButton(self.tab)
         # self.pushButton_511.setObjectName("pushButton_511")
         # self.horizontalLayout_22233.addWidget(self.pushButton_511)
-        self.pushButton_512 = QtWidgets.QPushButton(self.tab)
-        self.pushButton_512.setObjectName("pushButton_512")
-        self.horizontalLayout_22233.addWidget(self.pushButton_512)
-        # self.pushButton_513 = QtWidgets.QPushButton(self.tab)
-        # self.pushButton_513.setObjectName("pushButton_513")
-        # self.horizontalLayout_22233.addWidget(self.pushButton_513)
+        # self.pushButton_512 = QtWidgets.QPushButton(self.tab)
+        # self.pushButton_512.setObjectName("pushButton_512")
+        # self.horizontalLayout_22233.addWidget(self.pushButton_512)
+        self.pushButton_513 = QtWidgets.QPushButton(self.tab)
+        self.pushButton_513.setObjectName("pushButton_513")
+        self.horizontalLayout_22233.addWidget(self.pushButton_513)
         self.pushButton_514 = QtWidgets.QPushButton(self.tab)
         self.pushButton_514.setObjectName("pushButton_514")
         self.horizontalLayout_22233.addWidget(self.pushButton_514)
@@ -4841,8 +4841,12 @@ class Ui_MainWindow(object):
         self.tableWidget_51.setItem(0, 24, item)
         item = self.tableWidget_51.item(0, 24)
         item.setText(_translate("MainWindow", "设备开启台数/台"))
+
+        self.table_51_count = 0
+        self.table_51_records = []
         def showAll():
             # print(123)
+            self.table_51_records = []
             y1 = float(self.year_1.text())
             y2 = float(self.year_2.text())
             m1 = float(self.m1)
@@ -4862,11 +4866,19 @@ class Ui_MainWindow(object):
 
                 if year>=y1 and year<=y2  and month>= m1 and month <=m2 and day>=d1 and day<=d2 and hour>=h1 and hour<=h2:
                     fit_res_index .append(index)
+                    self.table_51_records.append(res)
 
-            self.tableWidget_51.setRowCount(len(fit_res_index)+1)
-            self.tableWidget_51.setColumnCount(20)
+            self.table_51_count = len(fit_res_index)
+            self.tableWidget_51.setRowCount(len(fit_res_index)+2)
+            self.tableWidget_51.setColumnCount(25)
 
             count = 0
+            Q_sum = 0
+            p1_sum = 0
+            p2_sum = 0
+            p3_sum = 0
+            p4_sum = 0
+            p_sum = 0
             for index in fit_res_index:
                 count += 1
                 res = model.db.optimize_result[index]
@@ -4874,6 +4886,13 @@ class Ui_MainWindow(object):
                 month = res.mon
                 day = res.day
                 hour = res.hour
+                Q_sum += res.q
+                p1_sum += res.p1
+                p2_sum += res.p2
+                p3_sum += res.p3
+                p4_sum += res.p4
+                p_sum += res.p
+
                 item = QtWidgets.QTableWidgetItem()
                 self.tableWidget_51.setItem(count, 0, item)
                 item = self.tableWidget_51.item(count, 0)
@@ -4894,11 +4913,174 @@ class Ui_MainWindow(object):
                 item = self.tableWidget_51.item(count, 3)
                 item.setText(_translate("MainWindow", str(int(hour))))
 
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_51.setItem(count, 4, item)
+                item = self.tableWidget_51.item(count, 4)
+                item.setText(_translate("MainWindow", str(res.q)))
 
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_51.setItem(count, 5, item)
+                item = self.tableWidget_51.item(count, 5)
+                item.setText(_translate("MainWindow", str(res.ts)))
 
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_51.setItem(count, 7, item)
+                item = self.tableWidget_51.item(count, 7)
+                item.setText(_translate("MainWindow", str(res.load_percentage)))
 
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_51.setItem(count, 8, item)
+                item = self.tableWidget_51.item(count, 8)
+                item.setText(_translate("MainWindow", str(res.system_load_percentage)))
 
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_51.setItem(count, 9, item)
+                item = self.tableWidget_51.item(count, 9)
+                item.setText(_translate("MainWindow", str(res.t1)))
 
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_51.setItem(count, 10, item)
+                item = self.tableWidget_51.item(count, 10)
+                item.setText(_translate("MainWindow", str(res.t2)))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_51.setItem(count, 11, item)
+                item = self.tableWidget_51.item(count, 11)
+                item.setText(_translate("MainWindow", str(res.G2_lendong)))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_51.setItem(count, 12, item)
+                item = self.tableWidget_51.item(count, 12)
+                item.setText(_translate("MainWindow", str(res.fluency_lendong)))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_51.setItem(count, 13, item)
+                item = self.tableWidget_51.item(count, 13)
+                item.setText(_translate("MainWindow", str(res.t3)))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_51.setItem(count, 14, item)
+                item = self.tableWidget_51.item(count, 14)
+                item.setText(_translate("MainWindow", str(res.t4)))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_51.setItem(count, 15, item)
+                item = self.tableWidget_51.item(count, 15)
+                item.setText(_translate("MainWindow", str(res.G3_lenque)))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_51.setItem(count, 16, item)
+                item = self.tableWidget_51.item(count, 16)
+                item.setText(_translate("MainWindow", str(res.fluency_lenque)))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_51.setItem(count, 17, item)
+                item = self.tableWidget_51.item(count, 17)
+                item.setText(_translate("MainWindow", str(res.delta_t)))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_51.setItem(count, 18, item)
+                item = self.tableWidget_51.item(count, 18)
+                item.setText(_translate("MainWindow", str(res.p1)))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_51.setItem(count, 19, item)
+                item = self.tableWidget_51.item(count, 19)
+                item.setText(_translate("MainWindow", str(res.p2)))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_51.setItem(count, 20, item)
+                item = self.tableWidget_51.item(count, 20)
+                item.setText(_translate("MainWindow", str(res.p3)))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_51.setItem(count, 21, item)
+                item = self.tableWidget_51.item(count, 21)
+                item.setText(_translate("MainWindow", str(res.p4)))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_51.setItem(count, 22, item)
+                item = self.tableWidget_51.item(count, 22)
+                item.setText(_translate("MainWindow", str(res.p)))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_51.setItem(count, 23, item)
+                item = self.tableWidget_51.item(count, 23)
+                item.setText(_translate("MainWindow", str(res.cop)))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_51.setItem(count, 24, item)
+                item = self.tableWidget_51.item(count, 24)
+                item.setText(_translate("MainWindow", str(res.n)))
+            calc_sum = OptimizeResult()
+            calc_sum.year = "合计"
+            calc_sum.mon = self.table_51_records[-1].mon
+            calc_sum.day = self.table_51_records[-1].day
+            calc_sum.hour = self.table_51_records[-1].hour
+            print(Q_sum)
+            print(p1_sum)
+            print(p2_sum)
+            print(p3_sum)
+            print(p4_sum)
+            print(p_sum)
+            calc_sum.q = Q_sum
+            calc_sum.p1 = p1_sum
+            calc_sum.p2 = p2_sum
+            calc_sum.p3 = p3_sum
+            calc_sum.p4 = p4_sum
+            calc_sum.p = p_sum
+            self.table_51_records.append(calc_sum)
+            count+=1
+
+            item = QtWidgets.QTableWidgetItem()
+            self.tableWidget_51.setItem(count, 0, item)
+            item = self.tableWidget_51.item(count, 0)
+            item.setText(_translate("MainWindow", str("合计")))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.tableWidget_51.setItem(count, 1, item)
+            item = self.tableWidget_51.item(count, 1)
+            item.setText(_translate("MainWindow", str(int(calc_sum.mon))))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.tableWidget_51.setItem(count, 2, item)
+            item = self.tableWidget_51.item(count, 2)
+            item.setText(_translate("MainWindow", str(int(calc_sum.day))))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.tableWidget_51.setItem(count, 3, item)
+            item = self.tableWidget_51.item(count, 3)
+            item.setText(_translate("MainWindow", str(int(calc_sum.hour))))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.tableWidget_51.setItem(count, 4, item)
+            item = self.tableWidget_51.item(count, 4)
+            item.setText(_translate("MainWindow", str(round(calc_sum.q,1))))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.tableWidget_51.setItem(count, 18, item)
+            item = self.tableWidget_51.item(count, 18)
+            item.setText(_translate("MainWindow", str(round(calc_sum.p1,4))))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.tableWidget_51.setItem(count, 19, item)
+            item = self.tableWidget_51.item(count, 19)
+            item.setText(_translate("MainWindow", str(round(calc_sum.p2,3))))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.tableWidget_51.setItem(count, 20, item)
+            item = self.tableWidget_51.item(count, 20)
+            item.setText(_translate("MainWindow", str(round(calc_sum.p3,1))))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.tableWidget_51.setItem(count, 21, item)
+            item = self.tableWidget_51.item(count, 21)
+            item.setText(_translate("MainWindow", str(round(calc_sum.p4,3))))
+
+            item = QtWidgets.QTableWidgetItem()
+            self.tableWidget_51.setItem(count, 22, item)
+            item = self.tableWidget_51.item(count, 22)
+            item.setText(_translate("MainWindow", str(calc_sum.p)))
 
         self.pushButton.clicked.connect(showAll)
         self.label_21.setText(_translate("MainWindow", "年份"))
@@ -5063,12 +5245,26 @@ class Ui_MainWindow(object):
         self.checkBox_64.setText(_translate("MainWindow", "主机"))
         self.checkBox_65.setText(_translate("MainWindow", "系统"))
         # self.pushButton_511.setText(_translate("MainWindow", "显示11"))
-        self.pushButton_512.setText(_translate("MainWindow", "保存"))
-        # self.pushButton_513.setText(_translate("MainWindow", "取消"))
+        # self.pushButton_512.setText(_translate("MainWindow", "保存"))
+        self.pushButton_513.setText(_translate("MainWindow", "取消"))
         self.pushButton_514.setText(_translate("MainWindow", "导出"))
         self.tabWidget_11.setTabText(self.tabWidget_11.indexOf(self.tab), _translate("MainWindow", "全显示"))
 
 
+        def clean_showAll():
+            for i in range(self.table_51_count):
+                for k in range(25):
+                    item = QtWidgets.QTableWidgetItem()
+                    self.tableWidget_51.setItem(i+1, k, item)
+                    item = self.tableWidget_51.item(i+1, k)
+                    item.setText(_translate("MainWindow", ""))
+
+        self.pushButton_513.clicked.connect(clean_showAll)
+
+        def save_showAll():
+            db_save_showAll("template.xlsx", self.table_51_records)
+
+        self.pushButton_514.clicked.connect(save_showAll)
 
         # self.pushButton_521.setText(_translate("MainWindow", "显示"))
         # self.pushButton_522.setText(_translate("MainWindow", "保存"))
