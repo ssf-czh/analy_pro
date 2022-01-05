@@ -13,7 +13,9 @@ import model
 from model.db import save, main_fittings, load,db_save_showAll,db_save_temperature
 from P_pro import PumpFit, Main
 from model.schema import OptimizeResult
+import copy
 
+temperature_record = None
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -3214,6 +3216,7 @@ class Ui_MainWindow(object):
     #             save("template.xlsx")
     #         self.pushButton_3.clicked.connect(save_opt_res)
     def retranslateUi(self, MainWindow):
+
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         __sortingEnabled = self.init_params.isSortingEnabled()
@@ -5448,6 +5451,7 @@ class Ui_MainWindow(object):
         self.table_53_records = []
         self.table_53_count = 1
         def show_Temperature():
+            global temperature_record
             clean_temperature()
             self.table_53_records = []
             y1 = float(self.year_1.text())
@@ -5561,9 +5565,23 @@ class Ui_MainWindow(object):
                     item = self.tableWidget_53.item(count, 14)
                     item.setText(_translate("MainWindow", str(round(res.t4-res.t3,3))))
 
+
+                temperature_record = copy.deepcopy(self.table_53_records[0])
+                if self.lengdong_out_status is False:
+                    temperature_record.t1 = -1
+                if self.lengdong_in_status is False:
+                    temperature_record.t2 = -1
+                if self.lengque_out_status is False:
+                    temperature_record.t3 = -1
+                if self.lengque_in_status is False:
+                    temperature_record.t4 = -1
+
+
         self.pushButton_531.clicked.connect(show_Temperature)
 
         # self.pushButton_532.setText(_translate("MainWindow", "保存"))
+
+
         self.pushButton_533.setText(_translate("MainWindow", "图表"))
         self.pushButton_534.setText(_translate("MainWindow", "导出"))
         def save_temperatrue():

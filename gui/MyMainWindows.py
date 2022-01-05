@@ -6,6 +6,7 @@ from gui.main_1 import Ui_MainWindow
 from model.db import load, init_params, main_fittings
 from PyQt5 import QtCore, QtGui, QtWidgets
 from gui.chart import  Ui_Temperature
+from gui import main_1
 
 load(r"template.xlsx")
 
@@ -24,9 +25,20 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
 
     def show_temperature_chart(self):
         # self.hide()
+        # print(main_1.a)
         self.temperature_chart = Ui_Dialog()
+        self.temperature_chart.resize(870,570)
         self.temperature_chart.show()
-        print("yyyy")
+        # print("yyyy")
+
+        # app = QApplication(sys.argv)
+        # mainwindow = QMainWindow()
+        # mainwindow.setWindowTitle('demo')
+        # mainwindow.resize(870, 570)
+        #
+        # my_demo = DEMO(mainwindow)
+        #
+        # sys.exit(app.exec_())
 
 
 
