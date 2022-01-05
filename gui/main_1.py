@@ -5446,7 +5446,9 @@ class Ui_MainWindow(object):
         self.pushButton_531.setText(_translate("MainWindow", "显示"))
 
         self.table_53_records = []
+        self.table_53_count = 1
         def show_Temperature():
+            clean_temperature()
             self.table_53_records = []
             y1 = float(self.year_1.text())
             y2 = float(self.year_2.text())
@@ -5523,35 +5525,41 @@ class Ui_MainWindow(object):
                 item = self.tableWidget_53.item(count, 8)
                 item.setText(_translate("MainWindow", str(res.system_load_percentage)))
 
-                item = QtWidgets.QTableWidgetItem()
-                self.tableWidget_53.setItem(count, 9, item)
-                item = self.tableWidget_53.item(count, 9)
-                item.setText(_translate("MainWindow", str(res.t1)))
+                if self.lengdong_out_status:
+                    item = QtWidgets.QTableWidgetItem()
+                    self.tableWidget_53.setItem(count, 9, item)
+                    item = self.tableWidget_53.item(count, 9)
+                    item.setText(_translate("MainWindow", str(res.t1)))
 
-                item = QtWidgets.QTableWidgetItem()
-                self.tableWidget_53.setItem(count, 10, item)
-                item = self.tableWidget_53.item(count, 10)
-                item.setText(_translate("MainWindow", str(res.t2)))
+                if self.lengdong_in_status:
+                    item = QtWidgets.QTableWidgetItem()
+                    self.tableWidget_53.setItem(count, 10, item)
+                    item = self.tableWidget_53.item(count, 10)
+                    item.setText(_translate("MainWindow", str(res.t2)))
 
-                item = QtWidgets.QTableWidgetItem()
-                self.tableWidget_53.setItem(count, 11, item)
-                item = self.tableWidget_53.item(count, 11)
-                item.setText(_translate("MainWindow", str(res.t3)))
+                if self.lengque_out_status:
+                    item = QtWidgets.QTableWidgetItem()
+                    self.tableWidget_53.setItem(count, 11, item)
+                    item = self.tableWidget_53.item(count, 11)
+                    item.setText(_translate("MainWindow", str(res.t3)))
 
-                item = QtWidgets.QTableWidgetItem()
-                self.tableWidget_53.setItem(count, 12, item)
-                item = self.tableWidget_53.item(count, 12)
-                item.setText(_translate("MainWindow", str(res.t4)))
+                if self.lengque_in_status:
+                    item = QtWidgets.QTableWidgetItem()
+                    self.tableWidget_53.setItem(count, 12, item)
+                    item = self.tableWidget_53.item(count, 12)
+                    item.setText(_translate("MainWindow", str(res.t4)))
 
-                item = QtWidgets.QTableWidgetItem()
-                self.tableWidget_53.setItem(count, 13, item)
-                item = self.tableWidget_53.item(count, 13)
-                item.setText(_translate("MainWindow", str(round(res.t2-res.t1,3))))
+                if self.lengdong_delta_status:
+                    item = QtWidgets.QTableWidgetItem()
+                    self.tableWidget_53.setItem(count, 13, item)
+                    item = self.tableWidget_53.item(count, 13)
+                    item.setText(_translate("MainWindow", str(round(res.t2-res.t1,3))))
 
-                item = QtWidgets.QTableWidgetItem()
-                self.tableWidget_53.setItem(count, 14, item)
-                item = self.tableWidget_53.item(count, 14)
-                item.setText(_translate("MainWindow", str(round(res.t4-res.t3,3))))
+                if self.lengque_delta_status:
+                    item = QtWidgets.QTableWidgetItem()
+                    self.tableWidget_53.setItem(count, 14, item)
+                    item = self.tableWidget_53.item(count, 14)
+                    item.setText(_translate("MainWindow", str(round(res.t4-res.t3,3))))
 
         self.pushButton_531.clicked.connect(show_Temperature)
 
