@@ -27,8 +27,9 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
         # self.hide()
         # print(main_1.a)
         self.temperature_chart = Ui_Dialog()
-        self.temperature_chart.resize(870,570)
-        self.temperature_chart.show()
+        # self.temperature_chart.resize(870,570)
+
+        self.temperature_chart.showMaximized()
         # print("yyyy")
 
         # app = QApplication(sys.argv)
