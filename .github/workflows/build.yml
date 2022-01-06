@@ -20,6 +20,7 @@ jobs:
           pip config set global.target ./site-packages &&
           pip install -r requirements.txt &&
           pyinstaller --hidden-import "PyQtWebEngine" -p . -p ./site-packages/geatpy/core/ 
+          -p ./site-packages/PyQt5/
           -p ./site-packages/ 
           -p ./site-packages/geatpy/ 
           -p ./site-packages/geatpy/operators/
