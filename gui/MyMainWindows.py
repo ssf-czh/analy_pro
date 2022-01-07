@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow
 from gui.main_1 import Ui_MainWindow
 from model.db import load, init_params, main_fittings
 from PyQt5 import QtCore, QtGui, QtWidgets
-from gui.chart import  Ui_Temperature
+from gui.chart import Ui_Temperature, Ui_Pump
 from gui import main_1
 
 load(r"template.xlsx")
@@ -16,6 +16,11 @@ class Ui_Dialog(QtWidgets.QWidget,Ui_Temperature):
         super(Ui_Dialog,self).__init__()
         self.setupUi(self)
 
+class Ui_Dialog_Pump(QtWidgets.QWidget,Ui_Pump):
+    def __init__(self):
+        super(Ui_Dialog_Pump,self).__init__()
+        self.setupUi(self)
+
 class MyMainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
         super(MyMainWindow, self).__init__(parent)
@@ -24,24 +29,16 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
         # 定义登录按钮的功能
 
     def show_temperature_chart(self):
-        # self.hide()
-        # print(main_1.a)
         self.temperature_chart = Ui_Dialog()
-        # self.temperature_chart.resize(870,570)
-
         self.temperature_chart.showMaximized()
-        # print("yyyy")
 
-        # app = QApplication(sys.argv)
-        # mainwindow = QMainWindow()
-        # mainwindow.setWindowTitle('demo')
-        # mainwindow.resize(870, 570)
-        #
-        # my_demo = DEMO(mainwindow)
-        #
-        # sys.exit(app.exec_())
+    def show_pump_chart(self):
+        self.pump_chart = Ui_Dialog_Pump()
+        self.pump_chart.resize(1700,600)
+        self.pump_chart.show()
 
 
+        # pass
 
 
 if __name__ == '__main__':
@@ -52,5 +49,6 @@ if __name__ == '__main__':
     myWin.showMaximized()  #first.show()
 
     myWin.pushButton_533.clicked.connect(myWin.show_temperature_chart)
+    myWin.pushButton_543.clicked.connect(myWin.show_pump_chart)
 
     sys.exit(app.exec_())  # 结束进程，退出程序
