@@ -560,7 +560,7 @@ def db_save_cop(path: str, records):
                 sheet.cell(2 + i, 8).value = str(entry.load_percentage)
                 sheet.cell(2 + i, 9).value = str(entry.system_load_percentage)
                 Q =  entry.q
-                p1 = entry.p1/entry.n
+                p1 = entry.p1
                 pump_cop = round(Q/p1,3)
                 sheet.cell(2 + i, 10).value = str(pump_cop)
                 sheet.cell(2 + i, 11).value = str(entry.cop)

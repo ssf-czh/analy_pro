@@ -380,116 +380,62 @@ class Ui_Cop(object):
 
 
 
-        self.demo_pump_pie()
-        self.demo_pump_bar()
-        # self.demo_yibiaopan_t2()
-        # self.demo_yibiaopan_t3()
-        # self.demo_yibiaopan_t4()
-        # self.demo_yibiaopan_t2_t1()
-        # self.demo_yibiaopan_t4_t3()
+        self.demo_time_copBar()
+        self.demo_q_copBar()
 
-        # button1.clicked.connect(self.demo_yibiaopan_t1)
-        # button2.clicked.connect(self.demo_yibiaopan_t2)
-        # button3.clicked.connect(self.demo_yibiaopan_t3)
-        # button4.clicked.connect(self.demo_yibiaopan_t4)
-        # button5.clicked.connect(self.demo_yibiaopan_t2_t1)
-        # button6.clicked.connect(self.demo_yibiaopan_t4_t3)
 
     def retranslateUi(self, Form):
-        # _translate = QtCore.QCoreApplication.translate
-        # Form.setWindowTitle(_translate("Form", "Form"))
-        # self.label.setText(_translate("Form", "不知名步骤"))
-        # self.pushButton.setText(_translate("Form", "第一关"))
-        # self.pushButton.clicked.connect(self.demo_pie)
-        # self.pushButton_2.setText(_translate("Form", "第二关"))
         pass
 
-    # def demo_bar(self):
-    #     """
-    #         柱形图
-    #     """
-    #     bar = Bar('我的第一个表-主标题', '目标题')
-    #     bar.add('服务', ['衬衫', '衬衫', 'C语言', 'python'], [5, 7, 8, 9])
-    #     bar.show_config()
-    #     bar.render(path='render_1.html')
-    #     self.browser.load(QUrl("file:///render_1.html"))
-    #
-    # def demo_pie(self):
-    #     """
-    #         饼图
-    #     """
-    #     attr = ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
-    #     v1 = [11, 12, 13, 10, 10, 10]
-    #     pie = Pie("饼图示例")
-    #     pie.add("", attr, v1, is_label_show=True)
-    #     print(111)
-    #     pie.render(path='render_pie.html')
-    #     print(222)
-    #     self.browser.load(QUrl("file:///render_pie.html"))
-    #
-    # def demo_pie_h(self):
-    #     """
-    #     圆环图
-    #     """
-    #     attr = ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
-    #     v1 = [11, 12, 13, 10, 10, 10]
-    #     pie = Pie("饼图-圆环图示例", title_pos='center')
-    #     pie.add("", attr, v1, radius=[40, 75], label_text_color=None,
-    #             is_label_show=True, legend_orient='vertical',
-    #             legend_pos='left')
-    #     pie.render(path='render_pie_h.html')
-    #     self.browser.load(QUrl("file:///render_pie_h.html"))
 
-    def demo_pump_pie(self):
-        # val = float(main_1.temperature_record.t1)
-        # if val == -1:
-        #     val = 0
-        # gauge = Gauge("冷冻出水温度仪表盘")
-        # gauge.add("", attr="冷冻出水温度", value=val,scale_range=(5,15))
-        # # gauge.
-        # gauge.render('gauge_t1.html')
-        # self.browser.load(QUrl("file:///gauge_t1.html"))
-        attr = ["主机功率/Kw/%", "冷冻水泵功率/Kw", "冷却水泵功率/Kw", "冷却塔功率/Kw"]
-        p1 = main_1.pump_record.p1
-        p2 = main_1.pump_record.p2
-        p3 = main_1.pump_record.p3
-        p4 = main_1.pump_record.p4
 
-        v1 = [p1, p2, p3, p4]
-        pie = Pie("功率分布图")
-        pie.add("", attr, v1, is_label_show=True)
-        # print(111)
-        pie.render(path='render_pie.html')
-        # print(222)
-        self.browser.load(QUrl("file:///render_pie.html"))
+    def demo_time_copBar(self):
 
-    def demo_pump_bar(self):
-        attr = []
-        v1 = []
-        v2 = []
-        v3 = []
-        v4 = []
-        for data in main_1.table_54_records:
+        # //设置行名
+
+        columns = []
+        pump_cop = []
+        system_cop = []
+        for data in main_1.table_56_records:
             year = data.year
             month = data.mon
             day = data.day
             hour = data.hour
-            attr.append(str(year)+"年"+str(month)+"月"+str(day)+"日"+str(hour)+"时")
-            v1.append(float(data.p1))
-            v2.append(float(data.p2))
-            v3.append(float(data.p3))
-            v4.append(float(data.p4))
+            columns.append(str(year)+"年"+str(month)+"月"+str(day)+"日"+str(hour)+"时")
+            pump_cop.append(round(float(data.q/data.p1),3))
+            system_cop.append(float(data.cop))
 
-        # attr = ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
-        # v1 = [5, 20, 36, 10, 75, 90]
-        # v2 = [10, 25, 8, 60, 20, 80]
-        bar = Bar('总功率时间变化图')
-        bar.add('主机功率/Kw', attr, v1, is_stack=True, is_datazoom_show=True)  # is_stack = True才表示堆叠在一起
-        bar.add('冷冻水泵功率/Kw', attr, v2, is_stack=True, is_datazoom_show=True)
-        bar.add('冷却水泵功率/Kw', attr, v3, is_stack=True, is_datazoom_show=True)
-        bar.add('冷却塔功率/Kw', attr, v4, is_stack=True, is_datazoom_show=True)
-        bar.render('pump_bar.html')
-        self.browser2.load(QUrl("file:///pump_bar.html"))
+        # //设置数据
+
+        # //设置柱状图的主标题与副标题
+        bar = Bar("COP时间变化图")
+        # //添加柱状图的数据及配置项
+        bar.add("主机COP", columns, pump_cop, mark_line=["average"], mark_point=["max", "min"],is_datazoom_show=True)
+        bar.add("系统COP", columns, system_cop, mark_line=["average"], mark_point=["max", "min"],is_datazoom_show=True)
+        # //生成本地文件（默认为.html文件）
+        bar.render("timeBar.html")
+        self.browser.load(QUrl("file:///timeBar.html"))
+
+    def demo_q_copBar(self):
+        columns = []
+        pump_cop = []
+        system_cop = []
+        for data in main_1.table_56_records:
+
+            columns.append(str(data.q) + "Kw")
+            pump_cop.append(round(float(data.q / data.p1),3))
+            system_cop.append(float(data.cop))
+
+        # //设置数据
+
+        # //设置柱状图的主标题与副标题
+        bar = Bar("COP负荷变化图")
+        # //添加柱状图的数据及配置项
+        bar.add("主机COP", columns, pump_cop, mark_line=["average"], mark_point=["max", "min"], is_datazoom_show=True)
+        bar.add("系统COP", columns, system_cop, mark_line=["average"], mark_point=["max", "min"], is_datazoom_show=True)
+        # //生成本地文件（默认为.html文件）
+        bar.render("qBar.html")
+        self.browser2.load(QUrl("file:///qBar.html"))
 
 import random
 # attr = ["{}天".format(i) for i in range(30)]
@@ -499,15 +445,4 @@ import random
 # bar.render("test.html")
 
 
-# //设置行名
-columns = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-# //设置数据
-data1 = [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
-data2 = [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3]
-# //设置柱状图的主标题与副标题
-bar = Bar("柱状图", "一年的降水量与蒸发量")
-# //添加柱状图的数据及配置项
-bar.add("降水量", columns, data1, mark_line=["average"], mark_point=["max", "min"])
-bar.add("蒸发量", columns, data2, mark_line=["average"], mark_point=["max", "min"])
-# //生成本地文件（默认为.html文件）
-bar.render("test.html")
+

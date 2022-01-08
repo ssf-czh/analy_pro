@@ -16,10 +16,16 @@ from model.schema import OptimizeResult
 import copy
 
 temperature_record = None
+
 pump_record = None
 table_54_records = []
-table_56_records = []
+
 cop_record = None
+table_56_records = []
+
+lengqueta_temperature = None
+
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -2802,6 +2808,76 @@ class Ui_MainWindow(object):
         self.tableWidget_55.setColumnCount(20)
         self.tableWidget_55.setObjectName("tableWidget_55")
         self.verticalLayout_104.addWidget(self.tableWidget_55)
+        # ==
+        _translate = QtCore.QCoreApplication.translate
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_55.setItem(0, 0, item)
+        item = self.tableWidget_55.item(0, 0)
+        item.setText(_translate("MainWindow", "年"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_55.setItem(0, 1, item)
+        item = self.tableWidget_55.item(0, 1)
+        item.setText(_translate("MainWindow", "月"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_55.setItem(0, 2, item)
+        item = self.tableWidget_55.item(0, 2)
+        item.setText(_translate("MainWindow", "日"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_55.setItem(0, 3, item)
+        item = self.tableWidget_55.item(0, 3)
+        item.setText(_translate("MainWindow", "时"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_55.setItem(0, 4, item)
+        item = self.tableWidget_55.item(0, 4)
+        item.setText(_translate("MainWindow", "负荷Q/Kw"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_55.setItem(0, 5, item)
+        item = self.tableWidget_55.item(0, 5)
+        item.setText(_translate("MainWindow", "湿球温度Ts/℃"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_55.setItem(0, 6, item)
+        item = self.tableWidget_55.item(0, 6)
+        item.setText(_translate("MainWindow", "干球温度T/℃"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_55.setItem(0, 7, item)
+        item = self.tableWidget_55.item(0, 7)
+        item.setText(_translate("MainWindow", "单机负荷百分比/%"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_55.setItem(0, 8, item)
+        item = self.tableWidget_55.item(0, 8)
+        item.setText(_translate("MainWindow", "系统负荷百分比/%"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_55.setItem(0, 9, item)
+        item = self.tableWidget_55.item(0, 9)
+        item.setText(_translate("MainWindow", "冷却出水温度/℃"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_55.setItem(0, 10, item)
+        item = self.tableWidget_55.item(0, 10)
+        item.setText(_translate("MainWindow", "冷却回水温度/℃"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_55.setItem(0, 11, item)
+        item = self.tableWidget_55.item(0, 11)
+        item.setText(_translate("MainWindow", "冷却水进出口温差/℃"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_55.setItem(0, 12, item)
+        item = self.tableWidget_55.item(0, 12)
+        item.setText(_translate("MainWindow", "冷却塔冷幅/℃"))
+        # ==
+        
+        
         self.horizontalLayout_6444 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_6444.setObjectName("horizontalLayout_6444")
         self.pushButton_551 = QtWidgets.QPushButton(self.tab_61)
@@ -6172,7 +6248,7 @@ class Ui_MainWindow(object):
 
         self.tabWidget_11.setTabText(self.tabWidget_11.indexOf(self.tab_5), _translate("MainWindow", "功率"))
 
-        self.pushButton_551.setText(_translate("MainWindow", "显示11"))
+        self.pushButton_551.setText(_translate("MainWindow", "显示"))
         # self.pushButton_552.setText(_translate("MainWindow", "保存"))
         self.pushButton_553.setText(_translate("MainWindow", "图表"))
         self.pushButton_554.setText(_translate("MainWindow", "导出"))
@@ -6180,7 +6256,7 @@ class Ui_MainWindow(object):
         self.tabWidget_11.setTabText(self.tabWidget_11.indexOf(self.tab_61), _translate("MainWindow", "冷却塔"))
 
 
-        self.pushButton_561.setText(_translate("MainWindow", "显示22"))
+        self.pushButton_561.setText(_translate("MainWindow", "显示"))
         self.table_56_records = []
         self.table_56_count = 1
 
@@ -6265,7 +6341,7 @@ class Ui_MainWindow(object):
                 
                 if self.pump_cop_status:
                     Q = res.q
-                    p1 = res.p1/res.n
+                    p1 = res.p1
                     pump_cop = round(Q/p1,3)
                     item = QtWidgets.QTableWidgetItem()
                     self.tableWidget_56.setItem(count, 9, item)

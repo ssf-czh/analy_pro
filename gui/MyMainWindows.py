@@ -46,10 +46,10 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
         # pass
 
     def show_cop(self):
-        # self.cop_chart = Ui_Dialog_COP()
-        # self.cop_chart.resize(1700,600)
-        # self.cop_chart.show()
-        pass
+        self.cop_chart = Ui_Dialog_COP()
+        self.cop_chart.resize(1700,600)
+        self.cop_chart.show()
+        # pass
 if __name__ == '__main__':
 
 
