@@ -977,14 +977,14 @@ t=t||{},n.call(this,t);for(var e in t)t.hasOwnProperty(e)&&(this[e]=t[e]);this._
 </head>
 
 <body>
-<div id="37389247368b4523a783bb6ade76af50" style="width:800px;height:400px;"></div>
+<div id="911ad80da34e4c3990e56bfbd3cedc44" style="width:800px;height:400px;"></div>
 <script type="text/javascript">
-    var myChart_37389247368b4523a783bb6ade76af50 = echarts.init(document.getElementById('37389247368b4523a783bb6ade76af50'));
-    var option_37389247368b4523a783bb6ade76af50 = {
+    var myChart_911ad80da34e4c3990e56bfbd3cedc44 = echarts.init(document.getElementById('911ad80da34e4c3990e56bfbd3cedc44'));
+    var option_911ad80da34e4c3990e56bfbd3cedc44 = {
     "title": [
         {
-            "text": "\u51b7\u51bb\u51fa\u6c34\u6e29\u5ea6\u4eea\u8868\u76d8",
-            "subtext": "",
+            "text": "\u67f1\u72b6\u56fe",
+            "subtext": "\u4e00\u5e74\u7684\u964d\u6c34\u91cf\u4e0e\u84b8\u53d1\u91cf",
             "left": "auto",
             "top": "auto",
             "textStyle": {
@@ -1008,33 +1008,159 @@ t=t||{},n.call(this,t);for(var e in t)t.hasOwnProperty(e)&&(this[e]=t[e]);this._
             }
         }
     },
-    "_index_flag": 3765298,
-    "tooltip": {
-        "formatter": "{a} <br/>{b} : {c}%"
-    },
+    "_index_flag": 3996271,
+    "tooltip": {},
     "series": [
         {
-            "type": "gauge",
-            "detail": {
-                "formatter": "{value}"
-            },
-            "name": "",
-            "min": 5,
-            "max": 15,
-            "startAngle": 225,
-            "endAngle": -45,
+            "type": "bar",
+            "name": "\u964d\u6c34\u91cf",
             "data": [
-                {
-                    "value": 7.0,
-                    "name": "\u51b7\u51bb\u51fa\u6c34\u6e29\u5ea6"
+                2.0,
+                4.9,
+                7.0,
+                23.2,
+                25.6,
+                76.7,
+                135.6,
+                162.2,
+                32.6,
+                20.0,
+                6.4,
+                3.3
+            ],
+            "stack": "",
+            "label": {
+                "normal": {
+                    "show": false,
+                    "position": "top",
+                    "textStyle": {
+                        "color": "#000",
+                        "fontSize": 12
+                    },
+                    "formatter": null
+                },
+                "emphasis": {
+                    "show": true
                 }
-            ]
+            },
+            "markPoint": {
+                "data": [
+                    {
+                        "type": "max",
+                        "name": "\u6700\u5927\u503c",
+                        "symbol": "pin",
+                        "symbolSize": 50,
+                        "label": {
+                            "normal": {
+                                "textStyle": {
+                                    "color": "#fff"
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "type": "min",
+                        "name": "\u6700\u5c0f\u503c",
+                        "symbol": "pin",
+                        "symbolSize": 50,
+                        "label": {
+                            "normal": {
+                                "textStyle": {
+                                    "color": "#fff"
+                                }
+                            }
+                        }
+                    }
+                ]
+            },
+            "markLine": {
+                "data": [
+                    {
+                        "type": "average",
+                        "name": "\u5e73\u5747\u5024"
+                    }
+                ]
+            },
+            "indexflag": 3996271
+        },
+        {
+            "type": "bar",
+            "name": "\u84b8\u53d1\u91cf",
+            "data": [
+                2.6,
+                5.9,
+                9.0,
+                26.4,
+                28.7,
+                70.7,
+                175.6,
+                182.2,
+                48.7,
+                18.8,
+                6.0,
+                2.3
+            ],
+            "stack": "",
+            "label": {
+                "normal": {
+                    "show": false,
+                    "position": "top",
+                    "textStyle": {
+                        "color": "#000",
+                        "fontSize": 12
+                    },
+                    "formatter": null
+                },
+                "emphasis": {
+                    "show": true
+                }
+            },
+            "markPoint": {
+                "data": [
+                    {
+                        "type": "max",
+                        "name": "\u6700\u5927\u503c",
+                        "symbol": "pin",
+                        "symbolSize": 50,
+                        "label": {
+                            "normal": {
+                                "textStyle": {
+                                    "color": "#fff"
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "type": "min",
+                        "name": "\u6700\u5c0f\u503c",
+                        "symbol": "pin",
+                        "symbolSize": 50,
+                        "label": {
+                            "normal": {
+                                "textStyle": {
+                                    "color": "#fff"
+                                }
+                            }
+                        }
+                    }
+                ]
+            },
+            "markLine": {
+                "data": [
+                    {
+                        "type": "average",
+                        "name": "\u5e73\u5747\u5024"
+                    }
+                ]
+            },
+            "indexflag": 3996271
         }
     ],
     "legend": [
         {
             "data": [
-                ""
+                "\u964d\u6c34\u91cf",
+                "\u84b8\u53d1\u91cf"
             ],
             "selectedMode": "multiple",
             "show": true,
@@ -1044,6 +1170,63 @@ t=t||{},n.call(this,t);for(var e in t)t.hasOwnProperty(e)&&(this[e]=t[e]);this._
         }
     ],
     "backgroundColor": "#fff",
+    "xAxis": [
+        {
+            "name": "",
+            "nameLocation": "middle",
+            "nameGap": 25,
+            "nameTextStyle": {
+                "fontSize": 14
+            },
+            "axisLabel": {
+                "interval": "auto",
+                "rotate": 0,
+                "margin": 8
+            },
+            "axisTick": {
+                "alignWithLabel": false
+            },
+            "min": null,
+            "max": null,
+            "data": [
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec"
+            ],
+            "type": "category"
+        }
+    ],
+    "yAxis": [
+        {
+            "name": "",
+            "nameLocation": "middle",
+            "nameGap": 25,
+            "nameTextStyle": {
+                "fontSize": 14
+            },
+            "axisLabel": {
+                "formatter": "{value} ",
+                "rotate": 0,
+                "interval": "auto",
+                "margin": 8
+            },
+            "axisTick": {
+                "alignWithLabel": false
+            },
+            "min": null,
+            "max": null,
+            "type": "value"
+        }
+    ],
     "color": [
         "#c23531",
         "#2f4554",
@@ -1072,7 +1255,7 @@ t=t||{},n.call(this,t);for(var e in t)t.hasOwnProperty(e)&&(this[e]=t[e]);this._
         "#f6f5ec"
     ]
 };
-    myChart_37389247368b4523a783bb6ade76af50.setOption(option_37389247368b4523a783bb6ade76af50);
+    myChart_911ad80da34e4c3990e56bfbd3cedc44.setOption(option_911ad80da34e4c3990e56bfbd3cedc44);
 </script>
 </body>
 

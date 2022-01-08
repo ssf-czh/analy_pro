@@ -10,7 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 import model
-from model.db import save, main_fittings, load,db_save_showAll,db_save_temperature,db_save_Pump
+from model.db import save, main_fittings, load,db_save_showAll,db_save_temperature,db_save_Pump,db_save_cop
 from P_pro import PumpFit, Main
 from model.schema import OptimizeResult
 import copy
@@ -18,6 +18,8 @@ import copy
 temperature_record = None
 pump_record = None
 table_54_records = []
+table_56_records = []
+cop_record = None
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -2808,9 +2810,9 @@ class Ui_MainWindow(object):
         # self.pushButton_552 = QtWidgets.QPushButton(self.tab_61)
         # self.pushButton_552.setObjectName("pushButton_552")
         # self.horizontalLayout_6444.addWidget(self.pushButton_552)
-        # self.pushButton_553 = QtWidgets.QPushButton(self.tab_61)
-        # self.pushButton_553.setObjectName("pushButton_553")
-        # self.horizontalLayout_6444.addWidget(self.pushButton_553)
+        self.pushButton_553 = QtWidgets.QPushButton(self.tab_61)
+        self.pushButton_553.setObjectName("pushButton_553")
+        self.horizontalLayout_6444.addWidget(self.pushButton_553)
         self.pushButton_554 = QtWidgets.QPushButton(self.tab_61)
         self.pushButton_554.setObjectName("pushButton_554")
         self.horizontalLayout_6444.addWidget(self.pushButton_554)
@@ -2830,6 +2832,66 @@ class Ui_MainWindow(object):
         self.tableWidget_56.setRowCount(25)
         self.tableWidget_56.setColumnCount(20)
         self.tableWidget_56.setObjectName("tableWidget_56")
+
+        # ==
+        _translate = QtCore.QCoreApplication.translate
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_56.setItem(0, 0, item)
+        item = self.tableWidget_56.item(0, 0)
+        item.setText(_translate("MainWindow", "年"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_56.setItem(0, 1, item)
+        item = self.tableWidget_56.item(0, 1)
+        item.setText(_translate("MainWindow", "月"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_56.setItem(0, 2, item)
+        item = self.tableWidget_56.item(0, 2)
+        item.setText(_translate("MainWindow", "日"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_56.setItem(0, 3, item)
+        item = self.tableWidget_56.item(0, 3)
+        item.setText(_translate("MainWindow", "时"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_56.setItem(0, 4, item)
+        item = self.tableWidget_56.item(0, 4)
+        item.setText(_translate("MainWindow", "负荷Q/Kw"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_56.setItem(0, 5, item)
+        item = self.tableWidget_56.item(0, 5)
+        item.setText(_translate("MainWindow", "湿球温度Ts/℃"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_56.setItem(0, 6, item)
+        item = self.tableWidget_56.item(0, 6)
+        item.setText(_translate("MainWindow", "干球温度T/℃"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_56.setItem(0, 7, item)
+        item = self.tableWidget_56.item(0, 7)
+        item.setText(_translate("MainWindow", "单机负荷百分比/%"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_56.setItem(0, 8, item)
+        item = self.tableWidget_56.item(0, 8)
+        item.setText(_translate("MainWindow", "系统负荷百分比/%"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_56.setItem(0, 9, item)
+        item = self.tableWidget_56.item(0, 9)
+        item.setText(_translate("MainWindow", "主机cop"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_56.setItem(0, 10, item)
+        item = self.tableWidget_56.item(0, 10)
+        item.setText(_translate("MainWindow", "系统cop"))
+        # ==
+        
         self.verticalLayout_444.addWidget(self.tableWidget_56)
         self.horizontalLayout_15444 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_15444.setObjectName("horizontalLayout_15444")
@@ -5564,6 +5626,121 @@ class Ui_MainWindow(object):
         self.checkBox_61.setText(_translate("MainWindow", "冷幅"))
         self.checkBox_62.setText(_translate("MainWindow", "冷却水温差"))
         self.checkBox_63.setText(_translate("MainWindow", "COP"))
+
+        self.pump_cop_status = False
+        self.system_cop_status = False
+
+
+        def cop_Checkbox():
+
+            status = self.checkBox_63.isChecked()
+            if status is True:
+                self.checkBox_64.setChecked(True)
+                self.checkBox_65.setChecked(True)
+            else:
+                self.checkBox_64.setChecked(False)
+                self.checkBox_65.setChecked(False)
+
+        self.checkBox_63.stateChanged.connect(cop_Checkbox)
+
+        def pump_cop_Checkbox():
+            if self.checkBox_64.isChecked():
+                self.pump_cop_status = True
+            else:
+                self.pump_cop_status = False
+            print("pumping_cop:", self.pump_cop_status)
+
+        self.checkBox_64.stateChanged.connect(pump_cop_Checkbox)
+
+        def system_cop_Checkbox():
+            if self.checkBox_65.isChecked():
+                self.system_cop_status = True
+            else:
+                self.system_cop_status = False
+            print("system_cop_status:", self.system_cop_status)
+
+        self.checkBox_65.stateChanged.connect(system_cop_Checkbox)
+
+
+
+        self.checkBox_48.setText(_translate("MainWindow", "冷冻出水温度"))
+        self.checkBox_49.setText(_translate("MainWindow", "冷冻回水温度"))
+        self.checkBox_50.setText(_translate("MainWindow", "冷却出水温度"))
+        self.checkBox_51.setText(_translate("MainWindow", "冷却回水温度"))
+        self.checkBox_52.setText(_translate("MainWindow", "冷冻水温差"))
+        self.checkBox_53.setText(_translate("MainWindow", "冷却水温差"))
+        self.checkBox_54.setText(_translate("MainWindow", "功率"))
+
+        self.p1_status = False  # 55
+        self.p2_status = False  # 56
+        self.p3_status = False  # 57
+        self.p4_status = False  # 35
+        self.p_status = False  # 36
+
+        def pump_Checkbox():
+
+            status = self.checkBox_54.isChecked()
+            if status is True:
+                self.checkBox_55.setChecked(True)
+                self.checkBox_56.setChecked(True)
+                self.checkBox_57.setChecked(True)
+                self.checkBox_35.setChecked(True)
+                self.checkBox_36.setChecked(True)
+            else:
+                self.checkBox_55.setChecked(False)
+                self.checkBox_56.setChecked(False)
+                self.checkBox_57.setChecked(False)
+                self.checkBox_35.setChecked(False)
+                self.checkBox_36.setChecked(False)
+
+        self.checkBox_54.stateChanged.connect(pump_Checkbox)
+
+        def p1_Checkbox():
+            if self.checkBox_55.isChecked():
+                self.p1_status = True
+            else:
+                self.p1_status = False
+            print("p1:", self.p1_status)
+
+        self.checkBox_55.stateChanged.connect(p1_Checkbox)
+
+        def p2_Checkbox():
+            if self.checkBox_56.isChecked():
+                self.p2_status = True
+            else:
+                self.p2_status = False
+            print("p2:", self.p2_status)
+
+        self.checkBox_56.stateChanged.connect(p2_Checkbox)
+
+        def p3_Checkbox():
+            if self.checkBox_57.isChecked():
+                self.p3_status = True
+            else:
+                self.p3_status = False
+            print("p3:", self.p3_status)
+
+        self.checkBox_57.stateChanged.connect(p3_Checkbox)
+
+        def p4_Checkbox():
+            if self.checkBox_35.isChecked():
+                self.p4_status = True
+            else:
+                self.p4_status = False
+            print("p4", self.p4_status)
+
+        self.checkBox_35.stateChanged.connect(p4_Checkbox)
+
+        def p_Checkbox():
+            if self.checkBox_36.isChecked():
+                self.p_status = True
+            else:
+                self.p_status = False
+            print("p_sum", self.p_status)
+
+        self.checkBox_36.stateChanged.connect(p_Checkbox)
+
+
         self.checkBox_64.setText(_translate("MainWindow", "主机"))
         self.checkBox_65.setText(_translate("MainWindow", "系统"))
         # self.pushButton_511.setText(_translate("MainWindow", "显示11"))
@@ -5977,7 +6154,6 @@ class Ui_MainWindow(object):
         # self.pushButton_542.setText(_translate("MainWindow", "保存"))
         self.pushButton_543.setText(_translate("MainWindow", "图表"))
         self.pushButton_544.setText(_translate("MainWindow", "导出"))
-        save
         def save_Pump():
             db_save_Pump("template.xlsx",self.table_54_records)
         self.pushButton_544.clicked.connect(save_Pump)
@@ -5992,17 +6168,133 @@ class Ui_MainWindow(object):
                     item = self.tableWidget_54.item(i+1, k)
                     item.setText(_translate("MainWindow", ""))
         self.pushButton_545.clicked.connect(clean_showPump)
+
+
         self.tabWidget_11.setTabText(self.tabWidget_11.indexOf(self.tab_5), _translate("MainWindow", "功率"))
-        self.pushButton_551.setText(_translate("MainWindow", "显示"))
+
+        self.pushButton_551.setText(_translate("MainWindow", "显示11"))
         # self.pushButton_552.setText(_translate("MainWindow", "保存"))
-        # self.pushButton_553.setText(_translate("MainWindow", "图表"))
+        self.pushButton_553.setText(_translate("MainWindow", "图表"))
         self.pushButton_554.setText(_translate("MainWindow", "导出"))
         self.pushButton_555.setText(_translate("MainWindow", "取消"))
         self.tabWidget_11.setTabText(self.tabWidget_11.indexOf(self.tab_61), _translate("MainWindow", "冷却塔"))
-        self.pushButton_561.setText(_translate("MainWindow", "显示"))
+
+
+        self.pushButton_561.setText(_translate("MainWindow", "显示22"))
+        self.table_56_records = []
+        self.table_56_count = 1
+
+        def show_cop():
+            global cop_record
+            clean_cop()
+            self.table_56_records = []
+            y1 = float(self.year_1.text())
+            y2 = float(self.year_2.text())
+            m1 = float(self.m1)
+            m2 = float(self.m2)
+            d1 = float(self.d1)
+            d2 = float(self.d2)
+            h1 = float(self.h1)
+            h2 = float(self.h2)
+
+            fit_res_index = []
+
+            for index, res in enumerate(model.db.optimize_result):
+                year = float(res.year)
+                month = float(res.mon)
+                day = float(res.day)
+                hour = float(res.hour)
+
+                if year >= y1 and year <= y2 and month >= m1 and month <= m2 and day >= d1 and day <= d2 and hour >= h1 and hour <= h2:
+                    fit_res_index.append(index)
+                    self.table_56_records.append(res)
+            global table_56_records
+            table_56_records = self.table_56_records
+            self.table_56_count = len(fit_res_index)
+            self.tableWidget_56.setRowCount(len(fit_res_index) + 1)
+            self.tableWidget_56.setColumnCount(16)
+
+            count = 0
+            for index in fit_res_index:
+                count += 1
+                res = model.db.optimize_result[index]
+                year = res.year
+                month = res.mon
+                day = res.day
+                hour = res.hour
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_56.setItem(count, 0, item)
+                item = self.tableWidget_56.item(count, 0)
+                item.setText(_translate("MainWindow", str(int(year))))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_56.setItem(count, 1, item)
+                item = self.tableWidget_56.item(count, 1)
+                item.setText(_translate("MainWindow", str(int(month))))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_56.setItem(count, 2, item)
+                item = self.tableWidget_56.item(count, 2)
+                item.setText(_translate("MainWindow", str(int(day))))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_56.setItem(count, 3, item)
+                item = self.tableWidget_56.item(count, 3)
+                item.setText(_translate("MainWindow", str(int(hour))))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_56.setItem(count, 4, item)
+                item = self.tableWidget_56.item(count, 4)
+                item.setText(_translate("MainWindow", str(res.q)))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_56.setItem(count, 5, item)
+                item = self.tableWidget_56.item(count, 5)
+                item.setText(_translate("MainWindow", str(res.ts)))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_56.setItem(count, 7, item)
+                item = self.tableWidget_56.item(count, 7)
+                item.setText(_translate("MainWindow", str(res.load_percentage)))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_56.setItem(count, 8, item)
+                item = self.tableWidget_56.item(count, 8)
+                item.setText(_translate("MainWindow", str(res.system_load_percentage)))
+                
+                if self.pump_cop_status:
+                    Q = res.q
+                    p1 = res.p1/res.n
+                    pump_cop = round(Q/p1,3)
+                    item = QtWidgets.QTableWidgetItem()
+                    self.tableWidget_56.setItem(count, 9, item)
+                    item = self.tableWidget_56.item(count, 9)
+                    item.setText(_translate("MainWindow", str(pump_cop)))
+
+                if self.system_cop_status:
+                    item = QtWidgets.QTableWidgetItem()
+                    self.tableWidget_56.setItem(count, 10, item)
+                    item = self.tableWidget_56.item(count, 10)
+                    item.setText(_translate("MainWindow", str(res.cop)))
+
+        self.pushButton_561.clicked.connect(show_cop)
+
         # self.pushButton_562.setText(_translate("MainWindow", "保存"))
         self.pushButton_563.setText(_translate("MainWindow", "图表"))
         self.pushButton_564.setText(_translate("MainWindow", "导出"))
+        def save_cop():
+            db_save_cop("template.xlsx",self.table_56_records)
+        self.pushButton_564.clicked.connect(save_cop)
+
         self.pushButton_565.setText(_translate("MainWindow", "取消"))
+        def clean_cop():
+            for i in range(self.table_56_count):
+                for k in range(16):
+                    item = QtWidgets.QTableWidgetItem()
+                    self.tableWidget_56.setItem(i+1, k, item)
+                    item = self.tableWidget_56.item(i+1, k)
+                    item.setText(_translate("MainWindow", ""))
+        self.pushButton_565.clicked.connect(clean_cop)
         self.tabWidget_11.setTabText(self.tabWidget_11.indexOf(self.tab_62), _translate("MainWindow", "COP"))
 
