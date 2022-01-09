@@ -10,12 +10,17 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 import model
-from model.db import save, main_fittings, load,db_save_showAll,db_save_temperature,db_save_Pump,db_save_cop
+from model.db import save, main_fittings, load,db_save_showAll,db_save_temperature,db_save_Pump,db_save_cop,db_save_lengqueta
 from P_pro import PumpFit, Main
 from model.schema import OptimizeResult
 import copy
 
 temperature_record = None
+lengdong_out_status = None
+lengdong_in_status = None
+lengque_out_status = None
+lengque_in_status = None
+
 
 pump_record = None
 table_54_records = []
@@ -23,7 +28,9 @@ table_54_records = []
 cop_record = None
 table_56_records = []
 
-lengqueta_temperature = None
+lengqueta_record = None
+
+
 
 
 
@@ -2859,22 +2866,22 @@ class Ui_MainWindow(object):
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget_55.setItem(0, 9, item)
         item = self.tableWidget_55.item(0, 9)
-        item.setText(_translate("MainWindow", "冷却出水温度/℃"))
+        item.setText(_translate("MainWindow", "冷却回水温度/℃"))
 
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget_55.setItem(0, 10, item)
         item = self.tableWidget_55.item(0, 10)
-        item.setText(_translate("MainWindow", "冷却回水温度/℃"))
+        item.setText(_translate("MainWindow", "冷却出水温度/℃"))
 
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget_55.setItem(0, 11, item)
         item = self.tableWidget_55.item(0, 11)
-        item.setText(_translate("MainWindow", "冷却水进出口温差/℃"))
+        item.setText(_translate("MainWindow", "冷却塔冷幅/℃"))
 
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget_55.setItem(0, 12, item)
         item = self.tableWidget_55.item(0, 12)
-        item.setText(_translate("MainWindow", "冷却塔冷幅/℃"))
+        item.setText(_translate("MainWindow", "冷却水进出口温差/℃"))
         # ==
         
         
@@ -4557,7 +4564,7 @@ class Ui_MainWindow(object):
         item = self.init_params.item(10, 1)
         item.setText(_translate("MainWindow", str(model.db.init_params.h)))
         item = self.init_params.item(11, 0)
-        item.setText(_translate("MainWindow", "单台冷冻水泵功率P2，Kw"))
+        item.setText(_translate("MainWindow", "单台冷冻水泵功率P20，Kw"))
         item = self.init_params.item(11, 1)
         item.setText(_translate("MainWindow", str(model.db.init_params.p2)))
         item = self.init_params.item(12, 0)
@@ -4894,7 +4901,7 @@ class Ui_MainWindow(object):
             item = self.init_params.item(10, 1)
             item.setText(_translate("MainWindow", ""))
             item = self.init_params.item(11, 0)
-            item.setText(_translate("MainWindow", "单台冷冻水泵功率P2，Kw"))
+            item.setText(_translate("MainWindow", "单台冷冻水泵功率P20，Kw"))
             item = self.init_params.item(11, 1)
             item.setText(_translate("MainWindow", ""))
             item = self.init_params.item(12, 0)
@@ -5695,6 +5702,64 @@ class Ui_MainWindow(object):
         self.checkBox_56.setText(_translate("MainWindow", "冷冻水泵"))
         self.checkBox_57.setText(_translate("MainWindow", "冷却水泵"))
         self.checkBox_35.setText(_translate("MainWindow", "冷却塔"))
+
+        self.jinshui_status = False  # 59
+        self.chushui_status = False  # 60
+        self.lengfu_status = False  # 61
+        self.lengqueshui_status = False  # 62
+
+        # =====
+        def lengqueta_Checkbox():
+            print(111)
+            status = self.checkBox_58.isChecked()
+            if status is True:
+                self.checkBox_59.setChecked(True)
+                self.checkBox_60.setChecked(True)
+                self.checkBox_61.setChecked(True)
+                self.checkBox_62.setChecked(True)
+
+            else:
+                self.checkBox_59.setChecked(False)
+                self.checkBox_60.setChecked(False)
+                self.checkBox_61.setChecked(False)
+                self.checkBox_62.setChecked(False)
+
+        self.checkBox_58.stateChanged.connect(lengqueta_Checkbox)
+
+
+        def jinshui_Checkbox():
+            if self.checkBox_59.isChecked():
+                self.jinshui_status = True
+            else:
+                self.jinshui_status = False
+            print("jinshui:", self.jinshui_status)
+        self.checkBox_59.stateChanged.connect(jinshui_Checkbox)
+
+        def chushui_Checkbox():
+            if self.checkBox_60.isChecked():
+                self.chushui_status = True
+            else:
+                self.chushui_status = False
+            print("chushui:", self.chushui_status)
+        self.checkBox_60.stateChanged.connect(chushui_Checkbox)
+
+        def lengfu_Checkbox():
+            if self.checkBox_61.isChecked():
+                self.lengfu_status = True
+            else:
+                self.lengfu_status = False
+            print("lengfu:", self.lengfu_status)
+        self.checkBox_61.stateChanged.connect(lengfu_Checkbox)
+
+        def lengqueshui_Checkbox():
+            if self.checkBox_62.isChecked():
+                self.lengqueshui_status = True
+            else:
+                self.lengqueshui_status = False
+            print("lengqueshui", self.lengqueshui_status)
+        self.checkBox_62.stateChanged.connect(lengqueshui_Checkbox)
+        # ====
+
         self.checkBox_36.setText(_translate("MainWindow", "总功率"))
         self.checkBox_58.setText(_translate("MainWindow", "冷却塔"))
         self.checkBox_59.setText(_translate("MainWindow", "进水温度"))
@@ -5967,15 +6032,19 @@ class Ui_MainWindow(object):
                     item.setText(_translate("MainWindow", str(round(res.t4-res.t3,3))))
 
 
-                temperature_record = copy.deepcopy(self.table_53_records[0])
+                temperature_record = copy.deepcopy(self.table_53_records)
                 if self.lengdong_out_status is False:
-                    temperature_record.t1 = -1
+                    for i in temperature_record:
+                        i.t1 = -1
                 if self.lengdong_in_status is False:
-                    temperature_record.t2 = -1
+                    for i in temperature_record:
+                        i.t2 = -1
                 if self.lengque_out_status is False:
-                    temperature_record.t3 = -1
+                    for i in temperature_record:
+                        i.t3 = -1
                 if self.lengque_in_status is False:
-                    temperature_record.t4 = -1
+                    for i in temperature_record:
+                        i.t4 = -1
 
 
         self.pushButton_531.clicked.connect(show_Temperature)
@@ -6249,10 +6318,143 @@ class Ui_MainWindow(object):
         self.tabWidget_11.setTabText(self.tabWidget_11.indexOf(self.tab_5), _translate("MainWindow", "功率"))
 
         self.pushButton_551.setText(_translate("MainWindow", "显示"))
+
+        self.table_55_records = []
+        self.table_55_count = 1
+        def show_Lengqueta():
+            global lengqueta_record
+            clean_lengqueta()
+            self.table_55_records = []
+            y1 = float(self.year_1.text())
+            y2 = float(self.year_2.text())
+            m1 = float(self.m1)
+            m2 = float(self.m2)
+            d1 = float(self.d1)
+            d2 = float(self.d2)
+            h1 = float(self.h1)
+            h2 = float(self.h2)
+
+            fit_res_index = []
+
+            for index, res in enumerate(model.db.optimize_result):
+                year = float(res.year)
+                month = float(res.mon)
+                day = float(res.day)
+                hour = float(res.hour)
+
+                if year >= y1 and year <= y2 and month >= m1 and month <= m2 and day >= d1 and day <= d2 and hour >= h1 and hour <= h2:
+                    fit_res_index.append(index)
+                    self.table_55_records.append(res)
+
+            self.table_55_count = len(fit_res_index)
+            self.tableWidget_55.setRowCount(len(fit_res_index) + 1)
+            self.tableWidget_55.setColumnCount(16)
+
+            count = 0
+            for index in fit_res_index:
+                count += 1
+                res = model.db.optimize_result[index]
+                year = res.year
+                month = res.mon
+                day = res.day
+                hour = res.hour
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_55.setItem(count, 0, item)
+                item = self.tableWidget_55.item(count, 0)
+                item.setText(_translate("MainWindow", str(int(year))))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_55.setItem(count, 1, item)
+                item = self.tableWidget_55.item(count, 1)
+                item.setText(_translate("MainWindow", str(int(month))))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_55.setItem(count, 2, item)
+                item = self.tableWidget_55.item(count, 2)
+                item.setText(_translate("MainWindow", str(int(day))))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_55.setItem(count, 3, item)
+                item = self.tableWidget_55.item(count, 3)
+                item.setText(_translate("MainWindow", str(int(hour))))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_55.setItem(count, 4, item)
+                item = self.tableWidget_55.item(count, 4)
+                item.setText(_translate("MainWindow", str(res.q)))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_55.setItem(count, 5, item)
+                item = self.tableWidget_55.item(count, 5)
+                item.setText(_translate("MainWindow", str(res.ts)))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_55.setItem(count, 7, item)
+                item = self.tableWidget_55.item(count, 7)
+                item.setText(_translate("MainWindow", str(res.load_percentage)))
+
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_55.setItem(count, 8, item)
+                item = self.tableWidget_55.item(count, 8)
+                item.setText(_translate("MainWindow", str(res.system_load_percentage)))
+
+                if self.jinshui_status:
+                    item = QtWidgets.QTableWidgetItem()
+                    self.tableWidget_55.setItem(count, 9, item)
+                    item = self.tableWidget_55.item(count, 9)
+                    item.setText(_translate("MainWindow", str(res.t3)))
+
+                if self.chushui_status:
+                    item = QtWidgets.QTableWidgetItem()
+                    self.tableWidget_55.setItem(count, 10, item)
+                    item = self.tableWidget_55.item(count, 10)
+                    item.setText(_translate("MainWindow", str(res.t4)))
+
+                if self.lengfu_status:
+                    item = QtWidgets.QTableWidgetItem()
+                    self.tableWidget_55.setItem(count, 11, item)
+                    item = self.tableWidget_55.item(count, 11)
+                    item.setText(_translate("MainWindow", str(res.delta_t)))
+
+                if self.lengqueshui_status:
+                    item = QtWidgets.QTableWidgetItem()
+                    self.tableWidget_55.setItem(count, 12, item)
+                    item = self.tableWidget_55.item(count, 12)
+                    item.setText(_translate("MainWindow", str(round(res.t4-res.t3,3))))
+
+
+
+                lengqueta_record = copy.deepcopy(self.table_55_records)
+                # if self.lengdong_out_status is False:
+                #     for i in temperature_record:
+                #         i.t1 = -1
+                # if self.lengdong_in_status is False:
+                #     for i in temperature_record:
+                #         i.t2 = -1
+                # if self.lengque_out_status is False:
+                #     for i in temperature_record:
+                #         i.t3 = -1
+                # if self.lengque_in_status is False:
+                #     for i in temperature_record:
+                #         i.t4 = -1
+        self.pushButton_551.clicked.connect(show_Lengqueta)
         # self.pushButton_552.setText(_translate("MainWindow", "保存"))
         self.pushButton_553.setText(_translate("MainWindow", "图表"))
+
         self.pushButton_554.setText(_translate("MainWindow", "导出"))
+        def save_lengqueta():
+            db_save_lengqueta("template.xlsx",self.table_55_records)
+        self.pushButton_554.clicked.connect(save_lengqueta)
         self.pushButton_555.setText(_translate("MainWindow", "取消"))
+        def clean_lengqueta():
+            for i in range(self.table_55_count):
+                for k in range(16):
+                    item = QtWidgets.QTableWidgetItem()
+                    self.tableWidget_55.setItem(i+1, k, item)
+                    item = self.tableWidget_55.item(i+1, k)
+                    item.setText(_translate("MainWindow", ""))
+        self.pushButton_555.clicked.connect(clean_lengqueta)
         self.tabWidget_11.setTabText(self.tabWidget_11.indexOf(self.tab_61), _translate("MainWindow", "冷却塔"))
 
 

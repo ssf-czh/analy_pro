@@ -577,6 +577,41 @@ def db_save_cop(path: str, records):
 
     wb.save(path)
     wb.close()
+
+def db_save_lengqueta(path: str, records):
+    if not os.path.exists(path):
+        save_default(path)
+    wb = openpyxl.load_workbook(path, read_only=False)
+    for sheet in wb:
+        if sheet.title == "冷却塔":
+            # print("优化计算结果")
+            i = 0
+            for entry in records:
+                sheet.cell(2 + i, 1).value = entry.year
+                sheet.cell(2 + i, 2).value = entry.mon
+                sheet.cell(2 + i, 3).value = entry.day
+                sheet.cell(2 + i, 4).value = entry.hour
+                sheet.cell(2 + i, 5).value = str(entry.q)
+                sheet.cell(2 + i, 6).value = str(entry.ts)
+                sheet.cell(2 + i, 8).value = str(entry.load_percentage)
+                sheet.cell(2 + i, 9).value = str(entry.system_load_percentage)
+
+
+                sheet.cell(2 + i, 10).value = str(entry.t4)
+                sheet.cell(2 + i, 11).value = str(entry.t3)
+                sheet.cell(2 + i, 12).value = str(entry.delta_t)
+                sheet.cell(2 + i, 13).value = str(entry.t4-entry.t3)
+                i += 1
+            while sheet.cell(2 + i, 1).value is not None:
+                for j in range(1, 25):
+                    sheet.cell(2 + i, j).value = None
+                i += 1
+            break
+
+    # print("----")
+
+    wb.save(path)
+    wb.close()
 """
 Test
 if __name__ == '__main__':
