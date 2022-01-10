@@ -30,7 +30,9 @@ class Evoopt():
         self.myAlgorithm.logTras = 0  # 设置每隔多少代记录日志，若设置成0则表示不记录日志
         # self.myAlgorithm.verbose = True  # 设置是否打印输出日志信息
         self.myAlgorithm.drawing = 0  # 设置绘图方式（0：不绘图；1：绘制结果图；2：绘制目标空间过程动画；3：绘制决策空间过程动画）
-    def run(self):
+        self.G2 = None
+        self.G3 = None
+    def run(self,tempG2 = -1,tempG3 = -1):
         # print("==="*20)
         if self.problem.ifopt is False:
             loading_ration = self.problem.Q / self.problem.QS *100
@@ -116,6 +118,9 @@ class Evoopt():
             u1 = self.problem.u1
             G2= max(G2, G20 * u1)
             G2 = min(G2, G20)
+            if tempG2 != -1:
+                G2 = tempG2
+            self.G2 = G2
             P2 = A0+A1*G2+A2*G2*G2
             # print("p2:",P2)
 
@@ -125,6 +130,9 @@ class Evoopt():
             u2 = self.problem.u2
             G3 = max(G3, G30 * u2)
             G3 = min(G3, G30)
+            if tempG3 != -1:
+                G3 = tempG3
+            self.G3 = G3
             # print(G3)
             # print("P3的G3：", G3)
             P3 = C0+C1*G3+C2*G3*G3

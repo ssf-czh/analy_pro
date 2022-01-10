@@ -7,7 +7,6 @@ from model.db import load, init_params, main_fittings
 from PyQt5 import QtCore, QtGui, QtWidgets
 from gui.chart import Ui_Temperature, Ui_Pump, Ui_Cop, Ui_Lengqueta
 from gui import main_1
-
 load(r"template.xlsx")
 
 

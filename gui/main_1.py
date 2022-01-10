@@ -2093,8 +2093,15 @@ class Ui_MainWindow(object):
                     item.setText(_translate("MainWindow", str(elem.hour)))
 
             superP = model.db.init_params
+
+            tempQ = model.db.optimize_result[0].q * 2
+            tempG2 = None
+
+            tempG3 = None
+
+
             for index, i in enumerate(model.db.optimize_result):
-                print(index)
+                # print(index)
                 Q = i.q
                 TS = i.ts
                 # print("Q:", Q)
@@ -2102,7 +2109,21 @@ class Ui_MainWindow(object):
                 if i.q == 0:
                     break
                 opt = Main.Evoopt(Q, TS, superP, self.PumpFit)
-                self.res = opt.run()
+                self.res = None
+                if abs(Q - tempQ) * 100 / tempQ < 5:
+                    # print("---")
+
+                    self.res = opt.run(tempG2,tempG3)
+                    pass
+                else:
+                    self.res = opt.run()
+                    tempQ = Q
+                    tempG2 = opt.G2
+                    tempG3 = opt.G3
+                    # print("此时Q：{:s}".format(str(tempQ)))
+
+
+
                 model.db.optimize_result[index].load_percentage = self.res[0]
                 model.db.optimize_result[index].system_load_percentage = self.res[1]
                 model.db.optimize_result[index].t1 = self.res[2]
