@@ -152,8 +152,8 @@ class Ui_Temperature(object):
         gauge = Gauge("冷冻出水温度仪表盘")
         gauge.add("", attr="冷冻出水温度", value=val,scale_range=(5,15))
         # gauge.
-        gauge.render('gauge_t1.html')
-        self.browser.load(QUrl("file:///gauge_t1.html"))
+        gauge.render('./templates/gauge_t1.html')
+        self.browser.load(QUrl("file:///./templates/gauge_t1.html"))
 
 
 
@@ -164,8 +164,8 @@ class Ui_Temperature(object):
         gauge = Gauge("冷冻回水温度仪表盘")
         gauge.add("", attr="冷冻回水温度", value=val,scale_range=(10,20))
         # gauge.
-        gauge.render('gauge_t2.html')
-        self.browser2.load(QUrl("file:///gauge_t2.html"))
+        gauge.render('./templates/gauge_t2.html')
+        self.browser2.load(QUrl("file:///./templates/gauge_t2.html"))
     def demo_yibiaopan_t3(self):
         val = float(main_1.temperature_record[0].t3)
         if val == -1:
@@ -173,8 +173,8 @@ class Ui_Temperature(object):
         gauge = Gauge("冷却出水温度仪表盘")
         gauge.add("", attr="冷却出水温度", value=val,scale_range=(5,33))
         # gauge.
-        gauge.render('gauge_t3.html')
-        self.browser3.load(QUrl("file:///gauge_t3.html"))
+        gauge.render('./templates/gauge_t3.html')
+        self.browser3.load(QUrl("file:///./templates/gauge_t3.html"))
 
     def demo_yibiaopan_t4(self):
         val = float(main_1.temperature_record[0].t4)
@@ -183,8 +183,8 @@ class Ui_Temperature(object):
         gauge = Gauge("冷却回水温度仪表盘")
         gauge.add("", attr="冷却回水温度", value=val,scale_range=(10,38))
         # gauge.
-        gauge.render('gauge_t4.html')
-        self.browser4.load(QUrl("file:///gauge_t4.html"))
+        gauge.render('./templates/gauge_t4.html')
+        self.browser4.load(QUrl("file:///./templates/gauge_t4.html"))
 
     def demo_yibiaopan_t2_t1(self):
         val = float(main_1.temperature_record[0].t2)-float(main_1.temperature_record[0].t1)
@@ -194,8 +194,8 @@ class Ui_Temperature(object):
         gauge = Gauge("冷冻水温差仪表盘")
         gauge.add("", attr="冷冻水温差", value=val,scale_range=(4,10))
         # gauge.
-        gauge.render('gauge_5.html')
-        self.browser5.load(QUrl("file:///gauge_5.html"))
+        gauge.render('./templates/gauge_5.html')
+        self.browser5.load(QUrl("file:///./templates/gauge_5.html"))
 
     def demo_yibiaopan_t4_t3(self):
         val = float(main_1.temperature_record[0].t4)-float(main_1.temperature_record[0].t3)
@@ -205,8 +205,8 @@ class Ui_Temperature(object):
         gauge = Gauge("冷却水温差仪表盘")
         gauge.add("", attr="冷却水温差", value=val,scale_range=(4,10))
         # gauge.
-        gauge.render('gauge_6.html')
-        self.browser6.load(QUrl("file:///gauge_6.html"))
+        gauge.render('./templates/gauge_6.html')
+        self.browser6.load(QUrl("file:///./templates/gauge_6.html"))
 
 # # == pump
 class Ui_Pump(object):
@@ -322,9 +322,9 @@ class Ui_Pump(object):
         pie = Pie("功率分布图")
         pie.add("", attr, v1, is_label_show=True)
         # print(111)
-        pie.render(path='render_pie.html')
+        pie.render(path='./templates/render_pie.html')
         # print(222)
-        self.browser.load(QUrl("file:///render_pie.html"))
+        self.browser.load(QUrl("file:///./templates/render_pie.html"))
 
     def demo_pump_bar(self):
         attr = []
@@ -351,8 +351,8 @@ class Ui_Pump(object):
         bar.add('冷冻水泵功率/Kw', attr, v2, is_stack=True, is_datazoom_show=True)
         bar.add('冷却水泵功率/Kw', attr, v3, is_stack=True, is_datazoom_show=True)
         bar.add('冷却塔功率/Kw', attr, v4, is_stack=True, is_datazoom_show=True)
-        bar.render('pump_bar.html')
-        self.browser2.load(QUrl("file:///pump_bar.html"))
+        bar.render('./templates/pump_bar.html')
+        self.browser2.load(QUrl("file:///./templates/pump_bar.html"))
 
 # === lengqueta
 
@@ -480,8 +480,8 @@ class Ui_Lengqueta(object):
         gauge = Gauge("冷却回水温度仪表盘")
         gauge.add("", attr="冷却回水温度", value=val, scale_range=(5, 33))
         # gauge.
-        gauge.render('gauge_jinshui.html')
-        self.browser.load(QUrl("file:///gauge_jinshui.html"))
+        gauge.render('./templates/gauge_jinshui.html')
+        self.browser.load(QUrl("file:///./templates/gauge_jinshui.html"))
 
     def demo_yibiaopan_huishui(self):
         val = float(main_1.lengqueta_record[0].t4)
@@ -490,8 +490,8 @@ class Ui_Lengqueta(object):
         gauge = Gauge("冷却出水温度仪表盘")
         gauge.add("", attr="冷却出水温度", value=val, scale_range=(10, 38))
         # gauge.
-        gauge.render('gauge_huishui.html')
-        self.browser2.load(QUrl("file:///gauge_huishui.html"))
+        gauge.render('./templates/gauge_huishui.html')
+        self.browser2.load(QUrl("file:///./templates/gauge_huishui.html"))
 
     def demo_yibiaopan_lengfu(self):
         val = float(main_1.lengqueta_record[0].delta_t)
@@ -500,8 +500,8 @@ class Ui_Lengqueta(object):
         gauge = Gauge("冷却塔冷幅仪表盘")
         gauge.add("", attr="冷却塔冷幅", value=val, scale_range=(0, 20))
         # gauge.
-        gauge.render('gauge_lengfu.html')
-        self.browser3.load(QUrl("file:///gauge_lengfu.html"))
+        gauge.render('./templates/gauge_lengfu.html')
+        self.browser3.load(QUrl("file:///./templates/gauge_lengfu.html"))
 
     def demo_yibiaopan_lengqueta(self):
         val = float(main_1.lengqueta_record[0].t4)-float(main_1.lengqueta_record[0].t3)
@@ -511,8 +511,8 @@ class Ui_Lengqueta(object):
         gauge = Gauge("冷却水进出口温差仪表盘")
         gauge.add("", attr="冷却水进出口温差", value=val, scale_range=(4,10))
         # gauge.
-        gauge.render('gauge_lengqueta.html')
-        self.browser4.load(QUrl("file:///gauge_lengqueta.html"))
+        gauge.render('./templates/gauge_lengqueta.html')
+        self.browser4.load(QUrl("file:///./templates/gauge_lengqueta.html"))
 
 
 # == cop
