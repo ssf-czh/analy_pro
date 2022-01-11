@@ -8,10 +8,6 @@ jobs:
     runs-on: "windows-latest"
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/cache@v2
-        with:
-          path: "./site-packages"
-          key: ${{ runner.os }}-packages
       - name: Build and package
         uses: actions/setup-python@v2
         with:
@@ -19,7 +15,9 @@ jobs:
       - run: pip install pyinstaller &&
           pip config set global.target ./site-packages &&
           pip install -r requirements.txt &&
-          pyinstaller --hidden-import "PyQtWebEngine" -p . -p ./site-packages/geatpy/core/ 
+          pyinstaller --hidden-import "PyQtWebEngine" 
+          --hidden-import "PyQt5.QtWebEngineWidgets" 
+          -p . -p ./site-packages/geatpy/core/ 
           -p ./site-packages/PyQt5/
           -p ./site-packages/PyQt5/Qt/
           -p ./site-packages/PyQt5/Qt5/
