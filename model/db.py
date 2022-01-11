@@ -72,6 +72,8 @@ def load(path: str):
             init_params.mu = float(sheet["B27"].value)
             init_params.lamb = float(sheet["B28"].value)
             init_params.lengque_maxn = float(sheet["B22"].value)
+            init_params.yuzhi = float(sheet["B29"].value)
+
             for i in range(9):
                 init_params.t1_range.append(float(sheet.cell(2, i + 2).value))
 
@@ -284,6 +286,7 @@ def save(path: str):
             sheet["B27"].value = str(init_params.mu)
             sheet["B28"].value = str(init_params.lamb)
             sheet["B22"].value = str(init_params.lengque_maxn)
+            sheet["B29"].value = str(init_params.yuzhi)
             for i in range(9):
                 sheet.cell(2, 2 + i).value = str(init_params.t1_range[i])
             # print("ini ok")

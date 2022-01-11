@@ -2110,7 +2110,7 @@ class Ui_MainWindow(object):
                     break
                 opt = Main.Evoopt(Q, TS, superP, self.PumpFit)
                 self.res = None
-                if abs(Q - tempQ) * 100 / tempQ < 5:
+                if abs(Q - tempQ) * 100 / tempQ <  float(model.db.init_params.yuzhi):
                     # print("---")
 
                     self.res = opt.run(tempG2,tempG3)
@@ -3600,6 +3600,17 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "0.1"))
         item = self.init_params.item(27, 2)
         item.setText(_translate("MainWindow", "8"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.init_params.setItem(28, 0, item)
+        item = self.init_params.item(28, 0)
+        item.setText(_translate("MainWindow", "优化计算设定值"))
+
+        item = QtWidgets.QTableWidgetItem()
+        self.init_params.setItem(28, 1, item)
+        item = self.init_params.item(28, 1)
+        item.setText(_translate("MainWindow", "5"))
+
         self.init_params.setSortingEnabled(__sortingEnabled)
         self.label.setText(_translate("MainWindow", "计算类型设置"))
         self.comboBox.setItemText(0, _translate("MainWindow", "单冷型"))
@@ -4652,6 +4663,15 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", str(model.db.init_params.delta_t2_range[0])))
         item = self.init_params.item(27, 2)
         item.setText(_translate("MainWindow", str(model.db.init_params.delta_t2_range[1])))
+        # item = QtWidgets.QTableWidgetItem()
+        # self.init_params.setItem(28, 0, item)
+        item = self.init_params.item(28, 0)
+        item.setText(_translate("MainWindow", "优化计算设定值"))
+
+        # item = QtWidgets.QTableWidgetItem()
+        # self.init_params.setItem(28, 1, item)
+        item = self.init_params.item(28, 1)
+        item.setText(_translate("MainWindow",  str(model.db.init_params.yuzhi)))
 
         # item = QtWidgets.QTableWidgetItem()
         # self.init_params.setItem(28, 0, item)

@@ -21,7 +21,7 @@ class InitialParameters:
         self.P0 = 22.0
         self.G20 = 533.0
         self.G30 = 650.0
-
+        self.yuzhi= 5
 
 class MainFitting:
     def __init__(self):
