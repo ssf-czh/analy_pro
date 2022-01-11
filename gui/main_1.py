@@ -461,6 +461,9 @@ class Ui_MainWindow(object):
             item = self.init_params.item(27, 2)
             model.db.init_params.delta_t2_range = b, item.data(0)
 
+            item = self.init_params.item(28, 1)
+            model.db.init_params.yuzhi = item.data(0)
+
             # item = self.init_params.item(28, 1)
             # model.db.init_params.p20 = item.data(0)
 
@@ -2111,7 +2114,7 @@ class Ui_MainWindow(object):
                 opt = Main.Evoopt(Q, TS, superP, self.PumpFit)
                 self.res = None
                 if abs(Q - tempQ) * 100 / tempQ <  float(model.db.init_params.yuzhi):
-                    # print("---")
+                    # print("-
 
                     self.res = opt.run(tempG2,tempG3)
                     pass
