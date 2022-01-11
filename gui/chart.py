@@ -583,8 +583,8 @@ class Ui_Cop(object):
         bar.add("主机COP", columns, pump_cop, mark_line=["average"], mark_point=["max", "min"],is_datazoom_show=True)
         bar.add("系统COP", columns, system_cop, mark_line=["average"], mark_point=["max", "min"],is_datazoom_show=True)
         # //生成本地文件（默认为.html文件）
-        bar.render("timeBar.html")
-        self.browser.load(QUrl("file:///timeBar.html"))
+        bar.render("./templates/timeBar.html")
+        self.browser.load(QUrl("file:///./templates/timeBar.html"))
 
     def demo_q_copBar(self):
         columns = []
@@ -604,8 +604,8 @@ class Ui_Cop(object):
         bar.add("主机COP", columns, pump_cop, mark_line=["average"], mark_point=["max", "min"], is_datazoom_show=True)
         bar.add("系统COP", columns, system_cop, mark_line=["average"], mark_point=["max", "min"], is_datazoom_show=True)
         # //生成本地文件（默认为.html文件）
-        bar.render("qBar.html")
-        self.browser2.load(QUrl("file:///qBar.html"))
+        bar.render("./templates/qBar.html")
+        self.browser2.load(QUrl("file:///./templates/qBar.html"))
 
 
 
