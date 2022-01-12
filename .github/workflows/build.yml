@@ -35,8 +35,9 @@ jobs:
           -p ./site-packages/geatpy/templates/soeas/
           -p .\****
           -p .\site-packages\****
-          --add-data ".\templates;pyecharts\render\templates\."
-          gui/MyMainWindows.py
+          gui/MyMainWindows.py &&
+        Xcopy .\site-packages\pyecharts\render\templates .\dist\MyMainWindows\ &&
+        Xcopy .\gui\templates\* .\dist\MyMainWindows\
       - uses: actions/upload-artifact@v2
         with:
           name: dist
