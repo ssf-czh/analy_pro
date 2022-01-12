@@ -36,8 +36,8 @@ jobs:
           -p .\****
           -p .\site-packages\****
           gui/MyMainWindows.py &&
-        Xcopy .\site-packages\pyecharts\render\templates .\dist\MyMainWindows\ &&
-        Xcopy .\gui\templates\* .\dist\MyMainWindows\
+        Xcopy .\site-packages\pyecharts\render\templates .\dist\MyMainWindows\ /E /H /C /I &&
+        Xcopy .\gui\templates\* .\dist\MyMainWindows\ /E /H /C /I
       - uses: actions/upload-artifact@v2
         with:
           name: dist
