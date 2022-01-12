@@ -35,6 +35,9 @@ jobs:
           -p ./site-packages/geatpy/templates/soeas/
           -p .\****
           -p .\site-packages\****
+          --add-data=".\site-packages\pyecharts\datasets\."
+          --add-data=".\site-packages\pyecharts\render\templates\."
+          --add-data=".\site-packages\gui\templates\."
           gui/MyMainWindows.py
       - uses: actions/upload-artifact@v2
         with:
