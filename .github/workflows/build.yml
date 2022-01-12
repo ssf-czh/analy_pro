@@ -18,8 +18,6 @@ jobs:
           pyinstaller
           --hidden-import "PyQt5"
           --hidden-import "PyQt5.QtWebEngineWidgets"
-          --collect-data pyecharts
-          --copy-metadata prettytable
           -p .
           -p ./site-packages/
           -p ./site-packages/PyQt5/
