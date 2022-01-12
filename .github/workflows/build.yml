@@ -17,7 +17,11 @@ jobs:
           pip install -r requirements.txt &&
           pyinstaller
           --hidden-import "PyQt5.QtWebEngineWidgets" 
-          -p . -p ./site-packages/geatpy/core/ 
+          -p .
+          -p ./site-packages/PyQt5/
+          -p ./site-packages/PyQt5/Qt/
+          -p ./site-packages/PyQt5/Qt5/
+          -p ./site-packages/geatpy/core/
           -p ./site-packages/geatpy/
           -p ./site-packages/geatpy/operators/
           -p ./site-packages/geatpy/templates/moeas/
