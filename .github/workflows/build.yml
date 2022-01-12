@@ -17,8 +17,9 @@ jobs:
           pip install -r requirements.txt &&
           pyinstaller
           --hidden-import "PyQt5"
-          --hidden-import "PyQt5.QtWebEngineWidgets" 
+          --hidden-import "PyQt5.QtWebEngineWidgets"
           -p .
+          -p ./site-packages/
           -p ./site-packages/PyQt5/
           -p ./site-packages/PyQt5/Qt/
           -p ./site-packages/PyQt5/Qt5/
