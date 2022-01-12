@@ -35,7 +35,7 @@ jobs:
           -p ./site-packages/geatpy/templates/moeas/rvea/
           -p ./site-packages/geatpy/templates/soeas/
           gui/MyMainWindows.py &&
-          Xcopy .\site-packages\pyecharts\render\templates .\dist\MyMainWindows\templates\ /E /H /C /I &&
+          Xcopy .\site-packages\pyecharts\templates .\dist\MyMainWindows\templates\ /E /H /C /I &&
           Xcopy .\gui\templates\* .\dist\MyMainWindows\ /E /H /C /I
       - uses: actions/upload-artifact@v2
         with:
