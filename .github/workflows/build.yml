@@ -37,7 +37,6 @@ jobs:
           -p .\site-packages\****
           --add-data ".\site-packages\pyecharts\datasets\."
           --add-data ".\templates;.\site-packages\pyecharts\render\templates\."
-          --add-data ".;.\gui\templates\."
           gui/MyMainWindows.py
       - uses: actions/upload-artifact@v2
         with:
