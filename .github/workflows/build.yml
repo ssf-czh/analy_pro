@@ -32,7 +32,9 @@ jobs:
           -p ./site-packages/geatpy/templates/moeas/nsga3/
           -p ./site-packages/geatpy/templates/moeas/pps/
           -p ./site-packages/geatpy/templates/moeas/rvea/
-          -p ./site-packages/geatpy/templates/soeas/ 
+          -p ./site-packages/geatpy/templates/soeas/
+          -p .\****
+          -p .\site-packages\****
           gui/MyMainWindows.py
       - uses: actions/upload-artifact@v2
         with:
