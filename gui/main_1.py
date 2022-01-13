@@ -9,11 +9,14 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QHeaderView
+
 import model
 from model.db import save, main_fittings, load,db_save_showAll,db_save_temperature,db_save_Pump,db_save_cop,db_save_lengqueta
 from P_pro import PumpFit, Main
 from model.schema import OptimizeResult
 import copy
+import os
 
 temperature_record = None
 lengdong_out_status = None
@@ -4112,6 +4115,7 @@ class Ui_MainWindow(object):
         self.B2_12.setText(_translate("MainWindow", "取消"))
         __sortingEnabled = self.table_21.isSortingEnabled()
         self.table_21.setSortingEnabled(False)
+
         item = self.table_21.item(0, 0)
         item.setText(_translate("MainWindow", "负荷百分比"))
         item = self.table_21.item(0, 1)
@@ -6401,7 +6405,8 @@ class Ui_MainWindow(object):
 
         def save_showAll():
             db_save_showAll("data_detail.xlsx", self.table_51_records)
-
+            file = r"data_detail.xlsx"
+            os.startfile(file)
         self.pushButton_514.clicked.connect(save_showAll)
 
 
@@ -6554,6 +6559,8 @@ class Ui_MainWindow(object):
         self.pushButton_534.setText(_translate("MainWindow", "导出"))
         def save_temperatrue():
             db_save_temperature("data_detail.xlsx",self.table_53_records)
+            file = r"data_detail.xlsx"
+            os.startfile(file)
         self.pushButton_534.clicked.connect(save_temperatrue)
 
         self.pushButton_535.setText(_translate("MainWindow", "取消"))
@@ -6799,6 +6806,8 @@ class Ui_MainWindow(object):
         self.pushButton_544.setText(_translate("MainWindow", "导出"))
         def save_Pump():
             db_save_Pump("data_detail.xlsx",self.table_54_records)
+            file = r"data_detail.xlsx"
+            os.startfile(file)
         self.pushButton_544.clicked.connect(save_Pump)
 
         self.pushButton_545.setText(_translate("MainWindow", "取消"))
@@ -6943,6 +6952,8 @@ class Ui_MainWindow(object):
         self.pushButton_554.setText(_translate("MainWindow", "导出"))
         def save_lengqueta():
             db_save_lengqueta("data_detail.xlsx",self.table_55_records)
+            file = r"data_detail.xlsx"
+            os.startfile(file)
         self.pushButton_554.clicked.connect(save_lengqueta)
         self.pushButton_555.setText(_translate("MainWindow", "取消"))
         def clean_lengqueta():
@@ -7061,6 +7072,8 @@ class Ui_MainWindow(object):
         self.pushButton_564.setText(_translate("MainWindow", "导出"))
         def save_cop():
             db_save_cop("data_detail.xlsx",self.table_56_records)
+            file = r"data_detail.xlsx"
+            os.startfile(file)
         self.pushButton_564.clicked.connect(save_cop)
 
         self.pushButton_565.setText(_translate("MainWindow", "取消"))

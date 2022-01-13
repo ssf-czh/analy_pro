@@ -459,7 +459,9 @@ def db_save_showAll(path: str, records):
                     sheet.cell(2 + i, 24).value = str(entry.cop)
                     sheet.cell(2 + i, 25).value = str(entry.n)
                     i += 1
+
                 while sheet.cell(2 + i, 1).value is not None:
+                    print("is",2+i)
                     for j in range(1, 25):
                         sheet.cell(2 + i, j).value = None
                     i += 1
