@@ -5684,6 +5684,7 @@ class Ui_MainWindow(object):
             p_sum = 0
             for index in fit_res_index:
                 count += 1
+                print("count:",count)
                 res = model.db.optimize_result[index]
                 year = res.year
                 month = res.mon
@@ -5815,17 +5816,19 @@ class Ui_MainWindow(object):
                 self.tableWidget_51.setItem(count, 24, item)
                 item = self.tableWidget_51.item(count, 24)
                 item.setText(_translate("MainWindow", str(res.n)))
+
             calc_sum = OptimizeResult()
+            count += 1
             calc_sum.year = "合计"
             calc_sum.mon = self.table_51_records[-1].mon
             calc_sum.day = self.table_51_records[-1].day
-            calc_sum.hour = self.table_51_records[-1].hour+1
-            print(Q_sum)
-            print(p1_sum)
-            print(p2_sum)
-            print(p3_sum)
-            print(p4_sum)
-            print(p_sum)
+            calc_sum.hour = count -1
+            # print(Q_sum)
+            # print(p1_sum)
+            # print(p2_sum)
+            # print(p3_sum)
+            # print(p4_sum)
+            # print(p_sum)
             calc_sum.q = Q_sum
             calc_sum.p1 = p1_sum
             calc_sum.p2 = p2_sum
@@ -5833,7 +5836,7 @@ class Ui_MainWindow(object):
             calc_sum.p4 = p4_sum
             calc_sum.p = p_sum
             self.table_51_records.append(calc_sum)
-            count+=1
+
 
             item = QtWidgets.QTableWidgetItem()
             self.tableWidget_51.setItem(count, 0, item)
@@ -6397,7 +6400,7 @@ class Ui_MainWindow(object):
         self.pushButton_513.clicked.connect(clean_showAll)
 
         def save_showAll():
-            db_save_showAll("template.xlsx", self.table_51_records)
+            db_save_showAll("data_detail.xlsx", self.table_51_records)
 
         self.pushButton_514.clicked.connect(save_showAll)
 
@@ -6550,7 +6553,7 @@ class Ui_MainWindow(object):
         self.pushButton_533.setText(_translate("MainWindow", "图表"))
         self.pushButton_534.setText(_translate("MainWindow", "导出"))
         def save_temperatrue():
-            db_save_temperature("template.xlsx",self.table_53_records)
+            db_save_temperature("data_detail.xlsx",self.table_53_records)
         self.pushButton_534.clicked.connect(save_temperatrue)
 
         self.pushButton_535.setText(_translate("MainWindow", "取消"))
@@ -6696,7 +6699,7 @@ class Ui_MainWindow(object):
             temp.year = "合计"
             temp.mon = self.table_54_records[-1].mon
             temp.day = self.table_54_records[-1].day
-            temp.hour = self.table_54_records[-1].hour
+            temp.hour = len(self.table_54_records)
             temp.q = q_sum
             temp.load_percentage = self.table_54_records[-1].load_percentage
             temp.system_load_percentage = self.table_54_records[-1].system_load_percentage
@@ -6795,7 +6798,7 @@ class Ui_MainWindow(object):
         self.pushButton_543.setText(_translate("MainWindow", "图表"))
         self.pushButton_544.setText(_translate("MainWindow", "导出"))
         def save_Pump():
-            db_save_Pump("template.xlsx",self.table_54_records)
+            db_save_Pump("data_detail.xlsx",self.table_54_records)
         self.pushButton_544.clicked.connect(save_Pump)
 
         self.pushButton_545.setText(_translate("MainWindow", "取消"))
@@ -6939,7 +6942,7 @@ class Ui_MainWindow(object):
 
         self.pushButton_554.setText(_translate("MainWindow", "导出"))
         def save_lengqueta():
-            db_save_lengqueta("template.xlsx",self.table_55_records)
+            db_save_lengqueta("data_detail.xlsx",self.table_55_records)
         self.pushButton_554.clicked.connect(save_lengqueta)
         self.pushButton_555.setText(_translate("MainWindow", "取消"))
         def clean_lengqueta():
@@ -7057,7 +7060,7 @@ class Ui_MainWindow(object):
         self.pushButton_563.setText(_translate("MainWindow", "图表"))
         self.pushButton_564.setText(_translate("MainWindow", "导出"))
         def save_cop():
-            db_save_cop("template.xlsx",self.table_56_records)
+            db_save_cop("data_detail.xlsx",self.table_56_records)
         self.pushButton_564.clicked.connect(save_cop)
 
         self.pushButton_565.setText(_translate("MainWindow", "取消"))
